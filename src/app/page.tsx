@@ -1,3 +1,8 @@
+import ImageSlider from "@/components/ImageSlider";
+
 export default function Home() {
-  return <div>testingg</div>;
+  return <div>
+    <ImageSlider/>
+
+  </div>;
 }
