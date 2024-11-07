@@ -115,62 +115,66 @@ import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
-const ImageCollage = () => {
+const ImageSlider = () => {
   const images = Array.from(
     { length: 10 },
     (_, i) => `/images/image${i + 1}.jpg`
   );
   const [currentSet, setCurrentSet] = useState(0);
   const imageRefs = useRef([]);
-
+  const timeline = gsap.timeline();
+  const getCordsbyPosition = (index: number) => {
+    if (index === 1 || index === 6) {
+      return { x: 0, rotation: 0 };
+    } else if (index === 0 || index === 3 || index === 5 || index === 8) {
+      return { x: -300, rotation: 180 };
+    } else {
+      return { x: 300, rotation: 180 };
+    }
+  };
   // Animate images out (exit animation)
   const animateImagesOut = () => {
-    const timeline = gsap.timeline();
-
     // Loop over each image and create a unique exit animation
     imageRefs.current.forEach((image, index) => {
+      const cords = getCordsbyPosition(index);
       timeline.to(image, {
         opacity: 0,
-        x: (Math.random() - 0.5) * 200, // Random horizontal movement
-        y: (Math.random() - 0.5) * 200, // Random vertical movement
-        rotation: Math.random() * 360, // Random rotation for chaos
-        // duration: 1 + Math.random() * 0.5, // Random duration for each image
+        x: cords?.x, // Come from the right side off-screen
+        y: 0, // Random vertical movement to add chaos
+        rotation: cords?.rotation,
+        duration: 0.3,
         ease: "power2.inOut",
         // delay: index * 0.1, // Staggered delay for each image
         onComplete: () => {
           if (index === 4 || index === 9) {
             // Once all current images are out, update to the next set
             setCurrentSet((prevSet) => (prevSet + 1) % 2);
-            console.log("done");
-
             animateImagesIn();
           }
         },
       });
     });
   };
-
   // Animate images in (entry animation)
   const animateImagesIn = () => {
-    const timeline = gsap.timeline();
-
     // Loop over each image and create a unique entry animation
     imageRefs.current.forEach((image, index) => {
       // When images enter, we will ensure they come in one-by-one
+      const cords = getCordsbyPosition(index);
       timeline.fromTo(
         image,
         {
           opacity: 0,
-          x: 300, // Come from the right side off-screen
-          y: Math.random() * 100 - 50, // Random vertical movement to add chaos
-          rotation: Math.random() * 180, // Random rotation for a unique entry
+          x: cords?.x,
+          y: 0, // Random vertical movement to add chaos
+          rotation: cords?.rotation,
         },
         {
           opacity: 1,
           x: 0,
           y: 0,
           rotation: 0,
-          // duration: 1, // Make the animation smooth and quick
+          duration: 0.3, // Make the animation smooth and quick
           ease: "power2.out",
           // delay: index * 0.1, // Staggered delay for each image
         }
@@ -183,30 +187,24 @@ const ImageCollage = () => {
     const interval = setInterval(animateImagesOut, 5000);
     return () => clearInterval(interval);
   }, []);
-  const getClassbyIndex = (index: number): string => {
-    switch (index) {
-      case 1:
-        return "row-span-2";
-      default:
-        break;
-    }
-  };
 
   return (
     <div className="w-full h-[calc(100vh-64px)] p-4 grid grid-cols-3 grid-rows-2 gap-4">
       {images.slice(currentSet * 5, currentSet * 5 + 5).map((img, index) => (
         <Image
-          ref={(el) => (imageRefs.current[index] = el)}
+          ref={(el: LegacyRef<HTMLImageElement | null> | undefined) =>
+            (imageRefs.current[index] = el)
+          }
           key={index}
           src={img}
           alt={`Collage Image ${index}`}
           width={500}
           height={500}
-          className={`relative w-full h-full object-cover rounded-lg break-inside-avoid ${getClassbyIndex(index)}`}
+          className={`relative w-full h-full object-cover rounded-lg break-inside-avoid ${index === 1 && "row-span-2"}`}
         />
       ))}
     </div>
   );
 };
 
-export default ImageCollage;
+export default ImageSlider;
