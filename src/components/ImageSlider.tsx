@@ -63,7 +63,7 @@
 //           if (index === 4) {
 //             // Once all current images are out, update to the next set
 //             setCurrentSet((prevSet) => (prevSet + 1) % 2);
-            
+
 //           }
 //           animateIn();
 //         },
@@ -76,7 +76,7 @@
 //     imageRefs.current.forEach((image, index) => {
 //       gsap.fromTo(
 //         image,
-        
+
 //         { opacity: 0, y: -500 },
 //         { opacity: 1, y: 0, duration: 1, delay: index * 0.1, ease: "power2.out" }
 //       );
@@ -111,11 +111,15 @@
 // export default ImageCollage;
 
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import React, { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import Image from "next/image";
 
 const ImageCollage = () => {
-  const images = Array.from({ length: 10 }, (_, i) => `/images/image${i + 1}.jpg`);
+  const images = Array.from(
+    { length: 10 },
+    (_, i) => `/images/image${i + 1}.jpg`
+  );
   const [currentSet, setCurrentSet] = useState(0);
   const imageRefs = useRef([]);
 
@@ -138,7 +142,7 @@ const ImageCollage = () => {
             // Once all current images are out, update to the next set
             setCurrentSet((prevSet) => (prevSet + 1) % 2);
             console.log("done");
-            
+
             animateImagesIn();
           }
         },
@@ -179,21 +183,27 @@ const ImageCollage = () => {
     const interval = setInterval(animateImagesOut, 5000);
     return () => clearInterval(interval);
   }, []);
+  const getClassbyIndex = (index: number): string => {
+    switch (index) {
+      case 1:
+        return "row-span-2";
+      default:
+        break;
+    }
+  };
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+    <div className="w-full h-[calc(100vh-64px)] p-4 grid grid-cols-3 grid-rows-2 gap-4">
       {images.slice(currentSet * 5, currentSet * 5 + 5).map((img, index) => (
-        <div
-          key={img}
+        <Image
           ref={(el) => (imageRefs.current[index] = el)}
-          className="relative rounded-lg overflow-hidden shadow-lg bg-gray-100 break-inside-avoid"
-        >
-          <img
-            src={img}
-            alt={`Collage Image ${index}`}
-            className="w-full h-auto object-cover rounded-lg"
-          />
-        </div>
+          key={index}
+          src={img}
+          alt={`Collage Image ${index}`}
+          width={500}
+          height={500}
+          className={`relative w-full h-full object-cover rounded-lg break-inside-avoid ${getClassbyIndex(index)}`}
+        />
       ))}
     </div>
   );
