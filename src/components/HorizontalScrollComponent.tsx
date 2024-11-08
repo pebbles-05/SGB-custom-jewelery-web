@@ -107,7 +107,7 @@ interface SectionProps {
 }
 
 const sections: SectionProps[] = [
-  { number: "01", heading: "Talk About It", detail: "Discuss design ideas, options, budget, with your md - your guide to the custom experience.Or browse in our store area to select your Ornaments." },
+  { number: "01", heading: "Talk About It", detail: "Discuss design ideas, options, budget, with me - your guide to the custom experience.Or browse in our store area to select your Ornaments." },
   { number: "02", heading: "Get It Designed", detail: "Provide your idea for the handmade jewelry or crafts with oxidised or other materials ( eg. Clay, cloth) from the Customize button at the top. Or select our pre made designs from the store and add them to cart." },
   { number: "03", heading: "See It Come To Life", detail: "Place your order by contacting via place order button using your Number( for contact) address ( for delivery )  and any choice of your social media ( Whatsapp , Facebook , Instagram) for further consult and discussion " },
   { number: "04", heading: "Treasure It", detail: "Receive your custom piece, as it is a precious one as you are to us, Thank You." },
