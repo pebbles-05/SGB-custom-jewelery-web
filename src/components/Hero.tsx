@@ -18,7 +18,7 @@ const Hero = () => {
         </Link>
       </div>
       <Image
-        className="absolute inset-y-0 top-0 bottom-[20%] -z-10 brightness-[0.68]"
+        className="absolute inset-y-0 top-0 bottom-[20%] -z-10 brightness-[0.58]"
         alt=""
         width={3000}
         height={3000}
