@@ -9,7 +9,7 @@
     /* font-size: 1.5em;
     font-weight: bold;
     color: #ffffff; */
-    animation: shiny-effect 4s ease-in infinite;
+    animation: shiny-effect 7s ease-in infinite;
   }
   
   @keyframes shiny-effect {
@@ -17,16 +17,20 @@
         color: #ffffff;
         text-shadow: 0 0 5px #2c2c2c, 0 0 10px #2c2c2c, 0 0 15px #2c2c2c;
       }
-    40% {
+    30% {
       color: #000000;
       text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
     }
     
-    60% {
+    50% {
       color: #2c2c2c;
       text-shadow: 0 0 5px #c2c2c2, 0 0 10px #c2c2c2, 0 0 15px #c2c2c2;
     }
     
+    70% {
+      color: #ffffff;
+      text-shadow: 0 0 5px #2c2c2c, 0 0 10px #2c2c2c, 0 0 15px #2c2c2c;
+    }
     100% {
       color: #ffffff;
       text-shadow: 0 0 5px #2c2c2c, 0 0 10px #2c2c2c, 0 0 15px #2c2c2c;
