@@ -16,6 +16,7 @@ const config: Config = {
         "custom-bg-light": "#f8ede3",
         // "custom-fg-light": "#8d493a",
         "custom-fg-light": "#732717",
+        "custom-sdbar-light":"#db654b",
         "custom-bg-dark": "",
         "custom-fg-dark": "",
         "custom-golden": "#e9d296",
