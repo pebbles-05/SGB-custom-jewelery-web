@@ -1,119 +1,8 @@
-// "use client"
-// // import React, { useEffect, useRef } from 'react';
-// // import gsap from 'gsap';
 
-// // const ImageCollage = () => {
-// //   const images = Array.from({ length: 10 }, (_, i) => `/images/image${i + 1}.jpg`);
-// //   const imageRefs = useRef([]);
-
-// //   // Animate images on mount
-// //   useEffect(() => {
-// //     imageRefs.current.forEach((image, index) => {
-// //       gsap.fromTo(image, { opacity: 0, y: 50 }, { duration: 1, opacity: 1, y: 0, delay: index * 0.1 });
-// //     });
-// //   }, []);
-
-// //   return (
-// //     <div className="w-full max-w-5xl mx-auto p-4 columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-// //       {images.map((img, index) => (
-// //         <div
-// //           key={img}
-// //           ref={(el) => (imageRefs.current[index] = el)}
-// //           className="relative rounded-lg overflow-hidden shadow-lg bg-gray-100 break-inside-avoid"
-// //         >
-// //           <img
-// //             src={img}
-// //             alt={`Collage Image ${index}`}
-// //             className="w-full h-auto object-cover rounded-lg"
-// //           />
-// //         </div>
-// //       ))}
-// //     </div>
-// //   );
-// // };
-
-// // export default ImageCollage;
-
-// "use client";
-// import React, { useEffect, useRef, useState } from 'react';
-// import gsap from 'gsap';
-
-// const ImageCollage = () => {
-//   const images = Array.from({ length: 10 }, (_, i) => `/images/image${i + 1}.jpg`);
-//   const [currentSet, setCurrentSet] = useState(0);
-//   const imageRefs = useRef([]);
-
-//   // Function to animate images in and out
-//   const animateImages = () => {
-//     // Animate out current images
-//     imageRefs.current.forEach((image, index) => {
-//       gsap.to(image, {
-//         opacity: 0,
-//         y: -500,
-//         duration: 1,
-//         stagger: {
-//           amount: 1.5,
-//           grid: [2,1],
-//           axis: "y",
-//           ease:'circ.inOut',
-//           from: "center",
-//         },
-//         ease: "power2.out",
-//         onComplete: () => {
-//           if (index === 4) {
-//             // Once all current images are out, update to the next set
-//             setCurrentSet((prevSet) => (prevSet + 1) % 2);
-
-//           }
-//           animateIn();
-//         },
-//       });
-//     });
-//   };
-
-//   const animateIn = () => {
-//     // Animate in the next set of images
-//     imageRefs.current.forEach((image, index) => {
-//       gsap.fromTo(
-//         image,
-
-//         { opacity: 0, y: -500 },
-//         { opacity: 1, y: 0, duration: 1, delay: index * 0.1, ease: "power2.out" }
-//       );
-//     });
-//   };
-
-//   // Run the animation every 5 seconds
-//   useEffect(() => {
-//     const interval = setInterval(animateImages, 5000);
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   return (
-//     <div className="w-full max-w-5xl mx-auto p-4 columns-2 md:columns-3 lg:columns-3 gap-4 space-y-4">
-//       {images.slice(currentSet * 5, currentSet * 5 + 5).map((img, index) => (
-//         <div
-//           key={img}
-//           ref={(el) => (imageRefs.current[index] = el)}
-//           className="relative rounded-lg overflow-hidden shadow-lg bg-gray-100 break-inside-avoid"
-//         >
-//           <img
-//             src={img}
-//             alt={`Collage Image ${index}`}
-//             className="w-full h-auto object-cover rounded-lg"
-//           />
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default ImageCollage;
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
-import useInterSectionObserver from "@/helpers/useInterSectionObserver";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 const ImageSlider = () => {
@@ -122,7 +11,6 @@ const ImageSlider = () => {
     { length: 5 },
     (_, i) => `/images/image${i + 1}.jpg`
   );
-  const [currentSet, setCurrentSet] = useState(0);
   const imageRefs = useRef([]);
 
   const getCordsbyPosition = (index: number) => {
@@ -169,33 +57,10 @@ const ImageSlider = () => {
 
   // Animate images out (exit animation)
   useGSAP(()=>{
-    // gsap.to(imageRefs.current, {
-    //   scrollTrigger: {
-    //    trigger: "#productImageDIv",
-    //    toggleActions: "restart reverse restart reverse",
-    //    start: "top 20%",
-    //   },
-    //   opacity: 0,
-    //   x: (index) => getCordsbyPosition(index)?.x,
-    //   y: (index) => getCordsbyPosition(index)?.y,
-    //   rotation: (index) => getCordsbyPosition(index)?.rotation,
-    //   duration: 0.5,
-    //   ease: "power2.inOut",
-    //   stagger: 0, // No delay between images; all animate together
-    //   //onComplete: () => {
-    //   //  setCurrentSet((prevSet) => (prevSet + 1) % 2);
-    //   //  animateImagesIn();
-    //   //},
-    // });
 
     gsap.fromTo(
       imageRefs.current,
       {
-        // scrollTrigger: {
-        //  trigger: "#productImageDIv",
-        //  toggleActions: "restart reverse restart reverse",
-        //  start: " top top",
-        // },
         opacity: 0,
         x: (index) => getCordsbyPosition(index)?.x,
         y: (index) => getCordsbyPosition(index)?.y,
@@ -206,7 +71,7 @@ const ImageSlider = () => {
          trigger: "#productImageDIv",
          toggleActions: "restart reverse restart reverse",
          start: "top 50%",
-        //  end: ""
+         end: "bottom 50%"
         },
         opacity: 1,
         x: 0,
@@ -218,20 +83,9 @@ const ImageSlider = () => {
       }
     );
   });
-  const animateImagesOut = () => {
-    
-  };
+  
 
-  // Animate images in (entry animation)
-  const animateImagesIn = () => {
-    
-  };
-
-  // Ensure the transition between images happens every 5 seconds
-  //useEffect(() => {
-  //  const interval = setInterval(animateImagesOut, 5000);
-  //  return () => clearInterval(interval);
-  //}, []);
+  
   const getPositionbyIndex = (index) => {
     switch (index) {
       case 0:
@@ -248,28 +102,13 @@ const ImageSlider = () => {
         return "hidden";
     }
   };
-  const { elementRef, isVisible } = useInterSectionObserver({
-    threshold: 0.5,
-    onVisible: () => {
-      animateImagesIn();
-      console.log("visible");
-    },
-    onLeave: () => {
-      animateImagesOut();
-
-      console.log("invisible");
-    },
-    refName: "elementRef", // Name of the ref returned by the hook
-    boolName: "isVisible", // Name of the visibility boolean returned by the hook
-  });
+  
 
   return (
     <>
-      <button onClick={() => animateImagesIn()}>animatein</button>
-      <button onClick={() => animateImagesOut()}>animateout</button>
       <div
         id="productImageDIv"
-        className="relative w-full h-[80vh] overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 h-screen"
+        className="relative w-full h-[80vh] overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 bg-custom-bg-light"
       >
         {images.map((img, index) => (
           <Image

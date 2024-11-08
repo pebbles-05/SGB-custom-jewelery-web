@@ -8,7 +8,7 @@ export default function Home() {
       <Hero />
       <ImageSlider />
 {/* <<<<<<< Updated upstream */}
-      {/* <div ><HorizontalScrollComponent/></div> */}
+      <div ><HorizontalScrollComponent/></div>
 {/* ======= */}
       
 {/* >>>>>>> Stashed changes */}
