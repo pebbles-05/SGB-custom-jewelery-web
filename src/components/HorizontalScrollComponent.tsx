@@ -97,7 +97,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -169,12 +168,12 @@ const HorizontalScrollComponent = () => {
             className="section flex w-screen items-center justify-center relative bg-custom-bg-light text-custom-black"
           >
             {/* Left Sidebar */}
-            <motion.div
+            <div
               id={`sidebar-${i + 1}`}
               className="absolute left-0 w-2/3 h-full flex items-center p-8 bg-custom-sdbar-light shadow-lg transform -translate-x-full opacity-0 transition-all duration-500"
             >
               <div className="text-2xl absolute top-1/2 ml-8 left-0 w-2/3">{section.detail}</div>
-            </motion.div>
+            </div>
 
             {/* Right Content */}
             <div className="w-1/3 flex flex-col items-center">

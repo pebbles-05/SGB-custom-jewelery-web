@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="w-full">
       <Hero />
-      <div id="about"><HorizontalScrollComponent/></div>
+      <div ><HorizontalScrollComponent/></div>
     </div>
   );
 }
