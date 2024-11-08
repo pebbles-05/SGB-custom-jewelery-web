@@ -6,7 +6,11 @@ export default function Home() {
   return (
     <div className="w-full">
       <Hero />
+<<<<<<< Updated upstream
       <div ><HorizontalScrollComponent/></div>
+=======
+      <ImageSlider />
+>>>>>>> Stashed changes
     </div>
   );
 }
