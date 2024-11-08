@@ -1,5 +1,6 @@
 import { NavbarOptions } from "@/enums/enums";
 import { NavbarOption } from "@/interface/interfaces";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -29,7 +30,12 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
             );
           })
         : null}
-      <div className="ml-auto">Cart</div>
+      <Link
+        href="/store/cart/"
+        className="ml-auto w-max h-max hover:text-custom-golden"
+      >
+        <Icon icon="iconoir:cart" className="w-8 h-8" />
+      </Link>
     </div>
   );
 };
