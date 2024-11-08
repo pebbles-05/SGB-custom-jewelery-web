@@ -115,7 +115,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import useInterSectionObserver from "@/helpers/useInterSectionObserver";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-
+import { useGSAP } from "@gsap/react";
 const ImageSlider = () => {
   gsap.registerPlugin(ScrollTrigger);
   const images = Array.from(
@@ -168,48 +168,46 @@ const ImageSlider = () => {
   };
 
   // Animate images out (exit animation)
-  const animateImagesOut = () => {
-    gsap.to(imageRefs.current, {
-      //scrollTrigger: {
-      //  trigger: "#productImageDIv",
-      //  toggleActions: "restart reverse restart reverse",
-      //  start: "20% top",
-      //},
-      opacity: 0,
-      x: (index) => getCordsbyPosition(index)?.x,
-      y: (index) => getCordsbyPosition(index)?.y,
-      rotation: (index) => getCordsbyPosition(index)?.rotation,
-      duration: 0.5,
-      ease: "power2.inOut",
-      stagger: 0, // No delay between images; all animate together
-      //onComplete: () => {
-      //  setCurrentSet((prevSet) => (prevSet + 1) % 2);
-      //  animateImagesIn();
-      //},
-    });
-  };
+  useGSAP(()=>{
+    // gsap.to(imageRefs.current, {
+    //   scrollTrigger: {
+    //    trigger: "#productImageDIv",
+    //    toggleActions: "restart reverse restart reverse",
+    //    start: "top 20%",
+    //   },
+    //   opacity: 0,
+    //   x: (index) => getCordsbyPosition(index)?.x,
+    //   y: (index) => getCordsbyPosition(index)?.y,
+    //   rotation: (index) => getCordsbyPosition(index)?.rotation,
+    //   duration: 0.5,
+    //   ease: "power2.inOut",
+    //   stagger: 0, // No delay between images; all animate together
+    //   //onComplete: () => {
+    //   //  setCurrentSet((prevSet) => (prevSet + 1) % 2);
+    //   //  animateImagesIn();
+    //   //},
+    // });
 
-  // Animate images in (entry animation)
-  const animateImagesIn = () => {
     gsap.fromTo(
       imageRefs.current,
       {
-        //scrollTrigger: {
+        // scrollTrigger: {
         //  trigger: "#productImageDIv",
         //  toggleActions: "restart reverse restart reverse",
-        //  start: "20% top",
-        //},
+        //  start: " top top",
+        // },
         opacity: 0,
         x: (index) => getCordsbyPosition(index)?.x,
         y: (index) => getCordsbyPosition(index)?.y,
         rotation: (index) => getCordsbyPosition(index)?.rotation,
       },
       {
-        //scrollTrigger: {
-        //  trigger: "#productImageDIv",
-        //  toggleActions: "restart reverse restart reverse",
-        //  start: "20% top",
-        //},
+        scrollTrigger: {
+         trigger: "#productImageDIv",
+         toggleActions: "restart reverse restart reverse",
+         start: "top 50%",
+        //  end: ""
+        },
         opacity: 1,
         x: 0,
         y: 0,
@@ -219,6 +217,14 @@ const ImageSlider = () => {
         stagger: 0, // No delay between images; all animate together
       }
     );
+  });
+  const animateImagesOut = () => {
+    
+  };
+
+  // Animate images in (entry animation)
+  const animateImagesIn = () => {
+    
   };
 
   // Ensure the transition between images happens every 5 seconds
@@ -263,7 +269,7 @@ const ImageSlider = () => {
       <button onClick={() => animateImagesOut()}>animateout</button>
       <div
         id="productImageDIv"
-        className="relative w-full h-[80vh] overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8"
+        className="relative w-full h-[80vh] overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 h-screen"
       >
         {images.map((img, index) => (
           <Image

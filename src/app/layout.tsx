@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <div className="px-8 w-screen h-screen overflow-y-auto">{children}</div>
+        <div className="w-screen h-screen ">{children}</div>
       </body>
     </html>
   );
