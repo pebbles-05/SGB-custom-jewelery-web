@@ -183,18 +183,18 @@ const ImageSlider = () => {
   };
 
   // Ensure the transition between images happens every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(animateImagesOut, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  //useEffect(() => {
+  //  const interval = setInterval(animateImagesOut, 5000);
+  //  return () => clearInterval(interval);
+  //}, []);
 
   return (
     <div className="w-full h-[calc(100vh-64px)] p-4 grid grid-cols-3 grid-rows-2 gap-4">
       {images.slice(currentSet * 5, currentSet * 5 + 5).map((img, index) => (
         <Image
-          ref={(el: LegacyRef<HTMLImageElement | null> | undefined) =>
-            (imageRefs.current[index] = el)
-          }
+          //ref={(el: LegacyRef<HTMLImageElement | null> | undefined) =>
+          //  (imageRefs.current[index] = el)
+          //}
           key={index}
           src={img}
           alt={`Collage Image ${index}`}

@@ -14,9 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="text-custom-black bg-custom-bg-light">
         <Navbar />
-        <div className="px-8 w-screen h-screen overflow-y-auto">{children}</div>
+        <div className="w-screen overflow-y-auto">{children}</div>
       </body>
     </html>
   );

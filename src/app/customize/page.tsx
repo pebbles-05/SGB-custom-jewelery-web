@@ -1,7 +1,7 @@
 import React from "react";
 
 const Customize = () => {
-  return <div>Customize page</div>;
+  return <div className="z-40">Customize page</div>;
 };
 
 export default Customize;
