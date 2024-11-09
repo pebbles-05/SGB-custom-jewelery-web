@@ -112,13 +112,13 @@ const ImageSlider = () => {
       case 4:
         return "top-[30%] right-[5%] w-[20%] rotate-[20deg] shadow-2xl shadow-custom-black";
       case 10:
-        return "top-[17%] left-[13%] w-[17%] rotate-[10deg]ver h-10 w-10";
+        return "top-[16%] left-[13%] w-[17%] rotate-[10deg]ver h-10 w-10";
       case 11:
-        return "bottom-[34%] left-[27%] w-[25%] -rotate-[5deg]ver h-10 w-10";
+        return "bottom-[31%] left-[27%] w-[25%] -rotate-[5deg]ver h-10 w-10";
       case 12:
-        return "top-[20%] left-[53%] w-[23%] rotate-[10deg]ver h-10 w-10";
+        return "top-[21%] left-[53%] w-[23%] rotate-[10deg]ver h-10 w-10";
       case 13:
-        return "top-[15%] left-[70%] w-[17%] -rotate-[20deg]ver h-10 w-10";
+        return "top-[13%] left-[72%] w-[17%] -rotate-[20deg]ver h-10 w-10";
       case 14:
         return "top-[33%] right-[5%] w-[20%] rotate-[20deg]ver h-10 w-10";
       default:
