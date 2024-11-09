@@ -102,7 +102,7 @@ const ImageSlider = () => {
   const getPositionbyIndex = (index) => {
     switch (index) {
       case 0:
-        return "top-[20%] left-[8%] w-[17%] rotate-[10deg] shadow-2xl shadow-custom-black";
+        return "top-[20%] left-[12%] w-[17%] rotate-[10deg] shadow-2xl shadow-custom-black";
       case 1:
         return "bottom-[5%] left-[27%] w-[25%] -rotate-[5deg] shadow-2xl shadow-custom-black";
       case 2:
@@ -112,15 +112,15 @@ const ImageSlider = () => {
       case 4:
         return "top-[30%] right-[5%] w-[20%] rotate-[20deg] shadow-2xl shadow-custom-black";
       case 10:
-        return "top-[16%] left-[13%] w-[17%] rotate-[10deg]ver h-10 w-10";
+        return "top-[16%] left-[13%]  rotate-[10deg]ver h-10 w-10";
       case 11:
-        return "bottom-[31%] left-[27%] w-[25%] -rotate-[5deg]ver h-10 w-10";
+        return "bottom-[31%] left-[27%]  -rotate-[5deg]ver h-10 w-10";
       case 12:
-        return "top-[21%] left-[53%] w-[23%] rotate-[10deg]ver h-10 w-10";
+        return "top-[21%] left-[53%]  rotate-[10deg]ver h-10 w-10";
       case 13:
-        return "top-[13%] left-[72%] w-[17%] -rotate-[20deg]ver h-10 w-10";
+        return "top-[13%] left-[72%]  -rotate-[20deg]ver h-10 w-10";
       case 14:
-        return "top-[33%] right-[5%] w-[20%] rotate-[20deg]ver h-10 w-10";
+        return "top-[33%] right-[5%]  rotate-[20deg]ver h-10 w-10";
       default:
         return "hidden";
     }
@@ -149,7 +149,7 @@ const ImageSlider = () => {
           key={index+10}
           width={500}
           height={500}
-          className={`absolute object-cover h-10 w-10 ${getPositionbyIndex(index+10)}`}
+          className={`absolute object-cov w-10 ${getPositionbyIndex(index+10)}`}
           src = "assets/paper-clips.svg" alt="My Happy SVG"/>
           </>
         ))}
