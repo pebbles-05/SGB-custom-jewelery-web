@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        <div className="w-screen h-screen ">{children}</div>
+        <div className="w-screen h-screen max-w-screen">{children}</div>
       </body>
     </html>
   );

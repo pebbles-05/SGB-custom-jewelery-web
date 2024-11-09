@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import "./Hero.css"
 const ImageSlider = () => {
   gsap.registerPlugin(ScrollTrigger);
   const images = Array.from(
@@ -57,6 +58,18 @@ const ImageSlider = () => {
 
   // Animate images out (exit animation)
   useGSAP(()=>{
+    gsap.to(".txt",{
+      opacity:1,
+      right: "50%",
+        scrollTrigger: {
+         trigger: ".txt",
+        //  toggleActions: "restart reverse restart reverse",
+         start: "top 90%",
+        //  end: "bottom 50%"
+        },
+    }
+
+    )
 
     gsap.fromTo(
       imageRefs.current,
@@ -79,7 +92,7 @@ const ImageSlider = () => {
         rotation: (index) => getCordsbyPosition(index)?.targetRotation,
         duration: 0.5,
         ease: "power2.out",
-        stagger: 0, // No delay between images; all animate together
+        stagger: 0.2, // No delay between images; all animate together
       }
     );
   });
@@ -89,15 +102,25 @@ const ImageSlider = () => {
   const getPositionbyIndex = (index) => {
     switch (index) {
       case 0:
-        return "top-[10%] left-[8%] w-[17%] rotate-[10deg] shadow-2xl shadow-custom-black";
+        return "top-[20%] left-[8%] w-[17%] rotate-[10deg] shadow-2xl shadow-custom-black";
       case 1:
-        return "bottom-[10%] left-[27%] w-[25%] -rotate-[5deg] shadow-2xl shadow-custom-black";
+        return "bottom-[5%] left-[27%] w-[25%] -rotate-[5deg] shadow-2xl shadow-custom-black";
       case 2:
-        return "top-[10%] left-[33%] w-[23%] rotate-[10deg] shadow-2xl shadow-custom-black";
+        return "top-[20%] left-[33%] w-[23%] rotate-[10deg] shadow-2xl shadow-custom-black";
       case 3:
-        return "top-[10%] left-[60%] w-[17%] -rotate-[20deg] shadow-2xl shadow-custom-black";
+        return "top-[20%] left-[60%] w-[17%] -rotate-[20deg] shadow-2xl shadow-custom-black";
       case 4:
-        return "top-[20%] right-[5%] w-[20%] rotate-[20deg] shadow-2xl shadow-custom-black";
+        return "top-[30%] right-[5%] w-[20%] rotate-[20deg] shadow-2xl shadow-custom-black";
+      case 10:
+        return "top-[17%] left-[13%] w-[17%] rotate-[10deg]ver h-10 w-10";
+      case 11:
+        return "bottom-[34%] left-[27%] w-[25%] -rotate-[5deg]ver h-10 w-10";
+      case 12:
+        return "top-[20%] left-[53%] w-[23%] rotate-[10deg]ver h-10 w-10";
+      case 13:
+        return "top-[15%] left-[70%] w-[17%] -rotate-[20deg]ver h-10 w-10";
+      case 14:
+        return "top-[33%] right-[5%] w-[20%] rotate-[20deg]ver h-10 w-10";
       default:
         return "hidden";
     }
@@ -108,9 +131,10 @@ const ImageSlider = () => {
     <>
       <div
         id="productImageDIv"
-        className="relative w-full h-[80vh] overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 bg-custom-bg-light"
+        className="relative w-full h-screen overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 bg-custom-bg-light"
       >
-        {images.map((img, index) => (
+        <span className="txt  ">Work Gallary</span>
+        {images.map((img, index) => (<>
           <Image
             ref={(el) => (imageRefs.current[index] = el)}
             key={index}
@@ -120,8 +144,17 @@ const ImageSlider = () => {
             height={500}
             className={`absolute object-cover rounded-xl break-inside-avoid ${getPositionbyIndex(index)}`}
           />
+          <Image
+          ref={(el) => (imageRefs.current[index+10] = el)}
+          key={index+10}
+          width={500}
+          height={500}
+          className={`absolute object-cover h-10 w-10 ${getPositionbyIndex(index+10)}`}
+          src = "assets/paper-clips.svg" alt="My Happy SVG"/>
+          </>
         ))}
       </div>
+      
     </>
   );
 };

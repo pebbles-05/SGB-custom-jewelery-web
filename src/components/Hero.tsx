@@ -5,7 +5,7 @@ import "./Hero.css";
 
 const Hero = () => {
   return (
-    <div className="w-full h-[80vh] overflow-hidden relative flex items-center text-custom-bg-light">
+    <div className=" w-full h-[80vh] overflow-hidden relative flex items-center text-custom-bg-light">
       <div className="text-5xl flex flex-col ml-16 gap-8 justify-start items-start">
       <span className="shiny-text">
         <span className="shiny-letter" style={{ animationDelay: `${0 * 0.2}s` }}>
@@ -52,7 +52,7 @@ const Hero = () => {
         </Link>
       </div>
       <Image
-        className="absolute inset-y-0 top-0 bottom-[20%] -z-10 brightness-[0.58]"
+        className="max-h-screen max-w-screen inset-y-0 top-0 bottom-[20%] -z-10 brightness-[0.58] fixed"
         alt=""
         width={3000}
         height={3000}
