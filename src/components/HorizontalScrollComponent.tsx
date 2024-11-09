@@ -61,9 +61,9 @@ const HorizontalScrollComponent = () => {
     sections.forEach((_, i) => {
       const sidebar = document.getElementById(`sidebar-${i + 1}`);
       if (i === activeSectionIndex) {
-        gsap.to(sidebar, { x: 0, opacity: 1, duration: 0.5 });
+        gsap.to(sidebar, { x: 0, opacity: 1, duration: 0.01 });
       } else {
-        gsap.to(sidebar, { x: "-100%", opacity: 0, duration: 0.5 });
+        gsap.to(sidebar, { x: "-100%", opacity: 0, duration: 0.01 });
       }
     });
   }, [activeSectionIndex]);
