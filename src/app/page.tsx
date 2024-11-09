@@ -7,11 +7,7 @@ export default function Home() {
     <div className="w-full">
       <Hero />
       <ImageSlider />
-{/* <<<<<<< Updated upstream */}
-      <div ><HorizontalScrollComponent/></div>
-{/* ======= */}
-      
-{/* >>>>>>> Stashed changes */}
+      <HorizontalScrollComponent />
     </div>
   );
 }
