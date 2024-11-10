@@ -1,11 +1,10 @@
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import "./Hero.css"
+import "./Hero.css";
 const ImageSlider = () => {
   gsap.registerPlugin(ScrollTrigger);
   const images = Array.from(
@@ -57,19 +56,17 @@ const ImageSlider = () => {
   };
 
   // Animate images out (exit animation)
-  useGSAP(()=>{
-    gsap.to(".txt",{
-      opacity:1,
+  useGSAP(() => {
+    gsap.to(".txt", {
+      opacity: 1,
       right: "50%",
-        scrollTrigger: {
-         trigger: ".txt",
+      scrollTrigger: {
+        trigger: ".txt",
         //  toggleActions: "restart reverse restart reverse",
-         start: "top 90%",
+        start: "top 90%",
         //  end: "bottom 50%"
-        },
-    }
-
-    )
+      },
+    });
 
     gsap.fromTo(
       imageRefs.current,
@@ -81,10 +78,10 @@ const ImageSlider = () => {
       },
       {
         scrollTrigger: {
-         trigger: "#productImageDIv",
-         toggleActions: "restart reverse restart reverse",
-         start: "top 50%",
-         end: "bottom 50%"
+          trigger: "#productImageDIv",
+          toggleActions: "restart reverse restart reverse",
+          start: "top 50%",
+          end: "bottom 50%",
         },
         opacity: 1,
         x: 0,
@@ -96,9 +93,7 @@ const ImageSlider = () => {
       }
     );
   });
-  
 
-  
   const getPositionbyIndex = (index) => {
     switch (index) {
       case 0:
@@ -125,9 +120,7 @@ const ImageSlider = () => {
         return "hidden";
     }
   };
-  
 
-  
   return (
     <>
       <div
@@ -135,27 +128,29 @@ const ImageSlider = () => {
         className="relative w-full h-screen overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 bg-custom-bg-light"
       >
         <span className="txt  ">Work Gallary</span>
-        {images.map((img, index) => (<>
-          <Image
-            ref={(el) => (imageRefs.current[index] = el)}
-            key={index}
-            src={img}
-            alt={`Collage Image ${index}`}
-            width={500}
-            height={500}
-            className={`absolute object-cover rounded-xl break-inside-avoid ${getPositionbyIndex(index)}`}
-          />
-          <Image
-          ref={(el) => (imageRefs.current[index+10] = el)}
-          key={index+10}
-          width={500}
-          height={500}
-          className={`absolute object-cov w-10 ${getPositionbyIndex(index+10)}`}
-          src = "assets/paper-clips.svg" alt="My Happy SVG"/>
-          </>
+        {images.map((img, index) => (
+          <div key={index}>
+            <Image
+              ref={(el) => (imageRefs.current[index] = el)}
+              key={index}
+              src={img}
+              alt={`Collage Image ${index}`}
+              width={500}
+              height={500}
+              className={`absolute object-cover rounded-xl break-inside-avoid ${getPositionbyIndex(index)}`}
+            />
+            <Image
+              ref={(el) => (imageRefs.current[index + 10] = el)}
+              key={index + 10}
+              width={500}
+              height={500}
+              className={`absolute object-cov w-10 ${getPositionbyIndex(index + 10)}`}
+              src="assets/paper-clips.svg"
+              alt="My Happy SVG"
+            />
+          </div>
         ))}
       </div>
-      
     </>
   );
 };

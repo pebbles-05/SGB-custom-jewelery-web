@@ -221,6 +221,7 @@ const HorizontalScrollComponent = () => {
       spaceBetween={0}
       mousewheel={{
         enabled: true,
+        thresholdDelta: 50,
         releaseOnEdges: true,
       }}
       modules={[Mousewheel]}
@@ -241,7 +242,7 @@ const HorizontalScrollComponent = () => {
             </div>
           </div>
 
-          <h1 className="second-animation-element text-custom-black text-6xl absolute top-[20%] left-1/2 transform -translate-x-1/2">
+          <h1 className="second-animation-element text-custom-black text-6xl absolute top-[20%] left-[40%] transform -translate-x-[60%]">
             {section.heading}
           </h1>
         </SwiperSlide>
