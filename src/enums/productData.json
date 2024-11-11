@@ -1,6 +1,7 @@
 [
   {
     "id": "2aa8253e-9e81-4c06-b3d3-d564a164bff8",
+    "img": "https://picsum.photos/id/237/200",
     "name": "BLU",
     "description": "nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem",
     "price": 99,
@@ -11,6 +12,7 @@
   },
   {
     "id": "208d507d-24ae-4f25-8e9f-3eea84e69bbf",
+    "img": "https://picsum.photos/id/236/200",
     "name": "LG",
     "description": "velit id pretium iaculis diam erat fermentum justo nec condimentum",
     "price": 41,
@@ -21,6 +23,7 @@
   },
   {
     "id": "85d2bcc6-c1a0-4b0f-9e4c-343c8edcb961",
+    "img": "https://picsum.photos/id/235/200",
     "name": "Sony",
     "description": "lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin",
     "price": 25,
@@ -31,6 +34,7 @@
   },
   {
     "id": "86373408-bb6e-4f00-a2b2-0e2b2b8bb741",
+    "img": "https://picsum.photos/id/234/200",
     "name": "TCL",
     "description": "quam sapien varius ut blandit non interdum in ante vestibulum ante ipsum primis",
     "price": 73,
@@ -41,6 +45,7 @@
   },
   {
     "id": "73da0c10-2a08-4f94-9b6a-b3df7305b3d1",
+    "img": "https://picsum.photos/id/233/200",
     "name": "Motorola",
     "description": "vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare",
     "price": 56,
@@ -51,6 +56,7 @@
   },
   {
     "id": "f2f44294-2a1a-4518-989d-badc946624ae",
+    "img": "https://picsum.photos/id/232/200",
     "name": "Sony",
     "description": "lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce",
     "price": 43,
@@ -61,6 +67,7 @@
   },
   {
     "id": "17001606-2763-4257-bee8-b84f1f2c32b8",
+    "img": "https://picsum.photos/id/231/200",
     "name": "Haier",
     "description": "lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula",
     "price": 17,
@@ -71,6 +78,7 @@
   },
   {
     "id": "35af6c55-ef24-4dbb-9b02-b3df85198176",
+    "img": "https://picsum.photos/id/230/200",
     "name": "Samsung",
     "description": "turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy",
     "price": 47,
@@ -81,6 +89,7 @@
   },
   {
     "id": "b2a5a522-528f-4fbe-af1e-68d47c816848",
+    "img": "https://picsum.photos/id/229/200",
     "name": "Bird",
     "description": "tortor id nulla ultrices aliquet maecenas leo odio condimentum id",
     "price": 12,
@@ -91,6 +100,7 @@
   },
   {
     "id": "3511a7b6-d09d-4525-82ff-416130819889",
+    "img": "https://picsum.photos/id/228/200",
     "name": "Lenovo",
     "description": "et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis",
     "price": 95,
@@ -101,6 +111,7 @@
   },
   {
     "id": "e4679ff4-951f-47e0-882b-6e80bfcf997b",
+    "img": "https://picsum.photos/id/227/200",
     "name": "LG",
     "description": "sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in",
     "price": 52,
@@ -111,6 +122,7 @@
   },
   {
     "id": "08db6c08-1608-433a-8dee-18b638c9ef75",
+    "img": "https://picsum.photos/id/220/200",
     "name": "Huawei",
     "description": "odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit",
     "price": 29,
@@ -121,6 +133,7 @@
   },
   {
     "id": "cf1710b6-7991-46a8-8c0a-3ad4851ef0a8",
+    "img": "https://picsum.photos/id/225/200",
     "name": "Huawei",
     "description": "pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla",
     "price": 25,
@@ -131,6 +144,7 @@
   },
   {
     "id": "40f1ddb6-af11-4e2b-bee6-d6f413f9b2ba",
+    "img": "https://picsum.photos/id/212/200",
     "name": "Philips",
     "description": "et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare",
     "price": 30,
@@ -138,65 +152,5 @@
     "catogery": "Fundamental",
     "order": 1,
     "availability": true
-  },
-  {
-    "id": "1e3a497d-4d36-4c01-8518-801dbf5fada4",
-    "name": "vivo",
-    "description": "eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue",
-    "price": 97,
-    "type": "infrastructure",
-    "catogery": "support",
-    "order": 39,
-    "availability": false
-  },
-  {
-    "id": "1bbef687-ddff-40ec-99e6-dac686844884",
-    "name": "Oppo",
-    "description": "proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis",
-    "price": 19,
-    "type": "database",
-    "catogery": "Sharable",
-    "order": 90,
-    "availability": false
-  },
-  {
-    "id": "f352ea6b-a8a7-4865-a60b-5bdaf3b66d4e",
-    "name": "Vodafone",
-    "description": "est risus auctor sed tristique in tempus sit amet sem",
-    "price": 3,
-    "type": "Reactive",
-    "catogery": "eco-centric",
-    "order": 92,
-    "availability": true
-  },
-  {
-    "id": "8d54cd07-0cc2-448b-8cc3-896b7f729e71",
-    "name": "NEC",
-    "description": "morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac",
-    "price": 34,
-    "type": "value-added",
-    "catogery": "Configurable",
-    "order": 40,
-    "availability": false
-  },
-  {
-    "id": "00b44e3d-2441-4ee8-aa81-baed974c2a6d",
-    "name": "Xiaomi",
-    "description": "accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend",
-    "price": 52,
-    "type": "Configurable",
-    "catogery": "Profound",
-    "order": 55,
-    "availability": true
-  },
-  {
-    "id": "f9ba340a-9257-4c1c-9bfd-c4de7462ea9a",
-    "name": "Xiaomi",
-    "description": "sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque",
-    "price": 28,
-    "type": "protocol",
-    "catogery": "executive",
-    "order": 91,
-    "availability": false
   }
 ]

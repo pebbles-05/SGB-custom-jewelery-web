@@ -1,19 +1,23 @@
 import React from "react";
 import producData from "@/enums/productData.json";
-import Link from "next/link";
+import StoreProductBox from "@/components/StoreProductBox";
 
 const Store = () => {
   return (
-    <ul>
+    <div className="px-16 py-8 grid gap-14 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
       {producData?.length &&
         producData.map((product) => {
           return (
-            <ul key={product.id}>
-              <Link href={`/store/${product?.id}`}>{product?.name}</Link>
-            </ul>
+            <StoreProductBox
+              key={product?.id}
+              id={product?.id}
+              name={product?.name}
+              img={product?.img}
+              price={product?.price}
+            />
           );
         })}
-    </ul>
+    </div>
   );
 };
 

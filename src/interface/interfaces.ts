@@ -3,4 +3,13 @@ interface NavbarOption {
   name: string;
   route: string;
 }
-export type { NavbarOption };
+interface StoreProductBox {
+  id: string;
+  img: string;
+  name: string;
+  price: number;
+  type?: string;
+  catogery?: string;
+  availability?: boolean;
+}
+export type { NavbarOption, StoreProductBox };
