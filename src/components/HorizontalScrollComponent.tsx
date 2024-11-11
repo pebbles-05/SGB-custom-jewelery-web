@@ -7,6 +7,8 @@ import { Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useGSAP } from "@gsap/react";
+import Catagory from "@/components/Catagory";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,21 +47,22 @@ const sections: SectionProps[] = [
 
 const HorizontalScrollComponent = () => {
   const swiperRef = useRef(null);
-  const enableMousewheel = () => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.mousewheel.enable();
-    }
-  };
+  const [index, setindex] = useState()
+  // const enableMousewheel = () => {
+  //   if (swiperRef.current) {
+  //     swiperRef.current.swiper.mousewheel.enable();
+  //   }
+  // };
 
-  const disableMousewheel = () => {
-    if (swiperRef.current) {
-      swiperRef.current.swiper.mousewheel.disable();
-    }
-  };
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeSectionIndex, setActiveSectionIndex] = useState<number | null>(
-    null
-  );
+//   const disableMousewheel = () => {
+//     if (swiperRef.current) {
+//       swiperRef.current.swiper.mousewheel.disable();
+//     }
+//   };
+//   const containerRef = useRef<HTMLDivElement>(null);
+//   const [activeSectionIndex, setActiveSectionIndex] = useState<number | null>(
+//     null
+//   );
 
   //useEffect(() => {
   //  let ctx = gsap.context(() => {
@@ -107,6 +110,7 @@ const HorizontalScrollComponent = () => {
   const runGsapAnimation = (swiper) => {
     // Get the current slide (swiper.activeIndex)
     const currentSlide = swiper.slides[swiper.activeIndex];
+    setindex(swiper.activeIndex)
 
     // Select elements inside the current slide that you want to animate
     const firstAnimationElement = currentSlide.querySelector(
@@ -241,7 +245,7 @@ const HorizontalScrollComponent = () => {
   //  }
   //}, []);
 
-  return (
+  return (<>
     <Swiper
       ref={swiperRef}
       direction={"horizontal"}
@@ -254,7 +258,7 @@ const HorizontalScrollComponent = () => {
       }}
       modules={[Mousewheel]}
       onSlideChange={(swiper) => runGsapAnimation(swiper)}
-      className="mySwiper w-screen h-screen"
+      className="mySwiper w-screen h-[90%]"
       id="swiperdiv"
     >
       {sections.map((section, i) => (
@@ -283,6 +287,10 @@ const HorizontalScrollComponent = () => {
         </SwiperSlide>
       ))}
     </Swiper>
+    {index==3?(
+      <Catagory/>):null};
+    
+    </>
   );
 };
 
