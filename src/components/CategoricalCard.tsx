@@ -1,4 +1,5 @@
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 interface CategoricalCardProps {
   name: string;
@@ -6,26 +7,27 @@ interface CategoricalCardProps {
   pageLink: string;
 }
 
-const CategoricalCard: React.FC<CategoricalCardProps> = ({ name, bgImage, pageLink }) => {
+const CategoricalCard: React.FC<CategoricalCardProps> = ({
+  name,
+  bgImage,
+  pageLink,
+}) => {
   return (
-    <div className="relative w-72 h-48 rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer group">
+    <div className="p-4 relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer group flex-shrink-0 w-full aspect-square  flex flex-col gap-8 justify-center items-center">
       <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-300 group-hover:blur-0 blur-lg"
+        className="absolute inset-0  brightness-75  group-hover:blur-sm transition-all duration-300 bg-cover bg-center"
         style={{ backgroundImage: `url(${bgImage})` }}
       ></div>
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center">
-        <h2 className="text-2xl font-bold mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:text-custom-black">
-          {name}
-        </h2>
-        <a
-          href={pageLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-2xl border hover:border-custom-bg-light px-8 py-4 rounded hover:bg-transparent hover:text-custom-white bg-custom-bg-light text-custom-black transition-transform duration-300 group-hover:scale-110"
-        >
-          Go to Page
-        </a>
-      </div>
+      <h2 className="text-3xl text-custom-white font-bold z-10 drop-shadow-[0_3px_3px_rgba(0,0,0,0.8)]">
+        {name}
+      </h2>
+      <Link
+        href={pageLink}
+        rel="noopener noreferrer"
+        className="flex justify-center items-center text-xl w-full outline outline-2 outline-transparent hover:outline-current px-4 py-2 rounded-lg hover:bg-transparent hover:text-custom-white bg-custom-white text-custom-black opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+      >
+        Explore
+      </Link>
     </div>
   );
 };

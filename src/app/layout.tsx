@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-custom-bg-light">
         <Navbar />
-        <div className="w-screen h-screen max-w-screen ">{children}</div>
+        <div className="w-screen">{children}</div>
       </body>
     </html>
   );
