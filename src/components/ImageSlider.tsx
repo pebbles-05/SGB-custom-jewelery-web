@@ -131,7 +131,7 @@ const ImageSlider = () => {
         id="productImageDIv"
         className="relative w-full h-screen overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 bg-custom-bg-light"
       >
-        <span className="text-6xl absolute top-[12%] left-[40%] w-[40%] font-bold hdng shdw ">Work Gallary</span>
+        <span className="text-6xl absolute top-[8%] left-[40%] w-[40%] text-custom-fg-light hdng ">Work Gallary</span>
         {images.map((img, index) => (
           <div key={index}>
             <Image
