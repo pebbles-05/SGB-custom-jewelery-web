@@ -3,12 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, Mousewheel } from "swiper/modules";
+import { Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useGSAP } from "@gsap/react";
 import Catagory from "@/components/Catagory";
-
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,22 +46,22 @@ const sections: SectionProps[] = [
 
 const HorizontalScrollComponent = () => {
   const swiperRef = useRef(null);
-  const [index, setindex] = useState()
+  const [index, setindex] = useState();
   // const enableMousewheel = () => {
   //   if (swiperRef.current) {
   //     swiperRef.current.swiper.mousewheel.enable();
   //   }
   // };
 
-//   const disableMousewheel = () => {
-//     if (swiperRef.current) {
-//       swiperRef.current.swiper.mousewheel.disable();
-//     }
-//   };
-//   const containerRef = useRef<HTMLDivElement>(null);
-//   const [activeSectionIndex, setActiveSectionIndex] = useState<number | null>(
-//     null
-//   );
+  //   const disableMousewheel = () => {
+  //     if (swiperRef.current) {
+  //       swiperRef.current.swiper.mousewheel.disable();
+  //     }
+  //   };
+  //   const containerRef = useRef<HTMLDivElement>(null);
+  //   const [activeSectionIndex, setActiveSectionIndex] = useState<number | null>(
+  //     null
+  //   );
 
   //useEffect(() => {
   //  let ctx = gsap.context(() => {
@@ -110,7 +109,7 @@ const HorizontalScrollComponent = () => {
   const runGsapAnimation = (swiper) => {
     // Get the current slide (swiper.activeIndex)
     const currentSlide = swiper.slides[swiper.activeIndex];
-    setindex(swiper.activeIndex)
+    setindex(swiper.activeIndex);
 
     // Select elements inside the current slide that you want to animate
     const firstAnimationElement = currentSlide.querySelector(
@@ -245,54 +244,45 @@ const HorizontalScrollComponent = () => {
   //  }
   //}, []);
 
-  return (<>
-    <Swiper
-      ref={swiperRef}
-      direction={"horizontal"}
-      slidesPerView={1}
-      spaceBetween={0}
-      mousewheel={{
-        enabled: true,
-        thresholdDelta: 50,
-        releaseOnEdges: true,
-      }}
-      keyboard={{
-        enabled: true,
-      }}
-      modules={[Mousewheel,Keyboard]}
-      onSlideChange={(swiper) => runGsapAnimation(swiper)}
-      className="mySwiper w-screen h-[90%]"
-      id="swiperdiv"
-    >
-      {sections.map((section, i) => (
-        <SwiperSlide key={i} className="w-screen h-screen relative">
-          <div className="flex flex-row">
-            <div className="first-animation-element w-[40%] text-9xl text-custom-fg-light">
-              {section.number}
-              
+  return (
+    <>
+      <Swiper
+        ref={swiperRef}
+        direction={"horizontal"}
+        slidesPerView={1}
+        spaceBetween={0}
+        mousewheel={{
+          enabled: true,
+          thresholdDelta: 50,
+          releaseOnEdges: true,
+        }}
+        modules={[Mousewheel]}
+        onSlideChange={(swiper) => runGsapAnimation(swiper)}
+        className="mySwiper w-screen h-[90%]"
+        id="swiperdiv"
+      >
+        {sections.map((section, i) => (
+          <SwiperSlide key={i} className="w-screen h-screen relative">
+            <div className="flex flex-row">
+              <div className="first-animation-element w-[40%] text-9xl text-custom-fg-light">
+                {section.number}
+              </div>
+              <div></div>
+
+              <div className="third-animation-element w-[60%] text-2xl text-custom-white bg-custom-sdbar-light h-screen flex justify-center items-center px-8">
+                <span className="second-animation-element h-max mt-[20%]">
+                  {section.detail}
+                </span>
+              </div>
             </div>
-            <div>
-              
-            </div>
-            
-            <div className="third-animation-element w-[60%] text-2xl text-custom-white bg-custom-sdbar-light h-screen flex justify-center items-center px-8">
-              <span className="second-animation-element h-max mt-[20%]">
-                {section.detail}
-              </span>
-            </div>
-          </div>
-          <div>
-            
-          </div>
-          <h1 className="fourth-animation-element text-custom-black text-6xl absolute top-[20%] left-[35%] z-10 transform -translate-x-[60%">
-            {section.heading}
-          </h1>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-    {index==3?(
-      <Catagory/>):null};
-    
+            <div></div>
+            <h1 className="fourth-animation-element text-custom-black text-6xl absolute top-[20%] left-[35%] z-10 transform -translate-x-[60%">
+              {section.heading}
+            </h1>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {index == 3 ? <Catagory /> : null};
     </>
   );
 };

@@ -1,4 +1,5 @@
 // import Catagory from "@/components/Catagory";
+import Catagory from "@/components/Catagory";
 import Hero from "@/components/Hero";
 import HorizontalScrollComponent from "@/components/HorizontalScrollComponent";
 import ImageSlider from "@/components/ImageSlider";
@@ -9,7 +10,6 @@ export default function Home() {
       <Hero />
       <ImageSlider />
       <HorizontalScrollComponent />
-      {/* <Catagory/> */}
     </div>
   );
 }
