@@ -57,15 +57,19 @@ const ImageSlider = () => {
 
   // Animate images out (exit animation)
   useGSAP(() => {
-    gsap.to(".txt", {
-      opacity: 1,
-      right: "50%",
+    gsap.fromTo(".hdng", {
+      opacity: 0,
+      x: 40,
+    },
+    {
       scrollTrigger: {
-        trigger: ".txt",
-        //  toggleActions: "restart reverse restart reverse",
+        trigger: ".hdng",
+         toggleActions: "restart reverse restart reverse",
         start: "top 90%",
         //  end: "bottom 50%"
       },
+      opacity: 1,
+      x: 0,
     });
 
     gsap.fromTo(
@@ -127,7 +131,7 @@ const ImageSlider = () => {
         id="productImageDIv"
         className="relative w-full h-screen overflow-hidden p-4 grid grid-cols-4 gap-4 px-16 py-8 bg-custom-bg-light"
       >
-        <span className="txt  ">Work Gallary</span>
+        <span className="text-6xl absolute top-[12%] left-[40%] w-[40%] font-bold hdng shdw ">Work Gallary</span>
         {images.map((img, index) => (
           <div key={index}>
             <Image

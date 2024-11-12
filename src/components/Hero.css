@@ -53,6 +53,13 @@
 		2px -2px 5px rgba(22, 22, 22, 0.9),
 		-2px 2px 5px rgba(22, 22, 22, 0.9);
   }
+  .shdw{
+    text-shadow:
+		2px 2px 5px #919191,
+		2px 4px 5px #919191,
+		2px 6px 5px #919191,
+		2px 8px 5px #919191;
+  }
 
   .txt{
     position: absolute;

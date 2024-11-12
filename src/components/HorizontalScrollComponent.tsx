@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel } from "swiper/modules";
+import { Keyboard, Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useGSAP } from "@gsap/react";
@@ -256,7 +256,10 @@ const HorizontalScrollComponent = () => {
         thresholdDelta: 50,
         releaseOnEdges: true,
       }}
-      modules={[Mousewheel]}
+      keyboard={{
+        enabled: true,
+      }}
+      modules={[Mousewheel,Keyboard]}
       onSlideChange={(swiper) => runGsapAnimation(swiper)}
       className="mySwiper w-screen h-[90%]"
       id="swiperdiv"
