@@ -4,7 +4,6 @@ import gsap from "gsap";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import "./Hero.css";
 const ImageSlider = () => {
   gsap.registerPlugin(ScrollTrigger);
   const images = Array.from(
