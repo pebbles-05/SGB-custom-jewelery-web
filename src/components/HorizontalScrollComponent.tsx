@@ -47,63 +47,7 @@ const sections: SectionProps[] = [
 const HorizontalScrollComponent = () => {
   const swiperRef = useRef(null);
   const [index, setindex] = useState();
-  // const enableMousewheel = () => {
-  //   if (swiperRef.current) {
-  //     swiperRef.current.swiper.mousewheel.enable();
-  //   }
-  // };
 
-  //   const disableMousewheel = () => {
-  //     if (swiperRef.current) {
-  //       swiperRef.current.swiper.mousewheel.disable();
-  //     }
-  //   };
-  //   const containerRef = useRef<HTMLDivElement>(null);
-  //   const [activeSectionIndex, setActiveSectionIndex] = useState<number | null>(
-  //     null
-  //   );
-
-  //useEffect(() => {
-  //  let ctx = gsap.context(() => {
-  //    const container = containerRef.current;
-  //    const sections = gsap.utils.toArray(".section");
-  //
-  //    // Horizontal scrolling with snapping
-  //    gsap.to(sections, {
-  //      xPercent: -100 * (sections.length - 1),
-  //      ease: "none",
-  //      scrollTrigger: {
-  //        trigger: container,
-  //        start: "top top",
-  //        end: () => `+=${container!.offsetWidth}`,
-  //        pin: true,
-  //        scrub: 1,
-  //        snap: {
-  //          snapTo: 1 / (sections.length - 1),
-  //          duration: 0.3,
-  //          ease: "power1.inOut",
-  //        },
-  //        onUpdate: (self) => {
-  //          const newIndex = Math.round(self.progress * (sections.length - 1));
-  //          setActiveSectionIndex(newIndex);
-  //        },
-  //      },
-  //    });
-  //  }, containerRef);
-  //
-  //  return () => ctx.revert(); // Cleanup GSAP context on component unmount
-  //}, []);
-
-  //useEffect(() => {
-  //  sections.forEach((_, i) => {
-  //    const sidebar = document.getElementById(`sidebar-${i + 1}`);
-  //    if (i === activeSectionIndex) {
-  //      gsap.to(sidebar, { x: 0, opacity: 1, duration: 0.5 });
-  //    } else {
-  //      gsap.to(sidebar, { x: "-100%", opacity: 0, duration: 0.5 });
-  //    }
-  //  });
-  //}, [activeSectionIndex]);
 
   // Function to run GSAP animation for the elements
   const runGsapAnimation = (swiper) => {
@@ -147,102 +91,7 @@ const HorizontalScrollComponent = () => {
       { opacity: 1, x: 0, y: 0, duration: 0.5, delay: 0.3 }
     );
   };
-  // useGSAP(() => {
-  //   // Get the current slide (swiper.activeIndex)
-  //   const swiper = swiperRef?.current.swiper;
-
-  //   const currentSlide = swiper.slides[swiper.activeIndex];
-
-  //   // Select elements inside the current slide that you want to animate
-  //   const firstAnimationElement = currentSlide.querySelector(
-  //     ".first-animation-element"
-  //   );
-  //   const secondAnimationElement = currentSlide.querySelector(
-  //     ".second-animation-element"
-  //   );
-  //   const fourthAnimationElement = currentSlide.querySelector(
-  //     ".fourth-animation-element"
-  //   );
-  //   const thirdAnimationElement = currentSlide.querySelector(
-  //     ".third-animation-element"
-  //   );
-
-  //   // Run GSAP animations
-  //   gsap.fromTo(
-  //     firstAnimationElement,
-  //     { opacity: 0, x: 0, y: -300 },
-  //     {
-  //       //scrollTrigger: {
-  //       //  trigger: "#swiperdiv",
-  //       //  toggleActions: "restart reverse restart reverse",
-  //       //  start: "top 50%",
-  //       //  end: "bottom 50%",
-  //       //},
-  //       opacity: 1,
-  //       x: 0,
-  //       y: 0,
-  //       duration: 1,
-  //     }
-  //   );
-  //   gsap.fromTo(
-  //     secondAnimationElement,
-  //     { opacity: 0, x: 0, y: "50%" },
-  //     {
-  //       //scrollTrigger: {
-  //       //  trigger: "#swiperdiv",
-  //       //  toggleActions: "restart reverse restart reverse",
-  //       //  start: "top 50%",
-  //       //  end: "bottom 50%",
-  //       //},
-  //       opacity: 1,
-  //       x: 0,
-  //       y: 0,
-  //       duration: 1,
-  //       delay: 0.5,
-  //     }
-  //   );
-  //   gsap.fromTo(
-  //     fourthAnimationElement,
-  //     { opacity: 0, x: 0, y: "50%" },
-  //     {
-  //       //scrollTrigger: {
-  //       //  trigger: "#swiperdiv",
-  //       //  toggleActions: "restart reverse restart reverse",
-  //       //  start: "top 50%",
-  //       //  end: "bottom 50%",
-  //       //},
-  //       opacity: 1,
-  //       x: 0,
-  //       y: 0,
-  //       duration: 1,
-  //       delay: 0.5,
-  //     }
-  //   );
-  //   gsap.fromTo(
-  //     thirdAnimationElement,
-  //     { opacity: 0, x: 200, y: 0 },
-  //     {
-  //       //scrollTrigger: {
-  //       //  trigger: "#swiperdiv",
-  //       //  toggleActions: "restart reverse restart reverse",
-  //       //  start: "top 50%",
-  //       //  end: "bottom 50%",
-  //       //},
-  //       opacity: 1,
-  //       x: 0,
-  //       y: 0,
-  //       duration: 0.5,
-  //       delay: 0.3,
-  //     }
-  //   );
-  // });
-
-  //useEffect(() => {
-  //  // Run the GSAP animation when the component is first mounted
-  //  if (swiperRef.current) {
-  //    runGsapAnimation(swiperref.current.swiper);
-  //  }
-  //}, []);
+  
 
   return (
     <>
@@ -258,32 +107,32 @@ const HorizontalScrollComponent = () => {
         }}
         modules={[Mousewheel]}
         onSlideChange={(swiper) => runGsapAnimation(swiper)}
-        className="mySwiper w-screen h-[90%]"
+        className="mySwiper w-screen h-[80vh]"
         id="swiperdiv"
       >
         {sections.map((section, i) => (
-          <SwiperSlide key={i} className="w-screen h-screen relative">
-            <div className="flex flex-row">
+          <SwiperSlide key={i} className="w-screen h-[90vh] relative">
+            <div className="flex md:flex-row flex-col">
               <div className="first-animation-element w-[40%] text-9xl text-custom-fg-light">
                 {section.number}
               </div>
               <div></div>
 
-              <div className="third-animation-element w-[60%] text-2xl text-custom-white bg-custom-sdbar-light h-screen flex justify-center items-center px-8">
+              <div className="third-animation-element md:w-[60%] w-[100%] text-2xl text-custom-white bg-custom-sdbar-light h-screen flex justify-center items-center px-8">
                 <span className="second-animation-element h-max mt-[20%]">
                   {section.detail}
                 </span>
               </div>
             </div>
-            <div></div>
-            <h1 className="fourth-animation-element text-custom-black text-6xl absolute top-[20%] left-[35%] z-10 transform -translate-x-[60%]">
+            <div ><h1 className="fourth-animation-element text-custom-black md:text-6xl text-5xl absolute md:top-[20%] md:left-[35%] top-[3%] left-[35%] w-[60%] z-10 transform -translate-x-[60%]">
               {section.heading}
-            </h1>
+            </h1></div>
+            
           </SwiperSlide>
         ))}
       </Swiper>
       {index == 3 ? <Catagory /> : null};
-    </>
+     </>
   );
 };
 
