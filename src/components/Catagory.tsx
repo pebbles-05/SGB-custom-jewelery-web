@@ -65,7 +65,7 @@ const Catagory = () => {
         scrollTrigger: {
           trigger: "#hdng",
           toggleActions: "restart reverse restart reverse",
-          start: "top 80%",
+          start: "20% bottom",
           //   end: "bottom 2",
         },
         opacity: 1,

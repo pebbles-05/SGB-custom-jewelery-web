@@ -276,7 +276,7 @@ const HorizontalScrollComponent = () => {
               </div>
             </div>
             <div></div>
-            <h1 className="fourth-animation-element text-custom-black text-6xl absolute top-[20%] left-[35%] z-10 transform -translate-x-[60%">
+            <h1 className="fourth-animation-element text-custom-black text-6xl absolute top-[20%] left-[35%] z-10 transform -translate-x-[60%]">
               {section.heading}
             </h1>
           </SwiperSlide>
