@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Keyboard,
@@ -14,30 +14,29 @@ import "swiper/css";
 import "swiper/css/keyboard";
 import "swiper/css/mousewheel";
 import ImageViewerModal from "@/components/ImageViewerModal"; // Import the ImageViewerModal component
-// import "@/components/prdct.css"
-import { productData } from "@/enums/enums";
+import { getProduct } from "@/helpers/getProduct";
+import Image from "next/image";
 
-interface Description {
-  category: string;
-  type: string;
-  description: string;
-  [key: string]: any;
-}
-
-interface ProductProps {
-  images: string[];
-  name: string;
-  description: Description;
-  price: number;
-}
-
-const ProductPage: React.FC<ProductProps> = () => {
+const ProductPage = ({
+  params,
+}: {
+  params: {
+    productid: string;
+  };
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // Track modal state
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Track the current image index
-  const images = productData.images;
-  const name = productData.name;
-  const description = productData.description;
-  const price = productData.price;
+  const [product, setproduct] = useState({});
+
+  useEffect(() => {
+    const fetchProduct = () => {
+      const productData = getProduct(params?.productid);
+      setproduct(productData);
+      console.log(productData);
+    };
+    fetchProduct();
+  }, [params]);
+
   // Open the modal when an image is clicked
   const openModal = (index: number) => {
     setCurrentImageIndex(index);
@@ -62,7 +61,9 @@ const ProductPage: React.FC<ProductProps> = () => {
 
   // Function to handle looped thumbnail index
   const getLoopedIndex = (index: number) => {
-    return (index + images.length) % images.length; // This ensures it loops back to the start/end
+    return (
+      (index + product?.relatedImages?.length) % product?.relatedImages?.length
+    ); // This ensures it loops back to the start/end
   };
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
@@ -104,13 +105,16 @@ const ProductPage: React.FC<ProductProps> = () => {
           className="w-full md:h-3/4 rounded-lg overflow-hidden myswiper2"
           onSlideChange={onSlideChange} // Update index on slide change
         >
-          {images.map((image, index) => (
+          {product?.relatedImages?.map((src, index) => (
             <SwiperSlide key={index}>
-              <img
-                src={image}
+              <Image
+                src={src}
+                width={1000}
+                height={1000}
+                loading="lazy"
                 alt={`Product Image ${index + 1}`}
                 className="object-contain w-full h-full drop-shadow-xl rounded-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-                onClick={() => openModal(index)} // Trigger modal on click
+                onClick={() => openModal(index)}
               />
             </SwiperSlide>
           ))}
@@ -128,12 +132,15 @@ const ProductPage: React.FC<ProductProps> = () => {
           modules={[FreeMode, Navigation, Thumbs, Zoom]}
           className="mySwiper"
         >
-          {images.map((image, index) => {
-            const loopedIndex = getLoopedIndex(index); // Loop the thumbnail index
+          {product?.relatedImages?.map((image, index) => {
+            const loopedIndex = getLoopedIndex(index);
             return (
               <SwiperSlide key={index}>
-                <img
+                <Image
                   src={image}
+                  width={500}
+                  height={500}
+                  loading="lazy"
                   alt={`thumbnail ${index + 1}`}
                   className="w-20 h-20 object-cover rounded-lg"
                 />
@@ -145,39 +152,23 @@ const ProductPage: React.FC<ProductProps> = () => {
 
       {/* Right Section: Product Details */}
       <div className="w-full md:w-1/2 flex flex-col  p-6 md:p-8 md:sticky md:justify-normal justify-center md:top-0 gap-y-12">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">{name}</h1>
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">{product?.name}</h1>
         <div className="mb-4">
           <h2 className="text-3xl font-semibold">Description:</h2>
-          <p className="text-gray-700 text-2xl mt-2">
-            {description.description}
-          </p>
+          <p className="text-gray-700 text-2xl mt-2">{product?.description}</p>
           <div className="mt-2 text-xl">
             <span className="font-semibold text-2xl">Category:</span>{" "}
-            {description.category}
+            {product?.category}
           </div>
           <div className="text-xl">
             <span className="font-semibold text-2xl">Type:</span>{" "}
-            {description.type}
+            {product?.type}
           </div>
-          {/* Render additional description fields if available */}
-          {Object.keys(description).map((key) => {
-            if (key !== "description" && key !== "category" && key !== "type") {
-              return (
-                <div key={key}>
-                  <span className="font-semibold">
-                    {key.charAt(0).toUpperCase() + key.slice(1)}:
-                  </span>{" "}
-                  {description[key]}
-                </div>
-              );
-            }
-            return null;
-          })}
         </div>
         <div className="flex-row flex gap-2">
-          <div className="font-bold text-3xl">Price :</div>
+          <div className="font-bold text-3xl">Price: </div>
           <div className="text-lg md:text-2xl font-bold mb-6 pt-1">
-            ${price.toFixed(2)}
+            &#8377;{product?.price}
           </div>
         </div>
         <div className="flex gap-x-3">
@@ -192,7 +183,7 @@ const ProductPage: React.FC<ProductProps> = () => {
 
       {/* ImageViewerModal for displaying images */}
       <ImageViewerModal
-        images={images}
+        images={product?.relatedImages}
         initialIndex={currentImageIndex}
         isOpen={isModalOpen}
         onClose={closeModal}

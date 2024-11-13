@@ -1,5 +1,3 @@
-
-
 // import React, { useState, useEffect } from 'react';
 // import { Swiper, SwiperSlide } from 'swiper/react';
 // import { Thumbs, Keyboard, Mousewheel, Zoom } from 'swiper/modules';
@@ -65,7 +63,7 @@
 //           effect="slide"
 //           loop={true} // Infinite loop
 //           onSlideChange={(swiper) => {setActiveIndex(swiper.activeIndex+1);console.log(swiper.activeIndex);
-          
+
 //           }} // Set active image index
 //           modules={[Thumbs, Keyboard, Mousewheel, Zoom]}
 //           className="w-full h-full"
@@ -121,15 +119,21 @@
 
 // export default ImageViewerModal;
 
-
-import React, { useState, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Keyboard, Mousewheel, FreeMode, Navigation, Thumbs,Zoom } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/keyboard';
-import 'swiper/css/mousewheel';
-import 'swiper/css/thumbs';
-import 'swiper/css/zoom';
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Keyboard,
+  Mousewheel,
+  FreeMode,
+  Navigation,
+  Thumbs,
+  Zoom,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/keyboard";
+import "swiper/css/mousewheel";
+import "swiper/css/thumbs";
+import "swiper/css/zoom";
 interface ImageViewerModalProps {
   images: string[];
   initialIndex: number;
@@ -155,13 +159,13 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({
   useEffect(() => {
     // Prevent scrolling when the modal is open
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
 
     return () => {
-      document.body.style.overflow = 'auto'; // Reset scroll when the component is unmounted
+      document.body.style.overflow = "auto"; // Reset scroll when the component is unmounted
     };
   }, [isOpen]);
 
@@ -172,7 +176,10 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({
       className="fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center items-center"
       onClick={handleOverlayClick} // Close the modal if you click outside
     >
-      <div id='Modalimg' className="relative w-full md:max-w-[60%] max-w-[80%]  rounded-lg overflow-hidden">
+      <div
+        id="Modalimg"
+        className="relative w-full md:max-w-[60%] max-w-[80%]  rounded-lg overflow-hidden"
+      >
         {/* Main Image Slider */}
         <Swiper
           initialSlide={initialIndex}
@@ -187,7 +194,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({
           effect="slide"
           loop={true} // Infinite loop
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)} // Sync active index
-          modules={[Thumbs, Keyboard, Mousewheel, Zoom,FreeMode, Navigation]}
+          modules={[Thumbs, Keyboard, Mousewheel, Zoom, FreeMode, Navigation]}
           thumbs={{ swiper: thumbsSwiper }} // Sync the thumbs gallery with main swiper
           className="w-full h-full"
         >
@@ -225,8 +232,6 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({
             </SwiperSlide>
           ))}
         </Swiper>
-
-        
       </div>
     </div>
   );

@@ -24,7 +24,6 @@ const Store: React.FC = () => {
       const filterOptions = getFilterOptionsFromURL();
       const filteredData = await getProductList(filterOptions);
       setFilteredProducts(filteredData);
-      console.log(filterOptions, filteredData);
     };
 
     fetchFilteredProducts();
