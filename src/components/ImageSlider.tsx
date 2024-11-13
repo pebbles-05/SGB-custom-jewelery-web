@@ -141,7 +141,7 @@ const ImageSlider = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1920);
+      setIsMobile(window.innerWidth < 1080);
     };
     handleResize(); // Initial check
     window.addEventListener("resize", handleResize);

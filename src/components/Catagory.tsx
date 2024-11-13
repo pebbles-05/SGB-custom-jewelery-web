@@ -63,9 +63,9 @@ const Catagory = () => {
       },
       {
         scrollTrigger: {
-          trigger: "#hdng",
+          trigger: "#hdngdiv",
           toggleActions: "restart reverse restart reverse",
-          start: "20% bottom",
+          // start: "top 80%",
           //   end: "bottom 2",
         },
         opacity: 1,
@@ -78,7 +78,7 @@ const Catagory = () => {
   });
 
   return (
-    <div className="flex w-screen flex-col items-center justify-center gap-14 px-16 py-28">
+    <div id="hdngdiv" className="flex w-screen flex-col items-center justify-center gap-14 px-16 py-28">
       <span id="hdng" className="text-4xl text-custom-fg-light">
         Browse through the catagories
       </span>
