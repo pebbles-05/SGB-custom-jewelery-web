@@ -1,13 +1,82 @@
 "use client";
-import { NavbarOptions } from "@/enums/enums";
-import { NavbarOption } from "@/interface/interfaces";
+import {
+  CategoryFilterOption,
+  NavbarOptions,
+  PriceRange,
+  QueryParameter,
+  TypeFilterOption,
+} from "@/enums/enums";
+import type {
+  NavbarOption,
+  SelectedFilteredData,
+} from "@/interface/interfaces";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import FilterOption from "./FilterOption";
+import Modal from "./Modal";
 
 const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isFilterOpen, setisFilterOpen] = useState(false);
+  const [type, setType] = useState(TypeFilterOption[0]?.name);
+  const [category, setCategory] = useState(CategoryFilterOption[0]?.name);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [minPrice, setMinPrice] = useState(PriceRange.min[0]);
+  const [maxPrice, setMaxPrice] = useState(
+    PriceRange.max[PriceRange.max.length]
+  );
+
+  useEffect(() => {
+    if (searchParams) {
+      setType(
+        searchParams.get(QueryParameter.TYPE) || TypeFilterOption[0]?.name
+      );
+      setCategory(
+        searchParams.get(QueryParameter.CATEGORY) ||
+          CategoryFilterOption[0]?.name
+      );
+      setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
+      setMaxPrice(
+        searchParams.get(QueryParameter.MAX_PRICE) || PriceRange.max[0]
+      );
+      setMinPrice(
+        searchParams.get(QueryParameter.MIN_PRICE) ||
+          PriceRange.min[PriceRange.min.length - 1]
+      );
+    }
+  }, [pathname, searchParams]);
+
+  const handleFilterChange = (
+    e?: React.FormEvent | null | undefined,
+    options?: SelectedFilteredData | null | undefined
+  ): void => {
+    if (e) {
+      e.preventDefault();
+    }
+    const queryParams = new URLSearchParams();
+    if (searchTerm) queryParams.set(QueryParameter.SEARCH, searchTerm);
+    if (options) {
+      queryParams.set(QueryParameter.TYPE, options?.type);
+      queryParams.set(QueryParameter.CATEGORY, options?.category);
+      queryParams.set(QueryParameter.MIN_PRICE, options?.minPrice.toString());
+      queryParams.set(QueryParameter.MAX_PRICE, options?.maxPrice.toString());
+    } else {
+      if (type) queryParams.set(QueryParameter.TYPE, type);
+      if (category) queryParams.set(QueryParameter.CATEGORY, category);
+      if (minPrice)
+        queryParams.set(QueryParameter.MIN_PRICE, minPrice.toString());
+      if (maxPrice)
+        queryParams.set(QueryParameter.MAX_PRICE, maxPrice.toString());
+    }
+
+    router.push(`/store?${queryParams.toString()}`);
+  };
+
   return (
     <div className="flex items-center px-16 text-xl sticky top-0 inset-y-0 h-20 text-custom-bg-light bg-custom-fg-light z-50">
       <Link className="w-16 h-16 mr-8" href="/">
@@ -33,19 +102,47 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           );
         })
       ) : (
-        <form
-          action=""
-          className="relative bg-custom-bg-light rounded-lg overflow-hidden text-custom-black flex justify-center items-center mx-auto w-2/3 px-4 py-2"
-        >
-          <input
-            type="text"
-            placeholder="Search for Earrings,Necklace,Rings and more... "
-            className="outline-none w-full bg-transparent"
-          />
-          <button className="absolute right-0 px-4 inset-y-0 flex items-center">
-            <Icon icon="healthicons:magnifying-glass" className="w-8 h-8" />
-          </button>
-        </form>
+        <div className="flex w-2/3 mx-auto gap-4 items-center">
+          <form
+            onSubmit={handleFilterChange}
+            className="bg-custom-bg-light rounded-lg overflow-hidden text-custom-black flex justify-center items-center  w-full pl-4 py-2"
+          >
+            <input
+              type="text"
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
+              name="searchInput"
+              placeholder="Search for Earrings,Necklace,Rings and more... "
+              className="outline-none w-full bg-transparent"
+            />
+            <button className="px-4 flex items-center">
+              <Icon icon="healthicons:magnifying-glass" className="w-8 h-8" />
+            </button>
+          </form>
+          <div
+            onClick={() => setisFilterOpen(true)}
+            className="hover:text-custom-golden cursor-pointer"
+          >
+            <Icon icon="mage:filter" className="w-8 h-8" />
+            <Modal
+              isOpen={isFilterOpen}
+              onClickOutside={() => setisFilterOpen(false)}
+              containerClass=""
+            >
+              <FilterOption
+                onFilterSubmit={(options) => {
+                  handleFilterChange(null, options);
+                  setisFilterOpen(false);
+                }}
+                onClear={() => console.log(false)}
+                selectedType={type}
+                selectedCategory={category}
+                selectedMaxPrice={maxPrice}
+                selectedMinPrice={minPrice}
+              />
+            </Modal>
+          </div>
+        </div>
       )}
       <Link
         href="/store/cart/"
