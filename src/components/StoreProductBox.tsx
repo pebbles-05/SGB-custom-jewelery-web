@@ -9,7 +9,7 @@ const StoreProductBox = ({ id, name, price, img }: StoreProductBox) => {
       href={`/store/${id}`}
       className="cursor-pointer flex flex-col gap-2 text-2xl group"
     >
-      <div className="relative  rounded-lg overflow-hidden">
+      <div className="relative  rounded-lg overflow-hidden shadow-2xl">
         <div className="bg-custom-black/30 absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center gap-8 p-4">
           <button className="flex justify-center items-center text-xl w-full outline outline-2 outline-transparent hover:outline-current px-4 py-2 rounded-lg hover:bg-transparent hover:text-custom-white bg-custom-white text-custom-black opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
             Buy Now

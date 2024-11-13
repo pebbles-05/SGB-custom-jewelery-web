@@ -28,7 +28,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [minPrice, setMinPrice] = useState(PriceRange.min[0]);
   const [maxPrice, setMaxPrice] = useState(
-    PriceRange.max[PriceRange.max.length]
+    PriceRange.max[PriceRange.max.length - 1]
   );
 
   useEffect(() => {
@@ -41,12 +41,12 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           CategoryFilterOption[0]?.name
       );
       setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
-      setMaxPrice(
-        searchParams.get(QueryParameter.MAX_PRICE) || PriceRange.max[0]
-      );
       setMinPrice(
-        searchParams.get(QueryParameter.MIN_PRICE) ||
-          PriceRange.min[PriceRange.min.length - 1]
+        searchParams.get(QueryParameter.MIN_PRICE) || PriceRange.min[0]
+      );
+      setMaxPrice(
+        searchParams.get(QueryParameter.MAX_PRICE) ||
+          PriceRange.max[PriceRange.max.length - 1]
       );
     }
   }, [pathname, searchParams]);
@@ -134,7 +134,9 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
                   handleFilterChange(null, options);
                   setisFilterOpen(false);
                 }}
-                onClear={() => console.log(false)}
+                onClear={() => {
+                  setisFilterOpen(false);
+                }}
                 selectedType={type}
                 selectedCategory={category}
                 selectedMaxPrice={maxPrice}

@@ -1,3 +1,15 @@
+interface Product {
+  id: string;
+  img: string;
+  relatedImages: string[];
+  name: string;
+  description: string;
+  price: number;
+  type: string;
+  category: string;
+  order: number;
+  availability: boolean;
+}
 interface NavbarOption {
   id: string;
   name: string;
@@ -39,6 +51,7 @@ interface FilterOptionComponent {
   onClear: () => void;
 }
 interface SelectedFilteredData {
+  search?: string;
   type: string;
   category: string;
   minPrice: number;
@@ -56,6 +69,7 @@ interface QueryParameter {
   MAX_PRICE: string;
 }
 export type {
+  Product,
   NavbarOption,
   StoreProductBox,
   Modal,

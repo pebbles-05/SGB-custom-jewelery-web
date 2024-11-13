@@ -1,13 +1,11 @@
 import type { FilterOptionComponent } from "@/interface/interfaces";
 import React, { useState, useEffect } from "react";
-import { CategoryFilterOption, TypeFilterOption } from "@/enums/enums";
+import {
+  CategoryFilterOption,
+  PriceRange,
+  TypeFilterOption,
+} from "@/enums/enums";
 import { Icon } from "@iconify/react/dist/iconify.js";
-
-// Define the price range options
-const PriceRange = {
-  min: [60, 100, 200, 300, 400, 500],
-  max: [100, 200, 300, 400, 500, 600],
-};
 
 const FilterOption = ({
   onFilterSubmit,
@@ -17,7 +15,7 @@ const FilterOption = ({
   selectedType = TypeFilterOption[0].name,
   selectedCategory = CategoryFilterOption[0].name,
   selectedMinPrice = PriceRange.min[0],
-  selectedMaxPrice = PriceRange.max[0],
+  selectedMaxPrice = PriceRange.max[PriceRange.max.length - 1],
   containerClass,
 }: FilterOptionComponent): React.JSX.Element => {
   const [selectedTypeOption, setSelectedTypeOption] = useState(selectedType);
@@ -44,6 +42,26 @@ const FilterOption = ({
       minPrice: selectedMinPriceOption,
     };
     onFilterSubmit(selectedFilteredData);
+  };
+
+  const handleMinPriceChange = (value: number) => {
+    setSelectedMinPriceOption(value);
+    // Adjust max price if the selected min price is greater than max price
+    if (value > selectedMaxPriceOption) {
+      setSelectedMaxPriceOption(
+        PriceRange.max.find((price) => price >= value) || value
+      );
+    }
+  };
+
+  const handleMaxPriceChange = (value: number) => {
+    setSelectedMaxPriceOption(value);
+    // Adjust min price if the selected max price is less than min price
+    if (value < selectedMinPriceOption) {
+      setSelectedMinPriceOption(
+        PriceRange.min.find((price) => price <= value) || value
+      );
+    }
   };
 
   return (
@@ -80,7 +98,7 @@ const FilterOption = ({
 
       {/* Category Filter */}
       <div className="flex flex-col gap-2">
-        <span className="text-custom-fg-light font-bold">Catogery: </span>
+        <span className="text-custom-fg-light font-bold">Category: </span>
         <div className="flex flex-wrap gap-2">
           {categoryFilterOptions?.length
             ? categoryFilterOptions.map((option) => (
@@ -111,23 +129,34 @@ const FilterOption = ({
         <div className="flex gap-4 w-full text-sm items-center">
           <select
             value={selectedMinPriceOption}
-            onChange={(e) => setSelectedMinPriceOption(Number(e.target.value))}
-            className="bg-custom-bg-light text-custom-black rounded-lg outline outline-1 outline-custom-black px-4 py-2 w-full"
+            onChange={(e) => handleMinPriceChange(Number(e.target.value))}
+            className="cursor-pointer bg-custom-bg-light text-custom-black rounded-lg outline outline-1 outline-custom-black px-4 py-2 w-full"
           >
             {PriceRange.min.map((price) => (
-              <option key={price} value={price}>
+              <option
+                key={price}
+                value={price}
+                disabled={price >= selectedMaxPriceOption}
+              >
                 Min: {price}
               </option>
             ))}
           </select>
-          <Icon icon="mi:switch" className="w-6 h-6 flex-shrink-0" />
+          <Icon
+            icon="mi:switch"
+            className="w-6 h-6 flex-shrink-0 cursor-default"
+          />
           <select
             value={selectedMaxPriceOption}
-            onChange={(e) => setSelectedMaxPriceOption(Number(e.target.value))}
-            className="bg-custom-bg-light text-custom-black rounded-lg outline outline-1 outline-custom-black px-4 py-2 w-full"
+            onChange={(e) => handleMaxPriceChange(Number(e.target.value))}
+            className="cursor-pointer bg-custom-bg-light text-custom-black rounded-lg outline outline-1 outline-custom-black px-4 py-2 w-full"
           >
             {PriceRange.max.map((price) => (
-              <option key={price} value={price}>
+              <option
+                key={price}
+                value={price}
+                disabled={price <= selectedMinPriceOption}
+              >
                 Max: {price}
               </option>
             ))}
@@ -143,12 +172,14 @@ const FilterOption = ({
             setSelectedTypeOption(typeFilterOptions[0]?.name);
             setSelectedCategoryOption(categoryFilterOptions[0]?.name);
             setSelectedMinPriceOption(PriceRange.min[0]);
-            setSelectedMaxPriceOption(PriceRange.max[0]);
+            setSelectedMaxPriceOption(
+              PriceRange.max[PriceRange.max.length - 1]
+            );
             onFilterSubmit({
               type: typeFilterOptions[0]?.name,
               category: categoryFilterOptions[0]?.name,
               minPrice: PriceRange.min[0],
-              maxPrice: PriceRange.max[0],
+              maxPrice: PriceRange.max[PriceRange.max.length - 1],
             });
             onClear();
           }}
