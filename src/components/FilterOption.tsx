@@ -138,7 +138,7 @@ const FilterOption = ({
                 value={price}
                 disabled={price >= selectedMaxPriceOption}
               >
-                Min: {price}
+                Min: &#8377;{price}
               </option>
             ))}
           </select>
@@ -157,7 +157,7 @@ const FilterOption = ({
                 value={price}
                 disabled={price <= selectedMinPriceOption}
               >
-                Max: {price}
+                Max: &#8377;{price}
               </option>
             ))}
           </select>

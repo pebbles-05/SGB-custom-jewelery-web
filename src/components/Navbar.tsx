@@ -119,31 +119,33 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
               <Icon icon="healthicons:magnifying-glass" className="w-8 h-8" />
             </button>
           </form>
-          <div
-            onClick={() => setisFilterOpen(true)}
-            className="hover:text-custom-golden cursor-pointer"
-          >
-            <Icon icon="mage:filter" className="w-8 h-8" />
-            <Modal
-              isOpen={isFilterOpen}
-              onClickOutside={() => setisFilterOpen(false)}
-              containerClass=""
+          {!pathname?.startsWith("/store/") ? (
+            <div
+              onClick={() => setisFilterOpen(true)}
+              className="hover:text-custom-golden cursor-pointer"
             >
-              <FilterOption
-                onFilterSubmit={(options) => {
-                  handleFilterChange(null, options);
-                  setisFilterOpen(false);
-                }}
-                onClear={() => {
-                  setisFilterOpen(false);
-                }}
-                selectedType={type}
-                selectedCategory={category}
-                selectedMaxPrice={maxPrice}
-                selectedMinPrice={minPrice}
-              />
-            </Modal>
-          </div>
+              <Icon icon="mage:filter" className="w-8 h-8" />
+              <Modal
+                isOpen={isFilterOpen}
+                onClickOutside={() => setisFilterOpen(false)}
+                containerClass=""
+              >
+                <FilterOption
+                  onFilterSubmit={(options) => {
+                    handleFilterChange(null, options);
+                    setisFilterOpen(false);
+                  }}
+                  onClear={() => {
+                    setisFilterOpen(false);
+                  }}
+                  selectedType={type}
+                  selectedCategory={category}
+                  selectedMaxPrice={maxPrice}
+                  selectedMinPrice={minPrice}
+                />
+              </Modal>
+            </div>
+          ) : null}
         </div>
       )}
       <Link

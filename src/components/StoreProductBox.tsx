@@ -7,6 +7,7 @@ const StoreProductBox = ({ id, name, price, img }: StoreProductBox) => {
   return (
     <Link
       href={`/store/${id}`}
+      target="_blank"
       className="cursor-pointer flex flex-col gap-2 text-2xl group"
     >
       <div className="relative  rounded-lg overflow-hidden shadow-2xl">

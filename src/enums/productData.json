@@ -21,7 +21,7 @@
     "relatedImages": [
       "https://picsum.photos/id/236/200",
       "https://picsum.photos/id/14/200",
-      "https://picsum.photos/id/236/200"
+      "https://picsum.photos/id/15/200"
     ],
     "name": "Classic Silver Necklace",
     "description": "A classic silver necklace for everyday wear.",
@@ -37,9 +37,9 @@
     "relatedImages": [
       "https://picsum.photos/id/235/200",
       "https://picsum.photos/id/17/200",
-      "https://picsum.photos/id/16/200"
+      "https://picsum.photos/id/18/200"
     ],
-    "https://picsum.photos/id/16/200": "Oxidized Diamond Necklace",
+    "name": "Oxidized Diamond Necklace",
     "description": "A stunning oxidized diamond necklace.",
     "price": 220,
     "type": "Oxidised",
@@ -55,9 +55,9 @@
       "https://picsum.photos/id/20/200",
       "https://picsum.photos/id/21/200"
     ],
-    "https://picsum.photos/id/21/200": "Modern Hoop Earring",
+    "name": "Modern Hoop Earring",
     "description": "A trendy hoop earring perfect for casual wear.",
-    "https://picsum.photos/id/21/200": 130,
+    "price": 130,
     "type": "Clay",
     "category": "Earring",
     "order": 40,

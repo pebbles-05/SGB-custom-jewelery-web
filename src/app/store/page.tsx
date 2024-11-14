@@ -4,24 +4,43 @@ import type { Product, SelectedFilteredData } from "@/interface/interfaces";
 import StoreProductBox from "@/components/StoreProductBox";
 import { getProductList } from "@/helpers/getProductList";
 import { useSearchParams } from "next/navigation";
+import StoreStatusBar from "@/components/StoreStatusBar";
+import {
+  CategoryFilterOption,
+  PriceRange,
+  TypeFilterOption,
+} from "@/enums/enums";
 
 const Store: React.FC = () => {
   const searchParams = useSearchParams();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [type, setType] = useState(TypeFilterOption[0]?.name);
+  const [category, setCategory] = useState(CategoryFilterOption[0]?.name);
+  const [minPrice, setMinPrice] = useState(PriceRange.min[0]);
+  const [maxPrice, setMaxPrice] = useState(
+    PriceRange.max[PriceRange.max.length - 1]
+  );
 
   const getFilterOptionsFromURL = (): SelectedFilteredData => {
     return {
       search: searchParams.get("search") || "",
-      type: searchParams.get("type") || "",
-      category: searchParams.get("category") || "",
-      minPrice: parseFloat(searchParams.get("minPrice") || "0"),
-      maxPrice: parseFloat(searchParams.get("maxPrice") || "Infinity"),
+      type: searchParams.get("type") || TypeFilterOption[0]?.name,
+      category: searchParams.get("category") || CategoryFilterOption[0]?.name,
+      minPrice: parseFloat(searchParams.get("minPrice") || PriceRange.min[0]),
+      maxPrice: parseFloat(
+        searchParams.get("maxPrice") ||
+          PriceRange.max[PriceRange.max.length - 1]
+      ),
     };
   };
 
   useEffect(() => {
     const fetchFilteredProducts = async () => {
       const filterOptions = getFilterOptionsFromURL();
+      setType(filterOptions.type);
+      setCategory(filterOptions.category);
+      setMinPrice(filterOptions.minPrice);
+      setMaxPrice(filterOptions.maxPrice);
       const filteredData = await getProductList(filterOptions);
       setFilteredProducts(filteredData);
     };
@@ -31,16 +50,24 @@ const Store: React.FC = () => {
 
   if (filteredProducts?.length) {
     return (
-      <div className="px-16 py-8 grid gap-14 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-        {filteredProducts.map((product) => (
-          <StoreProductBox
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            img={product.img}
-            price={product.price}
-          />
-        ))}
+      <div className="w-full flex flex-col gap-8 px-16 py-8">
+        <StoreStatusBar
+          type={type}
+          category={category}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+        />
+        <div className="grid gap-14 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+          {filteredProducts.map((product) => (
+            <StoreProductBox
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              img={product.img}
+              price={product.price}
+            />
+          ))}
+        </div>
       </div>
     );
   } else {

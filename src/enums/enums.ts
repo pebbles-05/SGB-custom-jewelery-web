@@ -94,6 +94,24 @@ const QueryParameter: QueryParameter = {
   MIN_PRICE: "minPrice",
   MAX_PRICE: "maxPrice",
 };
+const SortingOptions = [
+  {
+    id: uuid4(),
+    name: "Newer",
+  },
+  {
+    id: uuid4(),
+    name: "Older",
+  },
+  {
+    id: uuid4(),
+    name: "Price Accending",
+  },
+  {
+    id: uuid4(),
+    name: "Price Decending",
+  },
+];
 
 export {
   NavbarOptions,
@@ -102,4 +120,5 @@ export {
   productData,
   PriceRange,
   QueryParameter,
+  SortingOptions,
 };
