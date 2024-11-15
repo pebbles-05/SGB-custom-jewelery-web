@@ -173,12 +173,12 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center items-center"
+      className="fixed inset-0 bg-black bg-opacity-75 z-50 flex justify-center  xs:items-center w-full h-full"
       onClick={handleOverlayClick} // Close the modal if you click outside
     >
       <div
         id="Modalimg"
-        className="relative w-full md:max-w-[60%] max-w-[80%]  rounded-lg overflow-hidden"
+        className="relative w-full md:max-w-[40%] max-w-[80%] md:max-h-[80%] max-h-[60%] top-[30%] rounded-lg overflow-hidden"
       >
         {/* Main Image Slider */}
         <Swiper
