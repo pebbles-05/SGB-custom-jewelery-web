@@ -2,7 +2,12 @@ import type { StoreProductBox } from "@/interface/interfaces";
 import { Icon } from "@iconify/react/dist/iconify.cjs";
 import Image from "next/image";
 import Link from "next/link";
+import { Cinzel_Decorative } from '@next/font/google';
 
+const cinzelDecorative = Cinzel_Decorative({
+  weight: ['400', '700'], // Choose the font weights you need
+  subsets: ['latin'],     // Include subsets (default is 'latin')
+});
 const StoreProductBox = ({ id, name, price, img }: StoreProductBox) => {
   return (
     <Link
@@ -23,8 +28,8 @@ const StoreProductBox = ({ id, name, price, img }: StoreProductBox) => {
         <Image loading="lazy" src={img} alt="" width={500} height={500} />
       </div>
       <div className="flex flex-col text-custom-fg-light" title={name}>
-        <span className="truncate">{name}</span>
-        <span className="text-custom-black">&#8377;{price}</span>
+        <span className={`truncate ${cinzelDecorative.className}`}>{name}</span>
+        <span className="text-custom-black font-sans">&#8377;{price}</span>
       </div>
     </Link>
   );

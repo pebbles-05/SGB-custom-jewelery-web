@@ -22,7 +22,7 @@ const Hero = () => {
   return (
     <div className=" w-full h-[80vh] overflow-hidden relative flex items-center text-custom-bg-light">
       <div className="text-5xl flex flex-col ml-16 gap-8 justify-start items-start">
-        <span className="shiny-text">
+        <button className="shiny-text">
           <span
             className="shiny-letter"
             style={{ animationDelay: `${0 * 0.2}s` }}
@@ -83,7 +83,7 @@ const Hero = () => {
           >
             ক্স
           </span>
-        </span>
+        </button>
         {/* <span >শ্রেয়সীর গয়নার বাক্স</span> */}
         {/* <span className="Hero-name">শ্রেয়সীর গয়নার বাক্স</span> */}
         <span className="text-3xl text-custom-bg-light/60">

@@ -55,31 +55,21 @@ const Catagory = () => {
   ];
 
   useGSAP(() => {
-    gsap.fromTo(
-      "#hdng",
-      {
-        opacity: 0,
-        x: -500,
+    gsap.fromTo("#hdng", { opacity: 0, x: 40 }, {
+      scrollTrigger: {
+        trigger: "#hdngdiv",
+        toggleActions: "restart reverse restart reverse",
+        start: "top 50%",
       },
-      {
-        scrollTrigger: {
-          trigger: "#hdngdiv",
-          toggleActions: "restart reverse restart reverse",
-          // start: "top 80%",
-          //   end: "bottom 2",
-        },
-        opacity: 1,
-        x: 0,
-        duration: 0.5,
-        ease: "power2.out",
-        stagger: 0.2, // No delay between images; all animate together
-      }
-    );
+      opacity: 1,
+      x: 0,
+    });
   });
+  
 
   return (
     <div id="hdngdiv" className="flex w-screen flex-col items-center justify-center gap-14 px-16 py-28">
-      <span id="hdng" className="text-4xl text-custom-fg-light">
+      <span id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">
         Browse through the catagories
       </span>
       <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-8 w-full">

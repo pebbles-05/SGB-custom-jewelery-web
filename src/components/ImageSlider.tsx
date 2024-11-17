@@ -250,7 +250,7 @@ const ImageSlider = () => {
     //     ))}
     //   </div>
     <div id="imgsldb" className="w-full h-[70vh] px-8 md:px-12 md:my-16 overflow-hidden bg-custom-bg-light relative ">
-      <h2 id="hdng" className="text-5xl relative  z-50 text-custom-fg-light p-4 text-center">Work Gallery</h2>
+      <h2 id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">Work Gallery</h2>
       {/* <div
         ref={imageSliderRef}
         className="flex flex-col items-center gap-4 max-h-[80%] w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hiden "

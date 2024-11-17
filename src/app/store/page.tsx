@@ -50,7 +50,7 @@ const Store: React.FC = () => {
 
   if (filteredProducts?.length) {
     return (
-      <div className="w-full flex flex-col gap-8 px-16 py-8">
+      <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
         <StoreStatusBar
           type={type}
           category={category}
