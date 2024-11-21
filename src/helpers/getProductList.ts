@@ -49,15 +49,12 @@ const getProductList = async (
       const dateB = new Date(b.date.split("/").reverse().join("-"));
       return dateA.getTime() - dateB.getTime();
     } else if (sortingOption === SortingOptions[2].name) {
-      console.log({ sortOrder: sortingOption });
-
       return a.price - b.price;
     } else if (sortingOption === SortingOptions[3].name) {
       return b.price - a.price;
     }
     return 0;
   });
-  console.log(options);
 
   return sortedData;
 };

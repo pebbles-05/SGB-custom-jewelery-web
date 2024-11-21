@@ -30,9 +30,9 @@ const Store: React.FC = () => {
         searchParams.get(QueryParameter.MAX_PRICE) ||
           PriceRange.max[PriceRange.max.length - 1]
       ),
-      sortingOption: searchParams.get(
-        QueryParameter.SORTING_OPTION || SortingOptions[0].name
-      ),
+      sortingOption:
+        searchParams.get(QueryParameter.SORTING_OPTION) ||
+        SortingOptions[0].name,
     };
   };
 
@@ -40,6 +40,7 @@ const Store: React.FC = () => {
     const fetchFilteredProducts = async () => {
       const filterOptions = getFilterOptionsFromURL();
       const filteredData = await getProductList(filterOptions);
+
       setFilteredProducts(filteredData);
     };
 
