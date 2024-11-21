@@ -56,6 +56,7 @@ interface SelectedFilteredData {
   category: string;
   minPrice: number;
   maxPrice: number;
+  sortingOption?: string;
 }
 interface PriceRange {
   min: number[];
@@ -67,6 +68,7 @@ interface QueryParameter {
   CATEGORY: string;
   MIN_PRICE: string;
   MAX_PRICE: string;
+  SORTING_OPTION: string;
 }
 export type {
   Product,

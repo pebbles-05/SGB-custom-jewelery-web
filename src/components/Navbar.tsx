@@ -1,80 +1,33 @@
 "use client";
-import {
-  CategoryFilterOption,
-  NavbarOptions,
-  PriceRange,
-  QueryParameter,
-  TypeFilterOption,
-} from "@/enums/enums";
-import type {
-  NavbarOption,
-  SelectedFilteredData,
-} from "@/interface/interfaces";
+import { NavbarOptions, QueryParameter } from "@/enums/enums";
+import type { NavbarOption } from "@/interface/interfaces";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import FilterOption from "./FilterOption";
-import Modal from "./Modal";
 
 const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [isFilterOpen, setisFilterOpen] = useState(false);
-  const [type, setType] = useState(TypeFilterOption[0]?.name);
-  const [category, setCategory] = useState(CategoryFilterOption[0]?.name);
   const [searchTerm, setSearchTerm] = useState("");
-  const [minPrice, setMinPrice] = useState(PriceRange.min[0]);
-  const [maxPrice, setMaxPrice] = useState(
-    PriceRange.max[PriceRange.max.length - 1]
-  );
 
   useEffect(() => {
-    if (searchParams) {
-      setType(
-        searchParams.get(QueryParameter.TYPE) || TypeFilterOption[0]?.name
-      );
-      setCategory(
-        searchParams.get(QueryParameter.CATEGORY) ||
-          CategoryFilterOption[0]?.name
-      );
-      setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
-      setMinPrice(
-        searchParams.get(QueryParameter.MIN_PRICE) || PriceRange.min[0]
-      );
-      setMaxPrice(
-        searchParams.get(QueryParameter.MAX_PRICE) ||
-          PriceRange.max[PriceRange.max.length - 1]
-      );
-    }
+    setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
   }, [pathname, searchParams]);
 
-  const handleFilterChange = (
-    e?: React.FormEvent | null | undefined,
-    options?: SelectedFilteredData | null | undefined
-  ): void => {
-    if (e) {
-      e.preventDefault();
-    }
-    const queryParams = new URLSearchParams();
-    if (searchTerm) queryParams.set(QueryParameter.SEARCH, searchTerm);
-    if (options) {
-      queryParams.set(QueryParameter.TYPE, options?.type);
-      queryParams.set(QueryParameter.CATEGORY, options?.category);
-      queryParams.set(QueryParameter.MIN_PRICE, options?.minPrice.toString());
-      queryParams.set(QueryParameter.MAX_PRICE, options?.maxPrice.toString());
+  const handleFilterChange = (e?: React.FormEvent | null | undefined): void => {
+    e.preventDefault();
+    const currentQueryParams = new URLSearchParams(
+      window.location.search || ""
+    );
+    if (searchTerm) {
+      currentQueryParams.set(QueryParameter.SEARCH, searchTerm);
     } else {
-      if (type) queryParams.set(QueryParameter.TYPE, type);
-      if (category) queryParams.set(QueryParameter.CATEGORY, category);
-      if (minPrice)
-        queryParams.set(QueryParameter.MIN_PRICE, minPrice.toString());
-      if (maxPrice)
-        queryParams.set(QueryParameter.MAX_PRICE, maxPrice.toString());
+      currentQueryParams.delete(QueryParameter.SEARCH);
     }
-
-    router.push(`/store?${queryParams.toString()}`);
+    router.push(`/store?${currentQueryParams.toString()}`);
   };
 
   return (
@@ -119,33 +72,6 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
               <Icon icon="healthicons:magnifying-glass" className="w-8 h-8" />
             </button>
           </form>
-          {!pathname?.startsWith("/store/") ? (
-            <div
-              onClick={() => setisFilterOpen(true)}
-              className="hover:text-custom-golden cursor-pointer"
-            >
-              <Icon icon="mage:filter" className="w-8 h-8" />
-              <Modal
-                isOpen={isFilterOpen}
-                onClickOutside={() => setisFilterOpen(false)}
-                containerClass=""
-              >
-                <FilterOption
-                  onFilterSubmit={(options) => {
-                    handleFilterChange(null, options);
-                    setisFilterOpen(false);
-                  }}
-                  onClear={() => {
-                    setisFilterOpen(false);
-                  }}
-                  selectedType={type}
-                  selectedCategory={category}
-                  selectedMaxPrice={maxPrice}
-                  selectedMinPrice={minPrice}
-                />
-              </Modal>
-            </div>
-          ) : null}
         </div>
       )}
       <Link

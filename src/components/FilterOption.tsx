@@ -169,17 +169,11 @@ const FilterOption = ({
         <button
           type="button"
           onClick={() => {
-            setSelectedTypeOption(typeFilterOptions[0]?.name);
-            setSelectedCategoryOption(categoryFilterOptions[0]?.name);
-            setSelectedMinPriceOption(PriceRange.min[0]);
-            setSelectedMaxPriceOption(
-              PriceRange.max[PriceRange.max.length - 1]
-            );
             onFilterSubmit({
-              type: typeFilterOptions[0]?.name,
-              category: categoryFilterOptions[0]?.name,
-              minPrice: PriceRange.min[0],
-              maxPrice: PriceRange.max[PriceRange.max.length - 1],
+              type: "",
+              category: "",
+              minPrice: 0,
+              maxPrice: 0,
             });
             onClear();
           }}

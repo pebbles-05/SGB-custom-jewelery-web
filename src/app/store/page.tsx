@@ -47,16 +47,15 @@ const Store: React.FC = () => {
 
     fetchFilteredProducts();
   }, [searchParams]);
-
-  if (filteredProducts?.length) {
-    return (
-      <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
-        <StoreStatusBar
-          type={type}
-          category={category}
-          minPrice={minPrice}
-          maxPrice={maxPrice}
-        />
+  return (
+    <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
+      <StoreStatusBar
+        type={type}
+        category={category}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+      />
+      {filteredProducts?.length ? (
         <div className="grid gap-14 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
           {filteredProducts.map((product) => (
             <StoreProductBox
@@ -68,15 +67,13 @@ const Store: React.FC = () => {
             />
           ))}
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="w-full h-[calc(100vh-80px)] flex items-center justify-center text-2xl text-custom-black/50">
-        No Products have matched the filter
-      </div>
-    );
-  }
+      ) : (
+        <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
+          No Products have matched the filter
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Store;

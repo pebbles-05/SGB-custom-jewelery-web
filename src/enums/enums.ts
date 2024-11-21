@@ -93,6 +93,7 @@ const QueryParameter: QueryParameter = {
   CATEGORY: "category",
   MIN_PRICE: "minPrice",
   MAX_PRICE: "maxPrice",
+  SORTING_OPTION: "sorting_option",
 };
 const SortingOptions = [
   {

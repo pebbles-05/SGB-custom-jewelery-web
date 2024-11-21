@@ -1,23 +1,117 @@
-import { SortingOptions } from "@/enums/enums";
+import {
+  CategoryFilterOption,
+  PriceRange,
+  QueryParameter,
+  TypeFilterOption,
+  SortingOptions,
+} from "@/enums/enums";
 import type { SelectedFilteredData } from "@/interface/interfaces";
-import React, { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import FilterOption from "./FilterOption";
+import Modal from "./Modal";
 
-const StoreStatusBar = ({
-  type,
-  category,
-  minPrice,
-  maxPrice,
-  sortingOption = SortingOptions[0].name,
-}: SelectedFilteredData & { sortingOption: string }) => {
-  const [selectedSortingOption, setselectedSortingOption] =
-    useState(sortingOption);
+const StoreStatusBar = () => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isFilterOpen, setisFilterOpen] = useState(false);
+  const [type, setType] = useState<string>(TypeFilterOption[0]?.name);
+  const [category, setCategory] = useState<string>(
+    CategoryFilterOption[0]?.name
+  );
+  const [minPrice, setMinPrice] = useState<number | string>(PriceRange.min[0]);
+  const [maxPrice, setMaxPrice] = useState<number | string>(
+    PriceRange.max[PriceRange.max.length - 1]
+  );
+  const [selectedSortingOption, setselectedSortingOption] = useState(
+    SortingOptions[0].name
+  );
+
+  useEffect(() => {
+    if (searchParams) {
+      setselectedSortingOption(
+        searchParams.get(QueryParameter.SORTING_OPTION) ||
+          SortingOptions[0].name
+      );
+      setType(
+        searchParams.get(QueryParameter.TYPE) || TypeFilterOption[0]?.name
+      );
+      setCategory(
+        searchParams.get(QueryParameter.CATEGORY) ||
+          CategoryFilterOption[0]?.name
+      );
+      setMinPrice(
+        searchParams.get(QueryParameter.MIN_PRICE) || PriceRange.min[0]
+      );
+      setMaxPrice(
+        searchParams.get(QueryParameter.MAX_PRICE) ||
+          PriceRange.max[PriceRange.max.length - 1]
+      );
+    }
+  }, [pathname, searchParams]);
+
+  const handleFilterChange = (
+    options?: SelectedFilteredData | null | undefined
+  ): void => {
+    const currentQueryParams = new URLSearchParams(
+      window.location.search || ""
+    );
+
+    if (options?.sortingOption) {
+      currentQueryParams.set(
+        QueryParameter.SORTING_OPTION,
+        options.sortingOption
+      );
+    } else {
+      currentQueryParams.delete(QueryParameter.SORTING_OPTION);
+    }
+    if (options?.type) {
+      currentQueryParams.set(QueryParameter.TYPE, options.type);
+    } else {
+      currentQueryParams.delete(QueryParameter.TYPE);
+    }
+
+    if (options?.category) {
+      currentQueryParams.set(QueryParameter.CATEGORY, options.category);
+    } else {
+      currentQueryParams.delete(QueryParameter.CATEGORY);
+    }
+
+    if (options?.minPrice) {
+      currentQueryParams.set(
+        QueryParameter.MIN_PRICE,
+        options.minPrice.toString()
+      );
+    } else {
+      currentQueryParams.delete(QueryParameter.MIN_PRICE);
+    }
+
+    if (options?.maxPrice) {
+      currentQueryParams.set(
+        QueryParameter.MAX_PRICE,
+        options.maxPrice.toString()
+      );
+    } else {
+      currentQueryParams.delete(QueryParameter.MAX_PRICE);
+    }
+    router.push(`/store?${currentQueryParams.toString()}`);
+  };
   return (
     <div className="w-full h-max flex text-base gap-2 flex-wrap">
       {SortingOptions?.length ? (
         <div className="relative w-max h-max after:content-['🞃'] after:absolute after:right-4 after:top-1/2 after:transform after:-translate-y-1/2">
           <select
             value={selectedSortingOption}
-            onChange={(e) => setselectedSortingOption(e.target.value)}
+            onChange={(e) =>
+              handleFilterChange({
+                sortingOption: e.target.value,
+                type: "",
+                category: "",
+                minPrice: 0,
+                maxPrice: 0,
+              })
+            }
             className="pl-4 pr-10 py-2 rounded-lg outline outline-1 outline-custom-black "
           >
             {SortingOptions.map((option) => {
@@ -31,20 +125,49 @@ const StoreStatusBar = ({
         </div>
       ) : null}
       {type ? (
-        <div className="px-4 py-2 rounded-lg outline outline-1 outline-custom-black">
+        <button
+          onClick={() => setisFilterOpen(true)}
+          className="px-4 py-2 rounded-lg outline outline-1 outline-custom-black"
+        >
           Type: {type}
-        </div>
+        </button>
       ) : null}
       {category ? (
-        <div className="px-4 py-2 rounded-lg outline outline-1 outline-custom-black">
+        <button
+          onClick={() => setisFilterOpen(true)}
+          className="px-4 py-2 rounded-lg outline outline-1 outline-custom-black"
+        >
           Category: {category}
-        </div>
+        </button>
       ) : null}
       {minPrice && maxPrice ? (
-        <div className="px-4 py-2 rounded-lg outline outline-1 outline-custom-black">
+        <button
+          onClick={() => setisFilterOpen(true)}
+          className="px-4 py-2 rounded-lg outline outline-1 outline-custom-black"
+        >
           Price : &#8377;{minPrice} - &#8377;{maxPrice}
-        </div>
+        </button>
       ) : null}
+      <Modal
+        isOpen={isFilterOpen}
+        onClickOutside={() => setisFilterOpen(false)}
+        containerClass=""
+      >
+        <FilterOption
+          containerClass=""
+          onFilterSubmit={(options) => {
+            handleFilterChange(null, options);
+            setisFilterOpen(false);
+          }}
+          onClear={() => {
+            setisFilterOpen(false);
+          }}
+          selectedType={type}
+          selectedCategory={category}
+          selectedMaxPrice={maxPrice}
+          selectedMinPrice={minPrice}
+        />
+      </Modal>
     </div>
   );
 };
