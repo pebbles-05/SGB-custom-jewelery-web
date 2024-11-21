@@ -1,4 +1,5 @@
 // import Catagory from "@/components/Catagory";
+import Bg from "@/components/Bg";
 import Catagory from "@/components/Catagory";
 import Hero from "@/components/Hero";
 import HorizontalScrollComponent from "@/components/HorizontalScrollComponent";
@@ -29,6 +30,7 @@ export default function Home() {
         </div>
       </div>
       <Catagory />
+      <Bg />
     </div>
   );
 }
