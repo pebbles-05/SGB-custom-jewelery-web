@@ -58,7 +58,10 @@ const StoreStatusBar = () => {
       window.location.search || ""
     );
 
-    if (options?.sortingOption) {
+    if (
+      options?.sortingOption &&
+      options?.sortingOption !== SortingOptions[0].name
+    ) {
       currentQueryParams.set(
         QueryParameter.SORTING_OPTION,
         options.sortingOption
@@ -66,19 +69,22 @@ const StoreStatusBar = () => {
     } else {
       currentQueryParams.delete(QueryParameter.SORTING_OPTION);
     }
-    if (options?.type) {
+    if (options?.type && options?.type !== TypeFilterOption[0].name) {
       currentQueryParams.set(QueryParameter.TYPE, options.type);
     } else {
       currentQueryParams.delete(QueryParameter.TYPE);
     }
 
-    if (options?.category) {
+    if (
+      options?.category &&
+      options?.category !== CategoryFilterOption[0].name
+    ) {
       currentQueryParams.set(QueryParameter.CATEGORY, options.category);
     } else {
       currentQueryParams.delete(QueryParameter.CATEGORY);
     }
 
-    if (options?.minPrice) {
+    if (options?.minPrice && options?.minPrice !== PriceRange.min[0]) {
       currentQueryParams.set(
         QueryParameter.MIN_PRICE,
         options.minPrice.toString()
@@ -87,7 +93,10 @@ const StoreStatusBar = () => {
       currentQueryParams.delete(QueryParameter.MIN_PRICE);
     }
 
-    if (options?.maxPrice) {
+    if (
+      options?.maxPrice &&
+      options?.maxPrice !== PriceRange.max[PriceRange.max?.length - 1]
+    ) {
       currentQueryParams.set(
         QueryParameter.MAX_PRICE,
         options.maxPrice.toString()
@@ -106,10 +115,16 @@ const StoreStatusBar = () => {
             onChange={(e) =>
               handleFilterChange({
                 sortingOption: e.target.value,
-                type: "",
-                category: "",
-                minPrice: 0,
-                maxPrice: 0,
+                type:
+                  searchParams.get(QueryParameter.TYPE) ||
+                  TypeFilterOption[0]?.name,
+                category:
+                  searchParams.get(QueryParameter.CATEGORY) ||
+                  CategoryFilterOption[0]?.name,
+                minPrice: searchParams.get(QueryParameter.MIN_PRICE),
+                maxPrice:
+                  searchParams.get(QueryParameter.MAX_PRICE) ||
+                  PriceRange.max[PriceRange.max.length - 1],
               })
             }
             className="pl-4 pr-10 py-2 rounded-lg outline outline-1 outline-custom-black "
@@ -156,7 +171,7 @@ const StoreStatusBar = () => {
         <FilterOption
           containerClass=""
           onFilterSubmit={(options) => {
-            handleFilterChange(null, options);
+            handleFilterChange(options);
             setisFilterOpen(false);
           }}
           onClear={() => {

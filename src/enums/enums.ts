@@ -1,9 +1,8 @@
 import type {
-  CategoryFilterOption,
+  FilterOption,
   NavbarOption,
   PriceRange,
   QueryParameter,
-  TypeFilterOption,
 } from "@/interface/interfaces";
 import { v4 as uuid4 } from "uuid";
 const NavbarOptions: NavbarOption[] = [
@@ -39,7 +38,7 @@ const productData = {
   price: 99.99,
 };
 
-const TypeFilterOption: TypeFilterOption[] = [
+const TypeFilterOption: FilterOption[] = [
   {
     id: uuid4(),
     name: "All",
@@ -57,7 +56,7 @@ const TypeFilterOption: TypeFilterOption[] = [
     name: "Oxidised",
   },
 ];
-const CategoryFilterOption: CategoryFilterOption[] = [
+const CategoryFilterOption: FilterOption[] = [
   {
     id: uuid4(),
     name: "All",
@@ -95,7 +94,7 @@ const QueryParameter: QueryParameter = {
   MAX_PRICE: "maxPrice",
   SORTING_OPTION: "sorting_option",
 };
-const SortingOptions = [
+const SortingOptions: FilterOption[] = [
   {
     id: uuid4(),
     name: "Newer",

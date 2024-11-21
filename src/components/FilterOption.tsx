@@ -3,9 +3,12 @@ import React, { useState, useEffect } from "react";
 import {
   CategoryFilterOption,
   PriceRange,
+  QueryParameter,
+  SortingOptions,
   TypeFilterOption,
 } from "@/enums/enums";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useSearchParams } from "next/navigation";
 
 const FilterOption = ({
   onFilterSubmit,
@@ -25,6 +28,7 @@ const FilterOption = ({
     useState(selectedMinPrice);
   const [selectedMaxPriceOption, setSelectedMaxPriceOption] =
     useState(selectedMaxPrice);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     setSelectedTypeOption(selectedType);
@@ -40,7 +44,11 @@ const FilterOption = ({
       category: selectedCategoryOption,
       maxPrice: selectedMaxPriceOption,
       minPrice: selectedMinPriceOption,
+      sortingOption:
+        searchParams.get(QueryParameter.SORTING_OPTION) ||
+        SortingOptions[0]?.name,
     };
+
     onFilterSubmit(selectedFilteredData);
   };
 
@@ -174,6 +182,7 @@ const FilterOption = ({
               category: "",
               minPrice: 0,
               maxPrice: 0,
+              sortigOption: "",
             });
             onClear();
           }}
