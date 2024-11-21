@@ -193,7 +193,7 @@ const HorizontalScrollComponent = () => {
     });
   });
   return (
-    <section className="py-16 bg-custom-bg-light">
+    <section className="py-16 ">
       <div className="container mx-auto px-4">
         <h2 id="hdngg" className="text-4xl font-bold text-center mb-12 text-gray-800">
           About us

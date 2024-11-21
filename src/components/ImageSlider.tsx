@@ -177,7 +177,7 @@ const ImageSlider = () => {
 
   // Mobile Layout with Enhanced Effects
   const MobileLayout = () => (
-    <div id="imgsld" className="w-full h-[50vh] md:h-screen px-8 overflow-hidden bg-custom-bg-light relative ">
+    <div id="imgsld" className="w-full h-[50vh] md:h-screen px-8 overflow-hidden  relative ">
       <h2 id="hdng" className="text-5xl relative  z-50 text-custom-fg-light p-4 text-center">Work Gallery</h2>
       {/* <div
         ref={imageSliderRef}
@@ -249,7 +249,7 @@ const ImageSlider = () => {
     //       </div>
     //     ))}
     //   </div>
-    <div id="imgsldb" className="w-full h-[70vh] px-8 md:px-12 md:my-16 overflow-hidden bg-custom-bg-light relative ">
+    <div id="imgsldb" className="w-full h-[70vh] px-8 md:px-12 md:my-16 overflow-hidden  relative ">
       <h2 id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">Work Gallery</h2>
       {/* <div
         ref={imageSliderRef}

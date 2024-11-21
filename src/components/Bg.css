@@ -1,0 +1,282 @@
+@import 'https://fonts.googleapis.com/css?family=Playfair+Display:400,700i,900i';
+* {
+  box-sizing: border-box;
+}
+
+/* body {
+  font-family: "Playfair Display", serif;
+  color: #acaabe;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #3b3d54;
+  font-size: 14px;
+  overflow: hidden;
+} */
+
+/* .wrap {
+  perspective-origin: 50% 50%;
+} */
+
+/* .page {
+  margin: 3%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 1.4vw;
+}
+.page h2 {
+  font-weight: bold;
+  font-size: 6.5vw;
+  font-weight: 900;
+  font-style: italic;
+  color: #dad8ec;
+} */
+
+.svg {
+  opacity: 0.5;
+  /* stroke: #7ceaa4; */
+  position: absolute;
+  bottom: -360vh;
+  transform-style: preserve-3d;
+}
+
+@media (max-width: 768px) {
+  .svg{
+    bottom: -680vh;
+  }
+}
+
+.svg:nth-child(1) {
+  left: 10vw;
+  -webkit-animation: raise1 5s linear infinite;
+          animation: raise1 5s linear infinite;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+  transform: scale(1.5) rotate(285deg);
+  z-index: -106;
+  /* filter: blur(-5px); */
+}
+@-webkit-keyframes raise1 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.5) rotate(152deg);
+  }
+}
+@keyframes raise1 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.5) rotate(152deg);
+  }
+}
+
+.svg:nth-child(2) {
+  left: 47vw;
+  -webkit-animation: raise2 6s linear infinite;
+          animation: raise2 6s linear infinite;
+  -webkit-animation-delay: -3s;
+          animation-delay: -3s;
+  transform: scale(1.3) rotate(261deg);
+  z-index: -105;
+  /* filter: blur(-4px); */
+}
+@-webkit-keyframes raise2 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.3) rotate(76deg);
+  }
+}
+@keyframes raise2 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.3) rotate(76deg);
+  }
+}
+
+.svg:nth-child(3) {
+  left: 52vw;
+  -webkit-animation: raise3 8s linear infinite;
+          animation: raise3 8s linear infinite;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+  transform: scale(1.5) rotate(54deg);
+  z-index: -104;
+  /* filter: blur(-3px); */
+}
+@-webkit-keyframes raise3 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.5) rotate(23deg);
+  }
+}
+@keyframes raise3 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.5) rotate(23deg);
+  }
+}
+
+.svg:nth-child(4) {
+  left: 61vw;
+  -webkit-animation: raise4 12s linear infinite;
+          animation: raise4 12s linear infinite;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+  transform: scale(1.8) rotate(146deg);
+  z-index: -103;
+  /* filter: blur(-2px); */
+}
+@-webkit-keyframes raise4 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.8) rotate(235deg);
+  }
+}
+@keyframes raise4 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.8) rotate(235deg);
+  }
+}
+
+.svg:nth-child(5) {
+  left: 30vw;
+  -webkit-animation: raise5 9s linear infinite;
+          animation: raise5 9s linear infinite;
+  -webkit-animation-delay: -3s;
+          animation-delay: -3s;
+  transform: scale(1.2) rotate(196deg);
+  z-index: -102;
+  /* filter: blur(-1px); */
+}
+@-webkit-keyframes raise5 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.2) rotate(245deg);
+  }
+}
+@keyframes raise5 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.2) rotate(245deg);
+  }
+}
+
+.svg:nth-child(6) {
+  left: 60vw;
+  -webkit-animation: raise6 5s linear infinite;
+          animation: raise6 5s linear infinite;
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+  transform: scale(1.2) rotate(237deg);
+  z-index: -101;
+  /* filter: blur(0px); */
+}
+@-webkit-keyframes raise6 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.2) rotate(60deg);
+  }
+}
+@keyframes raise6 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.2) rotate(60deg);
+  }
+}
+
+.svg:nth-child(7) {
+  left: 81vw;
+  -webkit-animation: raise7 7s linear infinite;
+          animation: raise7 7s linear infinite;
+  -webkit-animation-delay: -3s;
+          animation-delay: -3s;
+  transform: scale(1.5) rotate(49deg);
+  z-index: -103;
+  /* filter: blur(1px); */
+}
+@-webkit-keyframes raise7 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.5) rotate(163deg);
+  }
+}
+@keyframes raise7 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.5) rotate(163deg);
+  }
+}
+
+.svg:nth-child(8) {
+  left: 29vw;
+  -webkit-animation: raise8 7s linear infinite;
+          animation: raise8 7s linear infinite;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  transform: scale(1.8) rotate(181deg);
+  z-index: -101;
+  /* filter: blur(2px); */
+}
+@-webkit-keyframes raise8 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.8) rotate(249deg);
+  }
+}
+@keyframes raise8 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(1.8) rotate(249deg);
+  }
+}
+
+.svg:nth-child(9) {
+  left: 89vw;
+  -webkit-animation: raise9 9s linear infinite;
+          animation: raise9 9s linear infinite;
+  -webkit-animation-delay: -2s;
+          animation-delay: -2s;
+  transform: scale(1.5) rotate(203deg);
+  z-index: -101;
+  /* filter: blur(3px); */
+}
+@-webkit-keyframes raise9 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(2.1) rotate(171deg);
+  }
+}
+@keyframes raise9 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(2.1) rotate(171deg);
+  }
+}
+
+.svg:nth-child(10) {
+  left: 8vw;
+  -webkit-animation: raise10 4s linear infinite;
+          animation: raise10 4s linear infinite;
+  -webkit-animation-delay: -2s;
+          animation-delay: -2s;
+  transform: scale(2.4) rotate(205deg);
+  z-index: -103;
+  /* filter: blur(4px); */
+}
+@-webkit-keyframes raise10 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(2.4) rotate(75deg);
+  }
+}
+@keyframes raise10 {
+  to { opacity:1;
+    bottom: 150vh;
+    transform: scale(2.4) rotate(75deg);
+  }
+}

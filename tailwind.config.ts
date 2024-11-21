@@ -8,6 +8,22 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        'floatingSvg': 'floatingSvg 5s ease-in-out infinite',
+        'blur': 'blurEffect 3s ease-in-out infinite',
+      },
+      keyframes: {
+        floatingSvg: {
+          '0%': { transform: 'translateY(-50px)' },
+          '50%': { transform: 'translateY(50px)' },
+          '100%': { transform: 'translateY(-50px)' },
+        },
+        blurEffect: {
+          '0%': { filter: 'blur(0)' },
+          '50%': { filter: 'blur(5px)' },
+          '100%': { filter: 'blur(0)' },
+        },
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
