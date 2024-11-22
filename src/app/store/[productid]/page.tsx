@@ -16,6 +16,7 @@ import "swiper/css/mousewheel";
 import ImageViewerModal from "@/components/ImageViewerModal"; // Import the ImageViewerModal component
 import { getProduct } from "@/helpers/getProduct";
 import Image from "next/image";
+import { Icon } from "@iconify/react/dist/iconify.cjs";
 
 const ProductPage = ({
   params,
@@ -66,12 +67,16 @@ const ProductPage = ({
     ); // This ensures it loops back to the start/end
   };
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+  const [isCartClicked, setCartClicked] = useState(false);
+
+  // Toggle cart icon visibility and color
+  const toggleCart = () => setCartClicked(!isCartClicked);
   return (
-    <div className="flex xl:px-16 px-2 flex-col md:flex-row h-screen overflow-auto md:py-8 ">
+    <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto ">
       {/* Left Section: Image Swiper */}
       <div
         id="storeImage"
-        className="w-full md:w-1/2 h-1/2 md:h-full bg-custom-bg-light flex flex-col md:justify-normal justify-center  p-4"
+        className="w-full md:w-3/4 h-1/2 md:h-[110vh] bg-custom-bg-light flex flex-col md:justify-normal justify-center  p-4 "
       >
         <Swiper
           style={{
@@ -102,7 +107,7 @@ const ProductPage = ({
             enabled: true,
           }}
           modules={[Keyboard, Mousewheel, Thumbs, FreeMode, Navigation]}
-          className="w-full md:h-3/4 rounded-lg overflow-hidden myswiper2"
+          className="w-full md:h-5/6 rounded-lg overflow-hidden myswiper2"
           onSlideChange={onSlideChange} // Update index on slide change
         >
           {product?.relatedImages?.map((src, index) => (
@@ -130,7 +135,7 @@ const ProductPage = ({
           freeMode={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs, Zoom]}
-          className="mySwiper"
+          className="mySwiper md:h-1/6"
         >
           {product?.relatedImages?.map((image, index) => {
             const loopedIndex = getLoopedIndex(index);
@@ -149,36 +154,51 @@ const ProductPage = ({
           })}
         </Swiper>
       </div>
-
+      <div className="w-px h-full bg-gray-500 hidden md:flex "></div>
       {/* Right Section: Product Details */}
-      <div className="w-full md:w-1/2 flex flex-col  p-6 md:p-8 md:sticky md:justify-normal justify-center md:top-0 gap-y-12">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">{product?.name}</h1>
-        <div className="mb-4">
-          <h2 className="text-3xl font-semibold">Description:</h2>
-          <p className="text-gray-700 text-2xl mt-2">{product?.description}</p>
-          <div className="mt-2 text-xl">
-            <span className="font-semibold text-2xl">Category:</span>{" "}
-            {product?.category}
+      <div className="w-full md:w-1/2 space-y-6 md:sticky top-9 mt-5 md:ml-10">
+        <h1 className="text-4xl font-bold">{product?.name}</h1>
+        <div className="text-2xl font-semibold text-gray-800">
+          &#8377;{product?.price}
+          {product?.discount && (
+            <span className="ml-4 text-xl text-red-600 line-through">
+              &#8377;{product?.originalPrice}
+            </span>
+          )}
+        </div>
+        <div className="space-y-4">
+          <p className="text-gray-700">{product?.description}</p>
+          <div>
+            <span className="font-semibold">Category:</span> {product?.category}
           </div>
-          <div className="text-xl">
-            <span className="font-semibold text-2xl">Type:</span>{" "}
-            {product?.type}
+          <div>
+            <span className="font-semibold">Type:</span> {product?.type}
           </div>
         </div>
-        <div className="flex-row flex gap-2">
-          <div className="font-bold text-3xl">Price: </div>
-          <div className="text-lg md:text-2xl font-bold mb-6 pt-1">
-            &#8377;{product?.price}
-          </div>
-        </div>
-        <div className="flex gap-x-3">
-          <button className="flex md:w-[30%] justify-center items-center text-xl  outline outline-2 outline-transparent hover:outline-current px-4 py-2 rounded-lg   bg-custom-sdbar-light text-custom-black  duration-300 z-10 transition-transform transform hover:scale-105 active:scale-95">
+        <div className="flex gap-4">
+          <button className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition">
             Buy Now
           </button>
-          <button className="flex md:w-[30%] justify-center items-center text-xl  outline outline-2 outline-transparent hover:outline-current px-4 py-2 rounded-lg   bg-custom-sdbar-light text-custom-black  duration-300 z-10 transition-transform transform hover:scale-105 active:scale-95">
+          <button 
+          onClick={(e) => {
+            e.preventDefault(); // Prevent navigation on click
+            toggleCart();
+          }}
+          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition flex items-center gap-2 group">
             Add to Cart
+            <div
+          
+          className={` p-2 rounded-full ${
+            isCartClicked
+              ? "bg-green-500 text-white"
+              : "bg-custom-black/30 text-custom-white"
+          } transition-all duration-300 cursor-pointer z-10 md:hover:ring-2 md:group-hover:ring-green-500 md:group-hover:scale-150 `}
+        >
+          <Icon icon="iconoir:cart" className="md:w-6 md:h-6 w-3 h-3" />
+        </div>
           </button>
         </div>
+        
       </div>
 
       {/* ImageViewerModal for displaying images */}
@@ -193,3 +213,4 @@ const ProductPage = ({
 };
 
 export default ProductPage;
+

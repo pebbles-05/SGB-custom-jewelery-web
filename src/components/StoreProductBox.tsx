@@ -28,19 +28,19 @@
 //       <div className="relative rounded-lg overflow-hidden shadow-2xl">
         
 //         {/* Cart Icon */}
-//         <div
-//           onClick={(e) => {
-//             e.preventDefault(); // Prevent navigation on click
-//             toggleCart();
-//           }}
-//           className={`absolute top-3 right-3 p-2 rounded-full ${
-//             isCartClicked
-//               ? "bg-green-500 text-white"
-//               : "bg-custom-black/30 text-custom-white opacity-0 group-hover:opacity-100"
-//           } transition-all duration-300 cursor-pointer z-10 hover:ring-2 hover:ring-green-500 hover:scale-150`}
-//         >
-//           <Icon icon="iconoir:cart" className="w-6 h-6" />
-//         </div>
+        // <div
+        //   onClick={(e) => {
+        //     e.preventDefault(); // Prevent navigation on click
+        //     toggleCart();
+        //   }}
+        //   className={`absolute top-3 right-3 p-2 rounded-full ${
+        //     isCartClicked
+        //       ? "bg-green-500 text-white"
+        //       : "bg-custom-black/30 text-custom-white opacity-0 group-hover:opacity-100"
+        //   } transition-all duration-300 cursor-pointer z-10 hover:ring-2 hover:ring-green-500 hover:scale-150`}
+        // >
+        //   <Icon icon="iconoir:cart" className="w-6 h-6" />
+        // </div>
 
 //         {/* Hover Overlay */}
 //         <div className="bg-custom-black/30 absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center gap-8 p-4">
@@ -101,10 +101,10 @@ const StoreProductBox = ({ id, name, price, img }: StoreProductBox) => {
           className={`absolute top-3 right-3 p-2 rounded-full ${
             isCartClicked
               ? "bg-green-500 text-white"
-              : "bg-custom-black/30 text-custom-white"
-          } transition-all duration-300 cursor-pointer z-10 md:hover:ring-2 md:hover:ring-green-500 md:hover:scale-110 md:opacity-0 md:group-hover:opacity-100`}
+              : "bg-custom-black/30 text-custom-white opacity-0 group-hover:opacity-100"
+          } transition-all duration-300 cursor-pointer z-10 hover:ring-2 hover:ring-green-500 hover:scale-150`}
         >
-          <Icon icon="iconoir:cart" className="md:w-6 md:h-6 w-3 h-3" />
+          <Icon icon="iconoir:cart" className="w-6 h-6" />
         </div>
 
         {/* Hover Overlay */}
