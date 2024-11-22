@@ -37,21 +37,7 @@ const Catagory = () => {
       bgImage: "https://ik.imagekit.io/leoblaze969/hero-updated-better.JPG",
       pageLink: "https://example.com/nature",
     },
-    {
-      name: "Nature",
-      bgImage: "https://ik.imagekit.io/leoblaze969/hero-updated-better.JPG",
-      pageLink: "https://example.com/nature",
-    },
-    {
-      name: "Nature",
-      bgImage: "https://ik.imagekit.io/leoblaze969/hero-updated-better.JPG",
-      pageLink: "https://example.com/nature",
-    },
-    {
-      name: "Nature",
-      bgImage: "https://ik.imagekit.io/leoblaze969/hero-updated-better.JPG",
-      pageLink: "https://example.com/nature",
-    },
+    
   ];
 
   useGSAP(() => {
@@ -72,7 +58,7 @@ const Catagory = () => {
       <span id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">
         Browse through the catagories
       </span>
-      <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 gap-8 w-full">
+      <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-8 w-full">
         {cardsData.map((card, index) => (
           <CategoricalCard
             key={index}

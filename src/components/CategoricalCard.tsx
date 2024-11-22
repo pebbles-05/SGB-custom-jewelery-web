@@ -18,13 +18,13 @@ const CategoricalCard: React.FC<CategoricalCardProps> = ({
         className="absolute inset-0  brightness-75  group-hover:blur-sm transition-all duration-300 bg-cover bg-center"
         style={{ backgroundImage: `url(${bgImage})` }}
       ></div>
-      <h2 className="text-3xl text-custom-white font-bold z-10 drop-shadow-[0_3px_3px_rgba(0,0,0,0.8)]">
+      <h2 className="md:text-3xl text-xl text-custom-white font-bold z-10 drop-shadow-[0_3px_3px_rgba(0,0,0,0.8)]">
         {name}
       </h2>
       <Link
         href={pageLink}
         rel="noopener noreferrer"
-        className="flex justify-center items-center text-xl w-full outline outline-2 outline-transparent hover:outline-current px-4 py-2 rounded-lg hover:bg-transparent hover:text-custom-white bg-custom-white text-custom-black opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+        className="flex justify-center items-center md:text-xl text-sm w-full outline outline-2 outline-transparent hover:outline-current px-4 py-2 rounded-lg hover:bg-transparent hover:text-custom-white bg-custom-white text-custom-black md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 z-10"
       >
         Explore
       </Link>
