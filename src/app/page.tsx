@@ -4,6 +4,7 @@ import Catagory from "@/components/Catagory";
 import Hero from "@/components/Hero";
 import HorizontalScrollComponent from "@/components/HorizontalScrollComponent";
 import ImageSlider from "@/components/ImageSlider";
+import TestPage from "@/components/TestPage";
 
 export default function Home() {
   return (
@@ -30,6 +31,7 @@ export default function Home() {
         </div>
       </div>
       <Catagory />
+      <TestPage/>
       <Bg />
     </div>
   );

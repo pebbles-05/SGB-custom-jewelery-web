@@ -154,7 +154,7 @@ const ProductPage = ({
           })}
         </Swiper>
       </div>
-      <div className="w-px h-full bg-gray-500 hidden md:flex "></div>
+      {/* <div className="w-px h-full bg-gray-200 hidden md:flex "></div> */}
       {/* Right Section: Product Details */}
       <div className="w-full md:w-1/2 space-y-6 md:sticky top-9 mt-5 md:ml-10">
         <h1 className="text-4xl font-bold">{product?.name}</h1>
@@ -192,7 +192,7 @@ const ProductPage = ({
             isCartClicked
               ? "bg-green-500 text-white"
               : "bg-custom-black/30 text-custom-white"
-          } transition-all duration-300 cursor-pointer z-10 md:hover:ring-2 md:group-hover:ring-green-500 md:group-hover:scale-150 `}
+          } transition-all duration-300 cursor-pointer z-10  md:group-hover:scale-125 `}
         >
           <Icon icon="iconoir:cart" className="md:w-6 md:h-6 w-3 h-3" />
         </div>

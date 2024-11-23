@@ -102,7 +102,7 @@ const StoreProductBox = ({ id, name, price, img }: StoreProductBox) => {
             isCartClicked
               ? "bg-green-500 text-white"
               : "bg-custom-black/30 text-custom-white opacity-0 group-hover:opacity-100"
-          } transition-all duration-300 cursor-pointer z-10 hover:ring-2 hover:ring-green-500 hover:scale-150`}
+          } transition-all duration-300 cursor-pointer z-10  hover:scale-125`}
         >
           <Icon icon="iconoir:cart" className="w-6 h-6" />
         </div>
