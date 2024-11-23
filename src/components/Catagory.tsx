@@ -54,7 +54,7 @@ const Catagory = () => {
   
 
   return (
-    <div id="hdngdiv" className="flex w-screen flex-col items-center justify-center gap-14 px-16 py-28">
+    <div id="hdngdiv" className="flex w-screen flex-col items-center justify-center md:gap-14 md:px-16 py-28">
       <span id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">
         Browse through the catagories
       </span>
