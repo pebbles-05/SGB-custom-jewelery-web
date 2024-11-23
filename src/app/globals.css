@@ -369,3 +369,34 @@ body {
   height: 100vh;
   overflow-y: scroll; /* Enables scrolling */
 }
+
+
+
+
+
+
+
+svg path {
+  fill: transparent;
+  stroke: #fff;
+  stroke-width: 2.0;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: textAnimation 4s ease-in-out 1 forwards ;
+  /* animation-delay: 2s; */
+  z-index: 500;
+  position: absolute;
+  
+}
+@keyframes textAnimation {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  80% {
+    fill: transparent;
+  }
+  100% {
+    fill: #fff;
+    stroke-dashoffset: 0;
+  }
+}
