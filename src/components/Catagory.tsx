@@ -58,7 +58,7 @@ const Catagory = () => {
       <span id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">
         Browse through the catagories
       </span>
-      <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-8 w-full">
+      <div className="grid md:grid-cols-3 grid-cols-2 gap-20  w-4/5">
         {cardsData.map((card, index) => (
           <CategoricalCard
             key={index}

@@ -8,7 +8,7 @@ const TestPage: React.FC = () => {
     { name: "Product 1", price: 200 },
     { name: "Product 2", price: 300 },
   ];
-
+  const [submissionMessage, setSubmissionMessage] = useState("");
   const handleModalSubmit = (emailData: string) => {
     console.log("Email Data:", emailData);
   };
@@ -24,9 +24,13 @@ const TestPage: React.FC = () => {
 
       <ModalForm
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {setIsModalOpen(false)
+            setSubmissionMessage("")
+        }}
         products={products}
         onSubmit={handleModalSubmit}
+        setSubmissionMessage={setSubmissionMessage}
+        SubmissionMessage={submissionMessage}
       />
     </div>
   );

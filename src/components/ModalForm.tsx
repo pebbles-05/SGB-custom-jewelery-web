@@ -101,9 +101,9 @@
 
 //   return (
 //     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
-//       <div className="bg-white bg-opacity-20 rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-white relative min-h-36">
+//       <div className="bg-white bg-opacity-20 rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-black relative min-h-36">
 //       <button
-//               className="absolute top-3 right-3 text-white text-lg font-bold bg-red-500 rounded-full w-8 h-8 flex items-center justify-center"
+//               className="absolute top-3 right-3 text-black text-lg font-bold bg-red-500 rounded-full w-8 h-8 flex items-center justify-center"
 //               onClick={onClose}
 //             >
 //               X
@@ -135,7 +135,7 @@
 //                 placeholder="Name"
 //                 value={formData.name}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //                 required
 //               />
 //               <input
@@ -144,7 +144,7 @@
 //                 placeholder="Phone Number"
 //                 value={formData.phone}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //                 maxLength={10}
 //                 pattern="\d{10}"
 //                 title="Enter a valid 10-digit phone number"
@@ -155,7 +155,7 @@
 //                 placeholder="Address"
 //                 value={formData.address}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //                 required
 //               />
 //               <input
@@ -164,7 +164,7 @@
 //                 placeholder="Pin Code"
 //                 value={formData.pinCode}
 //                 onChange={handlePinCodeChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //                 maxLength={6}
 //                 required
 //               />
@@ -174,7 +174,7 @@
 //                 placeholder="District"
 //                 value={formData.district}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //                 required
 //               />
 //               <input
@@ -183,7 +183,7 @@
 //                 placeholder="State"
 //                 value={formData.state}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //                 required
 //               />
 
@@ -194,7 +194,7 @@
 //                 placeholder="Email ID (optional)"
 //                 value={formData.email}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //               />
 //               <input
 //                 type="text"
@@ -202,7 +202,7 @@
 //                 placeholder="Facebook Profile Link (optional)"
 //                 value={formData.facebook}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //               />
 //               <input
 //                 type="text"
@@ -210,12 +210,12 @@
 //                 placeholder="Instagram Profile Link (optional)"
 //                 value={formData.instagram}
 //                 onChange={handleInputChange}
-//                 className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+//                 className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
 //               />
 
 //               <button
 //                 type="submit"
-//                 className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white"
+//                 className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-black"
 //               >
 //                 Submit
 //               </button>
@@ -230,7 +230,7 @@
 // export default ModalForm;
 
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 
 interface Product {
   name: string;
@@ -244,7 +244,7 @@ interface ModalFormProps {
   onSubmit: (emailData: string) => void;
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubmit }) => {
+const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubmit,setSubmissionMessage,SubmissionMessage }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -257,7 +257,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
     instagram: "",
   });
 
-  const [submissionMessage, setSubmissionMessage] = useState("");
+
 
   const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
 
@@ -328,25 +328,40 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
     onSubmit(emailData);
     setSubmissionMessage("You will be contacted shortly. Thank you and keep shopping!");
   };
-
+  const handleReset = () => {
+    setFormData({
+        name: "",
+        phone: "",
+        address: "",
+        pinCode: "",
+        district: "",
+        state: "",
+        email: "",
+        facebook: "",
+        instagram: "",
+      })
+  };
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
-      <div className="bg-white bg-opacity-20 rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-white relative min-h-36">
+    <div className="inset-0 z-50 flex items-center justify-center bg-custom-bg-light text-lg text-custom-black rounded-lg overflow-auto w-lg h-4/6">
+      <div className="bg-white bg-opacity-20 rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-black relative min-h-36">
+        <div className="mb-5">
+      <button type="button" onClick={handleReset} className="w-2/6 h-1/2 rounded-lg bg-custom-fg-light hover:bg-custom-bg-light border-2 border-custom-fg-light text-custom-white hover:text-custom-fg-light">Reset Form</button>
         <button
-          className="absolute top-3 right-3 text-white text-lg font-bold bg-red-500 rounded-full w-8 h-8 flex items-center justify-center"
+          className="absolute top-3 right-3 text-custom-bg-light text-lg font-bold bg-custom-fg-light rounded-full w-8 h-8 flex items-center justify-center"
           onClick={onClose}
         >
           X
         </button>
-        {submissionMessage ? (
+        </div>
+        {SubmissionMessage ? (
           <div className="text-center py-8">
-            <p className="text-xl font-bold">{submissionMessage}</p>
+            <p className="text-xl text-custom-fg-light font-bold">{SubmissionMessage}</p>
           </div>
         ) : (
           <>
-            <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+            <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">Order Summary</h2>
             <ul className="mb-4">
               {products.map((product, index) => (
                 <li key={index} className="flex justify-between">
@@ -357,15 +372,15 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
             </ul>
             <p className="mb-4">Total: ₹{totalPrice} + *delivery charges will be added if required and will be discussed</p>
 
-            <form onSubmit={handleSubmit} className="space-y-4 max-h-96 overflow-y-auto font-serif">
-              <h3 className="text-lg font-semibold">Please provide the info for further order processing:</h3>
+            <form onSubmit={handleSubmit} className="space-y-4 max-h-96 overflow-y-auto p-10 font-serif border-2 border-gray-500">
+              <h3 className="text-lg text-custom-fg-light font-semibold">Please provide the info for further order processing:</h3>
               <input
                 type="text"
                 name="name"
                 placeholder="Name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
                 required
               />
               <input
@@ -374,7 +389,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="Phone Number"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
                 maxLength={10}
                 pattern="\d{10}"
                 title="Enter a valid 10-digit phone number"
@@ -385,7 +400,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="Address"
                 value={formData.address}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
                 required
               />
               <input
@@ -394,7 +409,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="Pin Code"
                 value={formData.pinCode}
                 onChange={handlePinCodeChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
                 maxLength={6}
                 required
               />
@@ -404,7 +419,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="District"
                 value={formData.district}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
                 required
               />
               <input
@@ -413,18 +428,18 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="State"
                 value={formData.state}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
                 required
               />
 
-              <h4 className="text-lg font-semibold mt-6">Other Contact Info</h4>
+              <h4 className="text-lg text-custom-fg-light font-semibold mt-6">Other Contact Info</h4>
               <input
                 type="email"
                 name="email"
                 placeholder="Email ID (optional)"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
               />
               <input
                 type="text"
@@ -432,7 +447,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="Facebook Profile Link (optional)"
                 value={formData.facebook}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
               />
               <input
                 type="text"
@@ -440,12 +455,12 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
                 placeholder="Instagram Profile Link (optional)"
                 value={formData.instagram}
                 onChange={handleInputChange}
-                className="w-full p-2 bg-white bg-opacity-20 border border-white rounded-md text-black"
+                className="w-full p-2 bg-white bg-opacity-20 border border-black rounded-md text-black"
               />
 
               <button
                 type="submit"
-                className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white"
+                className="w-1/4 mx-auto py-2 rounded-lg bg-custom-fg-light hover:bg-custom-bg-light border-2 border-custom-fg-light text-custom-white hover:text-custom-fg-light"
               >
                 Submit
               </button>
