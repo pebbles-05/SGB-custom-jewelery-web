@@ -8,6 +8,7 @@ import StoreStatusBar from "@/components/StoreStatusBar";
 import {
   CategoryFilterOption,
   PriceRange,
+  SortingOptions,
   TypeFilterOption,
 } from "@/enums/enums";
 import Bg from "@/components/Bg";
@@ -15,12 +16,6 @@ import Bg from "@/components/Bg";
 const Store: React.FC = () => {
   const searchParams = useSearchParams();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [type, setType] = useState(TypeFilterOption[0]?.name);
-  const [category, setCategory] = useState(CategoryFilterOption[0]?.name);
-  const [minPrice, setMinPrice] = useState(PriceRange.min[0]);
-  const [maxPrice, setMaxPrice] = useState(
-    PriceRange.max[PriceRange.max.length - 1]
-  );
 
   const getFilterOptionsFromURL = (): SelectedFilteredData => {
     return {
@@ -32,16 +27,14 @@ const Store: React.FC = () => {
         searchParams.get("maxPrice") ||
           PriceRange.max[PriceRange.max.length - 1]
       ),
+      sortingOption:
+        searchParams.get("sorting_option") || SortingOptions[0].name,
     };
   };
 
   useEffect(() => {
     const fetchFilteredProducts = async () => {
       const filterOptions = getFilterOptionsFromURL();
-      setType(filterOptions.type);
-      setCategory(filterOptions.category);
-      setMinPrice(filterOptions.minPrice);
-      setMaxPrice(filterOptions.maxPrice);
       const filteredData = await getProductList(filterOptions);
       setFilteredProducts(filteredData);
     };
@@ -51,12 +44,7 @@ const Store: React.FC = () => {
   return (
     <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
       <div className="md:mx-auto">
-      <StoreStatusBar
-        type={type}
-        category={category}
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-      />
+        <StoreStatusBar />
       </div>
       {filteredProducts?.length ? (
         <div className="grid gap-14 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:mx-28 xs:mx-5 ">
