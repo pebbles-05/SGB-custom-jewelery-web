@@ -344,8 +344,10 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
   if (!isOpen) return null;
 
   return (
-    <div className="inset-0 z-50 flex items-center justify-center bg-custom-bg-light text-lg text-custom-black rounded-lg overflow-auto w-lg h-4/6">
-      <div className="bg-white bg-opacity-20 rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-black relative min-h-36">
+    // <div className="fixed inset-0 z-50 flex items-center justify-center bg-custom-bg-light text-lg text-custom-black rounded-lg overflow-auto w-lg h-4/6">
+    //   <div className="bg-white bg-opacity-20 rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-black relative min-h-36">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="bg-custom-bg-light  rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-black relative min-h-36">
         <div className="mb-5">
       <button type="button" onClick={handleReset} className="w-2/6 h-1/2 rounded-lg bg-custom-fg-light hover:bg-custom-bg-light border-2 border-custom-fg-light text-custom-white hover:text-custom-fg-light">Reset Form</button>
         <button
@@ -372,7 +374,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
             </ul>
             <p className="mb-4">Total: ₹{totalPrice} + *delivery charges will be added if required and will be discussed</p>
 
-            <form onSubmit={handleSubmit} className="space-y-4 max-h-96 overflow-y-auto p-10 font-serif border-2 border-gray-500">
+            <form onSubmit={handleSubmit} className="space-y-4 max-h-96 overflow-y-auto p-10 font-sans border-2 border-gray-500">
               <h3 className="text-lg text-custom-fg-light font-semibold">Please provide the info for further order processing:</h3>
               <input
                 type="text"
