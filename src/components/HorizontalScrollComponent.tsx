@@ -182,14 +182,13 @@ const stories = [
 const HorizontalScrollComponent = () => {
   gsap.registerPlugin(ScrollTrigger);
   useGSAP(() => {
-    gsap.fromTo("#hdngg", { opacity: 0, x: 40 }, {
+    gsap.fromTo("#hdngg", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {
       scrollTrigger: {
         trigger: "#hdngg",
         toggleActions: "restart reverse restart reverse",
         start: "top 50%",
       },
-      opacity: 1,
-      x: 0,
+      opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1
     });
   });
   return (

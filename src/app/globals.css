@@ -376,14 +376,14 @@ body {
 
 
 
-svg path {
+.hero-svg path {
   fill: transparent;
   stroke: #fff;
-  stroke-width: 2.0;
+  stroke-width: 1;
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
   animation: textAnimation 4s ease-in-out 1 forwards ;
-  /* animation-delay: 2s; */
+  animation-delay: 2s;
   z-index: 500;
   position: absolute;
   
@@ -398,5 +398,23 @@ svg path {
   100% {
     fill: #fff;
     stroke-dashoffset: 0;
+  }
+}
+
+
+
+@media (max-width: 640px) {
+  .cover {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .custom-text {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+  .hero-svg {
+    width: 100%;
+    transform: scale(1);
   }
 }

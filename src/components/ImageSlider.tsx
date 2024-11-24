@@ -164,21 +164,20 @@ const ImageSlider = () => {
   // }, [isMobile]);
 
   useGSAP(() => {
-    gsap.fromTo("#hdng", { opacity: 0, x: 40 }, {
+    gsap.fromTo("#hdng", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {
       scrollTrigger: {
         trigger: "#hdng",
         toggleActions: "restart reverse restart reverse",
         start: "top 50%",
       },
-      opacity: 1,
-      x: 0,
+      opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1
     });
   });
 
   // Mobile Layout with Enhanced Effects
   const MobileLayout = () => (
     <div id="imgsld" className="w-full h-[50vh] md:h-screen px-8 overflow-hidden  relative ">
-      <h2 id="hdng" className="text-5xl relative  z-50 text-custom-fg-light p-4 text-center">Work Gallery</h2>
+      <h2 id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">Work Gallery</h2>
       {/* <div
         ref={imageSliderRef}
         className="flex flex-col items-center gap-4 max-h-[80%] w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hiden "

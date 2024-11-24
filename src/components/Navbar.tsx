@@ -29,13 +29,13 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   };
 
   return (
-    <div className="flex items-center px-16 text-xl sticky top-0 inset-y-0 h-20 text-custom-bg-light bg-custom-fg-light z-50">
-      <Link className="w-16 h-16 mr-8" href="/">
+    <div className="flex w-full items-center md:px-16 text-xl sticky top-0 inset-y-0 h-20 text-custom-bg-light bg-custom-fg-light z-50">
+      <Link className="md:w-16 md:h-16 w-[300%] h-3/4 mr-8" href="/">
         <Image
-          width={500}
-          height={500}
+          width={3000}
+          height={3000}
           alt="logo"
-          className="w-max h-max "
+          className="md:w-max md:h-max w-[300%] h-3/4 "
           src="https://ik.imagekit.io/leoblaze969/logo-removebg-preview.png"
         />
       </Link>
