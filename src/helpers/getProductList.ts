@@ -1,5 +1,5 @@
 import type { Product, SelectedFilteredData } from "@/interface/interfaces";
-import producData from "@/enums/productData.json";
+import {productData} from "@/enums/productData";
 import {
   CategoryFilterOption,
   SortingOptions,
@@ -18,7 +18,7 @@ const getProductList = async (
     sortingOption = SortingOptions[0].name, // Default sort order
   } = options;
 
-  const filteredData = producData.filter((item) => {
+  const filteredData = productData.filter((item) => {
     const matchesQuery = search
       ? item.name.toLowerCase().includes(search.toLowerCase()) ||
         item.description.toLowerCase().includes(search.toLowerCase())
