@@ -155,7 +155,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           ) : (
             <form
               onSubmit={handleFilterChange}
-              className="flex items-center w-full max-w-lg bg-custom-bg-light rounded-lg overflow-hidden mx-5 xl:ml-96 md:w-[80vw]"
+              className="flex items-center w-full  bg-custom-bg-light rounded-lg overflow-hidden mx-5 xl:ml-96 md:w-[40vw]"
             >
               <input
                 type="text"
