@@ -43,7 +43,7 @@ const Store: React.FC = () => {
   }, [searchParams]);
   return (
     <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
-      <div className="md:mx-auto">
+      <div className="md:ml-28">
         <StoreStatusBar />
       </div>
       {filteredProducts?.length ? (

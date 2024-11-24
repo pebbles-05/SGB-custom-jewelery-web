@@ -28,10 +28,11 @@ const Hero = () => {
     });
 
 
-    gsap.fromTo(".banner", { zoom: 1.5,}, { zoom: 1.1, duration: 5,delay:2 });
-    gsap.fromTo(".cover", { scale:1.5,zIndex:100 }, { scale: 1,zIndex:0, duration: 2 });
-    gsap.fromTo(".custom-text", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1,delay:2.5 });
-    gsap.fromTo(".custom-text2", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1,delay:3 });
+    gsap.fromTo(".banner", { zoom: 1.5,}, { zoom: 1.1, duration: 5 });
+    // gsap.fromTo(".cover", { scale:1.5,zIndex:100 }, { scale: 1,zIndex:0, duration: 2 });
+    gsap.fromTo(".custom-text", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1 });
+    gsap.fromTo(".custom-text3", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1,delay:1 });
+    gsap.fromTo(".custom-text2", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1,delay:2 });
   });
   return (
     <div className="h-[110vh] w-full">
@@ -113,7 +114,7 @@ const Hero = () => {
 
         </div>
         {/* <span className="Hero-name">শ্রেয়সীর গয়নার বাক্স</span> */}
-        <span className="text-3xl text-custom-bg-light/60 custom-text">
+        <span className="text-3xl text-custom-bg-light/60 custom-text3">
           "create your own"
         </span>
         <Link

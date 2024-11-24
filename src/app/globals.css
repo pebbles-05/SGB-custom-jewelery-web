@@ -382,8 +382,8 @@ body {
   stroke-width: 1;
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
-  animation: textAnimation 4s ease-in-out 1 forwards ;
-  animation-delay: 2s;
+  animation: textAnimation 6s ease-in-out 1 forwards ;
+  /* animation-delay: 2s; */
   z-index: 500;
   position: absolute;
   
