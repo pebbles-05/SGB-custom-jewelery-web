@@ -97,7 +97,6 @@
 
 // export default Navbar;
 
-
 "use client";
 import { NavbarOptions, QueryParameter } from "@/enums/enums";
 import type { NavbarOption } from "@/interface/interfaces";
@@ -130,7 +129,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   };
 
   return (
-    <nav className="flex items-center justify-normal w-full px-4 md:px-16 h-20 text-xl bg-custom-fg-light text-custom-bg-light sticky top-0 z-50">
+    <nav className="flex items-center justify-between w-full px-4 md:px-16 h-20 text-xl bg-custom-fg-light text-custom-bg-light sticky top-0 z-50">
       <Link href="/" className="w-16 h-16 flex-shrink-0">
         <Image
           width={3000}
@@ -141,7 +140,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
         />
       </Link>
       <div className="flex justify-between items-center w-full">
-        <div className="flex space-x-4 md:ml-8">
+        <div className="flex w-full">
           {!pathname?.startsWith("/store") && options?.length ? (
             options.map((item: NavbarOption) => (
               <Link
@@ -155,7 +154,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           ) : (
             <form
               onSubmit={handleFilterChange}
-              className="flex items-center w-full max-w-lg bg-custom-bg-light rounded-lg overflow-hidden mx-5 md:ml-96 md:w-[80vw]"
+              className="flex items-center w-full max-w-3xl lg:mx-auto mx-5 bg-custom-bg-light rounded-lg overflow-hidden"
             >
               <input
                 type="text"
@@ -179,20 +178,26 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
                 </button>
               )}
               <button className="pr-4 pl-2 flex items-center">
-                <Icon icon="healthicons:magnifying-glass" className="w-8 h-8 text-black" />
+                <Icon
+                  icon="healthicons:magnifying-glass"
+                  className="w-8 h-8 text-black"
+                />
               </button>
             </form>
           )}
         </div>
 
         <Link href="/store/cart/" className="ml-auto md:ml-0">
-          <Icon icon="iconoir:cart" className="w-8 h-8 hover:text-custom-golden" />
+          <Icon
+            icon="iconoir:cart"
+            className="w-8 h-8 hover:text-custom-golden"
+          />
         </Link>
       </div>
 
       {/* Mobile Menu Toggle */}
       <button
-        className={`md:hidden ml-4 ${pathname.startsWith("/store")?"hidden":""}`}
+        className={`md:hidden ml-4 ${pathname.startsWith("/store") ? "hidden" : ""}`}
         onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
       >
         <Icon icon="material-symbols:menu-rounded" className="w-8 h-8" />
@@ -201,18 +206,18 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-20 left-0 w-full bg-custom-fg-light text-custom-bg-light flex flex-col items-start space-y-4 px-6 py-4 md:hidden z-40">
-          {!pathname?.startsWith("/store") && options?.length ? (
-            options.map((item: NavbarOption) => (
-              <Link
-                key={item.id}
-                href={item.route}
-                className="w-full px-4 py-2 hover:text-custom-golden hover:underline"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))
-          ) : null}
+          {!pathname?.startsWith("/store") && options?.length
+            ? options.map((item: NavbarOption) => (
+                <Link
+                  key={item.id}
+                  href={item.route}
+                  className="w-full px-4 py-2 hover:text-custom-golden hover:underline"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))
+            : null}
         </div>
       )}
     </nav>
@@ -220,7 +225,6 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
 };
 
 export default Navbar;
-
 
 // "use client";
 // import { NavbarOptions, QueryParameter } from "@/enums/enums";
@@ -282,7 +286,7 @@ export default Navbar;
 //           pathname === "/store" ? "justify-center"  : "hidden"
 //         }`}
 //       >
-        
+
 //         {/* Search Bar */}
 //         <form
 //           onSubmit={handleFilterChange}
