@@ -39,16 +39,16 @@ const Catagory = () => {
     },
     
   ];
-
-  gsap.fromTo("#hdnggg", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {
-    scrollTrigger: {
-      trigger: "#hdnggg",
-      toggleActions: "restart reverse restart reverse",
-      start: "top 50%",
-    },
-    opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1
+  useGSAP(() => {
+    gsap.fromTo("#hdnggg", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {
+      scrollTrigger: {
+        trigger: "#hdnggg",
+        toggleActions: "restart reverse restart reverse",
+        start: "top 50% bottom 80%",
+      },
+      opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1
+    });
   });
-  
 
   return (
     <div id="hdngdiv" className="flex w-screen flex-col items-center justify-center md:gap-14 md:px-16 py-28">

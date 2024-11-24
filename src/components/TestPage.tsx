@@ -14,9 +14,9 @@ const TestPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-gray-800 flex items-center justify-center">
+    <div className="min-h-screen bg-custom-bg-light flex items-center justify-center">
       <button
-        className="bg-white bg-opacity-20 text-white py-2 px-4 rounded-lg"
+        className="bg-custom-fg-light text-white py-2 px-4 rounded-lg"
         onClick={() => setIsModalOpen(true)}
       >
         Open Modal

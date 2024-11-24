@@ -192,12 +192,12 @@ const HorizontalScrollComponent = () => {
     });
   });
   return (
-    <section className="py-16 ">
+    <section className="py-16" >
       <div className="container mx-auto px-4">
         <h2 id="hdngg" className="text-4xl font-bold text-center mb-12 text-gray-800">
           About us
         </h2>
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-12 px-16 md:grid-cols-2 lg:grid-cols-3">
           {stories.map((story, index) => (
             <div
               key={index}
