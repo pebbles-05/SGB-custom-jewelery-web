@@ -12,6 +12,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
+  const currentQueryParams = new URLSearchParams(window.location.search || "");
 
   useEffect(() => {
     setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
@@ -19,9 +20,6 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
 
   const handleFilterChange = (e?: React.FormEvent | null | undefined): void => {
     e.preventDefault();
-    const currentQueryParams = new URLSearchParams(
-      window.location.search || ""
-    );
     if (searchTerm) {
       currentQueryParams.set(QueryParameter.SEARCH, searchTerm);
     } else {
@@ -58,7 +56,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
         <div className="flex w-2/3 mx-auto gap-4 items-center">
           <form
             onSubmit={handleFilterChange}
-            className="bg-custom-bg-light rounded-lg overflow-hidden text-custom-black flex justify-center items-center  w-full pl-4 py-2"
+            className="bg-custom-bg-light rounded-lg overflow-hidden text-custom-black flex justify-center items-center  w-full "
           >
             <input
               type="text"
@@ -66,9 +64,22 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
               value={searchTerm}
               name="searchInput"
               placeholder="Search for Earrings,Necklace,Rings and more... "
-              className="outline-none w-full bg-transparent"
+              className="outline-none w-full bg-transparent px-4 py-2"
             />
-            <button className="px-4 flex items-center">
+            {searchTerm ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchTerm("");
+                  currentQueryParams.delete(QueryParameter.SEARCH);
+                  router.push(`/store?${currentQueryParams.toString()}`);
+                }}
+                className="flex items-center"
+              >
+                <Icon icon="charm:cross" className="w-8 h-8" />
+              </button>
+            ) : null}
+            <button className="pr-4 pl-2 flex items-center">
               <Icon icon="healthicons:magnifying-glass" className="w-8 h-8" />
             </button>
           </form>
