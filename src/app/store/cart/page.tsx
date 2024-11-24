@@ -1,5 +1,5 @@
-"use client"
 
+"use client";
 
 import React, { useState } from "react";
 import { productData } from "@/enums/productData";
@@ -45,55 +45,47 @@ const Cart = () => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Cart</h1>
-      <div className="grid grid-cols-1 xl:px-32 md:px-10 px-5 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <div className="container mx-auto  flex flex-col lg:flex-row gap-8  lg:max-h-[89vh]">
+      {/* Left Section (Products List) */}
+      <div className="w-full lg:w-3/4 space-y-6 lg:overflow-y-auto lg:max-h-screen lg:scroll-m-5 lg:p-4 sm:p-12 ">
+        <h1 className="text-4xl font-bold text-center mb-6 text-gray-800">Your Cart</h1>
+        
         {cartItems.map((item) => (
           <div
             key={item.id}
-            className="group cursor-pointer bg-custom-fg-light shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition duration-300"
+            className="flex items-center lg:space-x-6 md:space-x-4 bg-white shadow-xl rounded-lg p-6 hover:scale-95 transition-all duration-300 ease-in-out transform"
           >
-            {/* Illustration with gradient overlay */}
-            <div className="relative h-48 bg-gray-200">
-              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70 group-hover:opacity-0 transition-opacity duration-300"></div>
-              <div className="flex items-center justify-center h-full">
-                <img
-                  src={item.img}
-                  alt={item.name}
-                  className="w-full h-48 object-cover"
-                />
-              </div>
+            {/* Product Image */}
+            <div className="w-28 h-28 flex-shrink-0">
+              <img src={item.img} alt={item.name} className="w-full h-full object-cover rounded-lg" />
             </div>
-            <div className="p-6">
-              <span className="block text-xl font-semibold text-white">
-                {item.number}
-              </span>
-              <h3 className="text-2xl font-bold text-gray-100 mt-2">
-                {item.name}
-              </h3>
-              <p className="text-gray-300 mt-4 font-serif">{item.description}</p>
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-gray-100 text-xl font-bold">{formatCurrency(item.price)}</span>
-                <div className="flex items-center space-x-2">
-                  <label htmlFor={`quantity-${item.id}`} className="text-sm font-medium text-white">
-                    Qty:
-                  </label>
-                  <select
-                    id={`quantity-${item.id}`}
-                    className="appearance-none border rounded-md text-gray-800 p-2 bg-white shadow-md focus:outline-none hover:ring-2 ring-gray-300 transition duration-300 w-16 h-10 overflow-y-auto max-h-36"
-                    value={item.quantity}
-                    onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-                  >
-                    {Array.from({ length: 20 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+
+            {/* Product Details */}
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold text-gray-800">{item.name}</h3>
+              <p className="text-sm text-gray-500 mt-2">{item.description}</p>
+            </div>
+
+            {/* Product Price & Quantity */}
+            <div className="flex flex-col items-end space-y-2">
+              <span className="text-lg font-semibold text-gray-900">{formatCurrency(item.price)}</span>
+              <div className="flex items-center space-x-3">
+                <label htmlFor={`quantity-${item.id}`} className="text-sm text-gray-700">Qty:</label>
+                <select
+                  id={`quantity-${item.id}`}
+                  className="w-16 h-10 text-gray-800 p-2 bg-gray-100 rounded-md shadow-sm focus:outline-none"
+                  value={item.quantity}
+                  onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                >
+                  {Array.from({ length: 20 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
               </div>
               <button
-                className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition flex items-center gap-2 group"
+                className="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition"
                 onClick={() => handleRemove(item.id)}
               >
                 Remove
@@ -103,25 +95,27 @@ const Cart = () => {
         ))}
       </div>
 
-      {/* Bill Area - New Minimalist Design */}
-      <div className="mt-8 p-6 bg-custom-bg-light border-2 border-black rounded-lg shadow-lg">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Bill Summary</h2>
-        <div className="space-y-2">
+      {/* Right Section (Sticky Bill Summary) */}
+      <div className="w-full lg:w-1/4 lg:sticky lg:top-20 bg-white shadow-xl p-6 rounded-lg">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Bill Summary</h2>
+        <div className="space-y-4">
           {cartItems.map((item) => (
-            <div key={item.id} className="flex justify-between text-gray-800 text-sm">
+            <div key={item.id} className="flex justify-between text-gray-700">
               <span className="font-semibold">{item.name} (x{item.quantity})</span>
               <span className="font-semibold">{formatCurrency(item.price * item.quantity)}</span>
             </div>
           ))}
         </div>
         <hr className="my-4" />
-        <div className="flex justify-between text-lg font-bold text-gray-900">
+        <div className="flex justify-between text-xl font-bold text-gray-900">
           <span>Grand Total</span>
           <span>{formatCurrency(grandTotal)}</span>
         </div>
-        <button className="bg-custom-fg-light text-white py-2 px-4 font-semibold rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition">
-            Buy Now
-          </button>
+        <button
+          className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+        >
+          Checkout
+        </button>
       </div>
     </div>
   );
