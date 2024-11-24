@@ -141,7 +141,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
         />
       </Link>
       <div className="flex justify-between items-center w-full">
-        <div className="flex space-x-4 md:ml-8">
+        <div className="flex space-x-4">
           {!pathname?.startsWith("/store") && options?.length ? (
             options.map((item: NavbarOption) => (
               <Link
@@ -155,7 +155,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           ) : (
             <form
               onSubmit={handleFilterChange}
-              className="flex items-center w-full max-w-lg bg-custom-bg-light rounded-lg overflow-hidden mx-5 xl:ml-96 md:w-[80vw]"
+              className="flex items-center w-full max-w-lg bg-custom-bg-light rounded-lg overflow-hidden mx-5 md:ml-96 md:w-[80vw]"
             >
               <input
                 type="text"
