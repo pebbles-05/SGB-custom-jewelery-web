@@ -242,12 +242,13 @@ interface ModalFormProps {
   onClose: () => void;
   products: Product[];
   onSubmit: (emailData: string) => void;
+  links:"";
   type: "";
   catagory: "";
   desc: "";
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type="",catagory="",desc="", onSubmit,setSubmissionMessage,SubmissionMessage }) => {
+const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type="",catagory="",desc="",links="", onSubmit,setSubmissionMessage,SubmissionMessage }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -388,13 +389,16 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
                 <span>{catagory}</span>
               </li>
               <li className="flex justify-between">
-                <span>Type :</span>
+                <span>Material :</span>
                 <span>{type}</span>
               </li>
               </ul>
               {desc?(<div>
-                <h2 className="text-lg font-medium mb-4 text-custom-fg-light">Description</h2>
+                <h2 className="text-lg font-semibold mb-2 text-custom-fg-light">Description</h2>
                 <span>{desc}</span></div>):null}
+              {links?(<div>
+                <h2 className="text-lg font-semibold mb-2 text-custom-fg-light">Links</h2>
+                <span>{links}</span></div>):null}
               </div>
 
           )

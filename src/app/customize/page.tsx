@@ -1,4 +1,5 @@
 "use client"
+import ModalForm from '@/components/ModalForm';
 import React, { useState } from 'react';
 
 const CustomizedPage: React.FC = () => {
@@ -8,6 +9,7 @@ const CustomizedPage: React.FC = () => {
   const [references, setReferences] = useState<string>('');
 
   const handleSubmit = () => {
+    setIsModalOpen(true)
     const emailData = `
       Subject: Custom Jewelry Request
       
@@ -27,7 +29,15 @@ const CustomizedPage: React.FC = () => {
       Please review and proceed with the next steps.
     `;
     console.log(emailData);
-    alert('Your customization details have been submitted! Check the console for email format.');
+    // alert('Your customization details have been submitted! Check the console for email format.');
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const handleModalSubmit = (emailData: string) => {
+    
+    console.log("Email Data:", emailData);
   };
 
   return (
@@ -133,6 +143,19 @@ const CustomizedPage: React.FC = () => {
           Submit Customization
         </button>
       </div>
+      <ModalForm
+        isOpen={isModalOpen}
+        onClose={() => {setIsModalOpen(false)
+            setSubmissionMessage("")
+        }}
+        catagory={category}
+        type={material}
+        desc={description}
+        links={references}
+        onSubmit={handleModalSubmit}
+        setSubmissionMessage={setSubmissionMessage}
+        SubmissionMessage={submissionMessage}
+      />
     </div>
   );
 };
