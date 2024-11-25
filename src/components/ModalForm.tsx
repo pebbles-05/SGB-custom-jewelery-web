@@ -242,9 +242,12 @@ interface ModalFormProps {
   onClose: () => void;
   products: Product[];
   onSubmit: (emailData: string) => void;
+  type: "";
+  catagory: "";
+  desc: "";
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubmit,setSubmissionMessage,SubmissionMessage }) => {
+const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type="",catagory="",desc="", onSubmit,setSubmissionMessage,SubmissionMessage }) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -259,7 +262,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
 
 
 
-  const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
+  const totalPrice = products?.reduce((acc, product) => acc + product.price, 0);
 
   useEffect(() => {
     if (isOpen) {
@@ -363,6 +366,8 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
           </div>
         ) : (
           <>
+          {products?(
+          <div>
             <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">Order Summary</h2>
             <ul className="mb-4">
               {products.map((product, index) => (
@@ -373,6 +378,28 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products, onSubm
               ))}
             </ul>
             <p className="mb-4">Total: ₹{totalPrice} + *delivery charges will be added if required and will be discussed</p>
+            </div>):
+          (<div>
+            <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">Customization Summary</h2>
+            <ul className="mb-4">
+            
+              <li className="flex justify-between">
+                <span>Catagory :</span>
+                <span>{catagory}</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Type :</span>
+                <span>{type}</span>
+              </li>
+              </ul>
+              {desc?(<div>
+                <h2 className="text-lg font-medium mb-4 text-custom-fg-light">Description</h2>
+                <span>{desc}</span></div>):null}
+              </div>
+
+          )
+          
+          }
 
             <form onSubmit={handleSubmit} className="space-y-4 max-h-96 overflow-y-auto p-10 font-sans border-2 border-gray-500">
               <h3 className="text-lg text-custom-fg-light font-semibold">Please provide the info for further order processing:</h3>

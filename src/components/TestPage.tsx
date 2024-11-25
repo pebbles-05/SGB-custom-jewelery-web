@@ -22,12 +22,24 @@ const TestPage: React.FC = () => {
         Open Modal
       </button>
 
-      <ModalForm
+      {/* <ModalForm
         isOpen={isModalOpen}
         onClose={() => {setIsModalOpen(false)
             setSubmissionMessage("")
         }}
         products={products}
+        onSubmit={handleModalSubmit}
+        setSubmissionMessage={setSubmissionMessage}
+        SubmissionMessage={submissionMessage}
+      /> */}
+      <ModalForm
+        isOpen={isModalOpen}
+        onClose={() => {setIsModalOpen(false)
+            setSubmissionMessage("")
+        }}
+        catagory="Necklace"
+        type="Clay"
+        desc="Beads structured necklace with a star shaped chimes between them symmetrical and heart at the middle"
         onSubmit={handleModalSubmit}
         setSubmissionMessage={setSubmissionMessage}
         SubmissionMessage={submissionMessage}
