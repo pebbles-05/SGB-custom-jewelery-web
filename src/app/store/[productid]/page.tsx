@@ -17,6 +17,9 @@ import ImageViewerModal from "@/components/ImageViewerModal"; // Import the Imag
 import { getProduct } from "@/helpers/getProduct";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.cjs";
+import useCartList from "@/helpers/useCartList";
+import type { Product } from "@/interface/interfaces";
+import RemoveCartItemPopup from "@/components/RemoveCartItemPopup";
 
 const ProductPage = ({
   params,
@@ -25,17 +28,21 @@ const ProductPage = ({
     productid: string;
   };
 }) => {
+  const { getCartList, setCartListById, removeCartItemById } = useCartList();
   const [isModalOpen, setIsModalOpen] = useState(false); // Track modal state
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Track the current image index
-  const [product, setproduct] = useState({});
+  const [product, setproduct] = useState<Product>({});
+  const [isCartClicked, setCartClicked] = useState<boolean>(
+    getCartList()?.some((item: Product) => item.id === product.id)
+  );
+  const [isConfirmationModalOpen, setisConfirmationModalOpen] = useState(false);
 
   useEffect(() => {
-    const fetchProduct = () => {
-      const productData = getProduct(params?.productid);
+    const productData = getProduct(params?.productid);
+    if (productData) {
+      setCartClicked(getCartList()?.some((item) => item.id === productData.id));
       setproduct(productData);
-      console.log(productData);
-    };
-    fetchProduct();
+    }
   }, [params]);
 
   // Open the modal when an image is clicked
@@ -67,10 +74,15 @@ const ProductPage = ({
     ); // This ensures it loops back to the start/end
   };
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-  const [isCartClicked, setCartClicked] = useState(false);
 
-  // Toggle cart icon visibility and color
-  const toggleCart = () => setCartClicked(!isCartClicked);
+  const handleCartClick = () => {
+    if (isCartClicked) {
+      setisConfirmationModalOpen(true);
+    } else {
+      setCartListById(product?.id);
+      setCartClicked(getCartList()?.some((item) => item.id === product?.id));
+    }
+  };
   return (
     <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto ">
       {/* Left Section: Image Swiper */}
@@ -180,23 +192,28 @@ const ProductPage = ({
             Buy Now
           </button>
           <button
-            onClick={(e) => {
-              e.preventDefault(); // Prevent navigation on click
-              toggleCart();
-            }}
-            className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition flex items-center gap-2 group"
+            onClick={() => handleCartClick()}
+            className={`bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:text-custom-white transition flex items-center gap-2 group ${isCartClicked ? "hover:bg-red-500 " : "hover:bg-green-500 "}`}
           >
-            Add to Cart
-            <div
-              className={` p-2 rounded-full ${
-                isCartClicked
-                  ? "bg-green-500 text-white"
-                  : "bg-custom-black/30 text-custom-white"
-              } transition-all duration-300 cursor-pointer z-10  md:group-hover:scale-125 `}
-            >
-              <Icon icon="iconoir:cart" className="md:w-6 md:h-6 w-3 h-3" />
-            </div>
+            {isCartClicked ? "Remove from Cart" : "Add to Cart"}
+
+            <Icon
+              icon={isCartClicked ? "f7:cart-fill-badge-minus" : "iconoir:cart"}
+              className="md:w-6 md:h-6 w-3 h-3"
+            />
           </button>
+          <RemoveCartItemPopup
+            isConfirmationModalOpen={isConfirmationModalOpen}
+            onClickOutside={() => setisConfirmationModalOpen(false)}
+            onCancel={() => setisConfirmationModalOpen(false)}
+            onRemove={() => {
+              removeCartItemById(product?.id);
+              setCartClicked(
+                getCartList()?.some((item) => item.id === product?.id)
+              );
+              setisConfirmationModalOpen(false);
+            }}
+          />
         </div>
       </div>
 

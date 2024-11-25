@@ -28,7 +28,7 @@ const useCartList = () => {
           // Product is not in the cart, add it if quantity > 1 or default
           const newCartItem = {
             ...product,
-            quantity: quantity > 1 ? quantity : 1,
+            quantity: quantity > 0 ? quantity : 1,
           };
           const revisedCartIdList = [...currentCartList, newCartItem];
 
@@ -44,7 +44,7 @@ const useCartList = () => {
         } else {
           // Product is already in the cart
           const existingItem = currentCartList[existingItemIndex];
-          if (quantity > 1 && existingItem.quantity !== quantity) {
+          if (quantity > 0 && existingItem.quantity !== quantity) {
             // Update quantity if it's valid and different
             existingItem.quantity = quantity;
             currentCartList[existingItemIndex] = existingItem;

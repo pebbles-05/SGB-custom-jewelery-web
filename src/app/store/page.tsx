@@ -11,14 +11,10 @@ import {
   SortingOptions,
   TypeFilterOption,
 } from "@/enums/enums";
-import Bg from "@/components/Bg";
 import useCartList from "@/helpers/useCartList";
-import Cookies from "js-cookie";
-import { Router } from "next/router";
 
 const Store: React.FC = () => {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { getCartList, setCartListById, removeCartItemById } = useCartList();
   const [cartList, setcartList] = useState(getCartList());
@@ -48,21 +44,6 @@ const Store: React.FC = () => {
     fetchFilteredProducts();
   }, [searchParams]);
 
-  //useEffect(() => {
-  //  // Reload cookies when route changes back to /store
-  //  const handleRouteChange = (url) => {
-  //    if (url === "/store") {
-  //      setcartList(getCartList());
-  //    }
-  //  };
-  //
-  //  Router.events.on("routeChangeComplete", handleRouteChange);
-  //
-  //  return () => {
-  //    Router.events.off("routeChangeComplete", handleRouteChange);
-  //  };
-  //}, []);
-
   const handleAddToCart = (id: string) => {
     setCartListById(id);
     const currentCartList = getCartList();
@@ -78,14 +59,6 @@ const Store: React.FC = () => {
     <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
       <div className="md:ml-28">
         <StoreStatusBar />
-        <button
-          onClick={() => {
-            const currentCartlist = getCartList();
-            console.log(currentCartlist);
-          }}
-        >
-          show cart
-        </button>
       </div>
       {filteredProducts?.length ? (
         <div className="grid gap-14 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:mx-28 xs:mx-5 ">

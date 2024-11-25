@@ -16,7 +16,7 @@ const Modal = ({
   if (isOpen) {
     return (
       <div
-        className={`flex justify-center items-center fixed inset-0 z-50 bg-custom-black/70 overflow-auto ${containerClass}`}
+        className={`z-50 flex justify-center items-center fixed inset-0 z-50 bg-custom-black/70 overflow-auto ${containerClass}`}
       >
         <div
           onClick={(e) => e.preventDefault()}
