@@ -203,6 +203,8 @@ const ProductPage = ({
             />
           </button>
           <RemoveCartItemPopup
+            headerClass="text-xl"
+            buttonClass="text-xs"
             isConfirmationModalOpen={isConfirmationModalOpen}
             onClickOutside={() => setisConfirmationModalOpen(false)}
             onCancel={() => setisConfirmationModalOpen(false)}
