@@ -179,26 +179,25 @@ const ProductPage = ({
           <button className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition">
             Buy Now
           </button>
-          <button 
-          onClick={(e) => {
-            e.preventDefault(); // Prevent navigation on click
-            toggleCart();
-          }}
-          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition flex items-center gap-2 group">
+          <button
+            onClick={(e) => {
+              e.preventDefault(); // Prevent navigation on click
+              toggleCart();
+            }}
+            className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition flex items-center gap-2 group"
+          >
             Add to Cart
             <div
-          
-          className={` p-2 rounded-full ${
-            isCartClicked
-              ? "bg-green-500 text-white"
-              : "bg-custom-black/30 text-custom-white"
-          } transition-all duration-300 cursor-pointer z-10  md:group-hover:scale-125 `}
-        >
-          <Icon icon="iconoir:cart" className="md:w-6 md:h-6 w-3 h-3" />
-        </div>
+              className={` p-2 rounded-full ${
+                isCartClicked
+                  ? "bg-green-500 text-white"
+                  : "bg-custom-black/30 text-custom-white"
+              } transition-all duration-300 cursor-pointer z-10  md:group-hover:scale-125 `}
+            >
+              <Icon icon="iconoir:cart" className="md:w-6 md:h-6 w-3 h-3" />
+            </div>
           </button>
         </div>
-        
       </div>
 
       {/* ImageViewerModal for displaying images */}
@@ -213,4 +212,3 @@ const ProductPage = ({
 };
 
 export default ProductPage;
-

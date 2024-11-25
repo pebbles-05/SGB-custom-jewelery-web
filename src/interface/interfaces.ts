@@ -23,6 +23,9 @@ interface StoreProductBox {
   type?: string;
   Category?: string;
   availability?: boolean;
+  isCartClicked: boolean;
+  onCartAdd?: (id: string) => void;
+  onCartRemove?: (id: string) => void;
 }
 interface Modal {
   children: React.ReactNode;

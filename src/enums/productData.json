@@ -1,4 +1,4 @@
-export const productData =[
+[
   {
     "id": "2aa8253e-9e81-4c06-b3d3-d564a164bff8",
     "img": "https://picsum.photos/id/237/200",
@@ -594,5 +594,4 @@ export const productData =[
     "order": 37,
     "availability": true
   }
-];
-
+]

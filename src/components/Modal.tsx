@@ -10,6 +10,7 @@ const Modal = ({
 }: Modal) => {
   const childrenRef = useClickOutside((e) => {
     e.stopPropagation();
+    e.preventDefault();
     onClickOutside();
   });
   if (isOpen) {
@@ -17,7 +18,11 @@ const Modal = ({
       <div
         className={`flex justify-center items-center fixed inset-0 z-50 bg-custom-black/70 overflow-auto ${containerClass}`}
       >
-        <div className="w-max h-max" ref={childrenRef}>
+        <div
+          onClick={(e) => e.preventDefault()}
+          className="w-max h-max"
+          ref={childrenRef}
+        >
           {children}
         </div>
       </div>

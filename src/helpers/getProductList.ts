@@ -1,5 +1,5 @@
 import type { Product, SelectedFilteredData } from "@/interface/interfaces";
-import {productData} from "@/enums/productData";
+import productData from "@/enums/productData.json";
 import {
   CategoryFilterOption,
   SortingOptions,
