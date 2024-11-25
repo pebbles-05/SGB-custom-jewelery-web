@@ -309,7 +309,7 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
     const emailData = `
       Order Details:
       Selected Products:
-      ${products.map((p) => `${p.name}: ₹${p.price}`).join("\n")}
+      ${products?.map((p) => `${p.name}: ₹${p.price}`).join("\n")}
       
       Total: ₹${totalPrice}
       
