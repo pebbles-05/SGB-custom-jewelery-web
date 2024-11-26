@@ -9,7 +9,7 @@ const NavbarOptions: NavbarOption[] = [
   {
     id: uuid4(),
     name: "About",
-    route: "/#about",
+    route: "#about",
   },
   {
     id: uuid4(),
@@ -67,7 +67,6 @@ const CategoryFilterOption: FilterOption[] = [
     name: "Set",
   },
 ];
-
 
 const PriceRange: PriceRange = {
   min: [60, 100, 200, 300, 400, 500],
