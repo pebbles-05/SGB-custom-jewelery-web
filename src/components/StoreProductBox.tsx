@@ -30,7 +30,10 @@ const StoreProductBox = ({
       aria-label={`View details of ${name}`}
     >
       <div className="relative rounded-lg overflow-hidden shadow-2xl group">
+        
         {/* Cart Icon */}
+        
+
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -47,7 +50,7 @@ const StoreProductBox = ({
           className={`absolute top-3 right-3 p-2 rounded-full ${
             isCartClicked
               ? "bg-green-500 text-white hover:bg-red-500"
-              : "bg-custom-black/30 text-custom-white opacity-0 group-hover:opacity-100"
+              : "bg-custom-black/30 text-custom-white md:opacity-0 md:group-hover:opacity-100"
           } transition-all duration-300 cursor-pointer z-10 hover:scale-125`}
         >
           <Icon
@@ -59,6 +62,8 @@ const StoreProductBox = ({
             className="w-6 h-6"
           />
         </button>
+        
+        
 
         {/* Product Image */}
         <Image
