@@ -37,8 +37,7 @@ const FilterOption = ({
     setSelectedMaxPriceOption(selectedMaxPrice);
   }, [selectedType, selectedCategory, selectedMinPrice, selectedMaxPrice]);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     const selectedFilteredData = {
       type: selectedTypeOption,
       category: selectedCategoryOption,
@@ -73,8 +72,7 @@ const FilterOption = ({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <div
       className={`p-4 rounded-lg overflow-auto w-96 bg-custom-bg-light text-lg text-custom-black flex flex-col gap-4 ${containerClass}`}
     >
       {/* Type Filter */}
@@ -83,22 +81,13 @@ const FilterOption = ({
         <div className="flex flex-wrap gap-2">
           {typeFilterOptions?.length
             ? typeFilterOptions.map((option) => (
-                <label
+                <div
                   key={option.id}
+                  onClick={() => setSelectedTypeOption(option.name)}
                   className={`flex justify-center text-sm items-center w-max flex-wrap gap-2 cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${selectedTypeOption === option.name ? "bg-custom-black text-custom-bg-light" : ""}`}
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedTypeOption === option.name}
-                    onChange={() => setSelectedTypeOption(option.name)}
-                    className="hidden"
-                  />
-                  <span
-                    className={`custom-checkbox ${selectedTypeOption === option.name ? "selected" : ""}`}
-                  >
-                    {option.name}
-                  </span>
-                </label>
+                  {option.name}
+                </div>
               ))
             : null}
         </div>
@@ -110,22 +99,13 @@ const FilterOption = ({
         <div className="flex flex-wrap gap-2">
           {categoryFilterOptions?.length
             ? categoryFilterOptions.map((option) => (
-                <label
+                <div
                   key={option.id}
+                  onClick={() => setSelectedCategoryOption(option.name)}
                   className={`flex justify-center text-sm items-center w-max flex-wrap gap-2 cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${selectedCategoryOption === option.name ? "bg-custom-black text-custom-bg-light" : ""}`}
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedCategoryOption === option.name}
-                    onChange={() => setSelectedCategoryOption(option.name)}
-                    className="hidden"
-                  />
-                  <span
-                    className={`custom-checkbox ${selectedCategoryOption === option.name ? "selected" : ""}`}
-                  >
-                    {option.name}
-                  </span>
-                </label>
+                  {option.name}
+                </div>
               ))
             : null}
         </div>
@@ -192,12 +172,13 @@ const FilterOption = ({
         </button>
         <button
           type="submit"
+          onClick={handleSubmit}
           className="px-4 py-2 bg-custom-fg-light text-custom-bg-light rounded-lg outline outline-1 outline-custom-fg-light w-full"
         >
           Filter
         </button>
       </div>
-    </form>
+    </div>
   );
 };
 
