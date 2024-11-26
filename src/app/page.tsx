@@ -33,7 +33,7 @@ export default function Home() {
         </div>
       </div>
       <Catagory />
-      <TestPage/>
+      {/* <TestPage/> */}
       {/* <Bg /> */}
     </div>
   );

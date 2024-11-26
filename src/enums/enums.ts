@@ -9,7 +9,7 @@ const NavbarOptions: NavbarOption[] = [
   {
     id: uuid4(),
     name: "About",
-    route: "/about",
+    route: "#about",
   },
   {
     id: uuid4(),
