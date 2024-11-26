@@ -20,6 +20,7 @@ import { Icon } from "@iconify/react/dist/iconify.cjs";
 import useCartList from "@/helpers/useCartList";
 import type { Product } from "@/interface/interfaces";
 import RemoveCartItemPopup from "@/components/RemoveCartItemPopup";
+import ModalForm from "@/components/ModalForm";
 
 const ProductPage = ({
   params,
@@ -82,6 +83,17 @@ const ProductPage = ({
       setCartListById(product?.id);
       setCartClicked(getCartList()?.some((item) => item.id === product?.id));
     }
+  };
+  const handleSubmit = () => {
+    setIsMdlOpen(true)
+  }
+
+  const [isMdlOpen, setIsMdlOpen] = useState(false);
+  
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const handleModalSubmit = (emailData: string) => {
+    
+    console.log("Email Data:", emailData);
   };
   return (
     <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto ">
@@ -188,7 +200,9 @@ const ProductPage = ({
           </div>
         </div>
         <div className="flex gap-4">
-          <button className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition">
+          <button
+          onClick={handleSubmit}
+          className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition">
             Buy Now
           </button>
           <button
@@ -225,6 +239,16 @@ const ProductPage = ({
         initialIndex={currentImageIndex}
         isOpen={isModalOpen}
         onClose={closeModal}
+      />
+      <ModalForm
+        isOpen={isMdlOpen}
+        onClose={() => {setIsMdlOpen(false)
+            setSubmissionMessage("")
+        }}
+        products={[product]}
+        onSubmit={handleModalSubmit}
+        setSubmissionMessage={setSubmissionMessage}
+        SubmissionMessage={submissionMessage}
       />
     </div>
   );

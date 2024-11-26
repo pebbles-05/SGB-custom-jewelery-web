@@ -5,6 +5,7 @@ import useCartList from "@/helpers/useCartList";
 import Image from "next/image";
 import Link from "next/link";
 import RemoveCartItemPopup from "@/components/RemoveCartItemPopup";
+import ModalForm from "@/components/ModalForm";
 
 const Cart = () => {
   const { getCartList, setCartListById, removeCartItemById } = useCartList();
@@ -36,6 +37,18 @@ const Cart = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+  const handleSubmit = () => {
+    setIsModalOpen(true)
+  }
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const handleModalSubmit = (emailData: string) => {
+    
+    console.log("Email Data:", emailData);
+  };
+
 
   return (
     <div className="container mx-auto  flex flex-col lg:flex-row gap-8  lg:max-h-[89vh]">
@@ -143,7 +156,9 @@ const Cart = () => {
           <span>Grand Total</span>
           <span>{formatCurrency(grandTotal)}</span>
         </div>
-        <button className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+        <button
+        onClick={handleSubmit}
+        className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
           Checkout
         </button>
       </div>
@@ -154,6 +169,16 @@ const Cart = () => {
         onClickOutside={() => setisConfirmationModalOpen(false)}
         onCancel={() => setisConfirmationModalOpen(false)}
         onRemove={() => handleRemove(removalProductId)}
+      />
+      <ModalForm
+        isOpen={isModalOpen}
+        onClose={() => {setIsModalOpen(false)
+            setSubmissionMessage("")
+        }}
+        products={cartItems}
+        onSubmit={handleModalSubmit}
+        setSubmissionMessage={setSubmissionMessage}
+        SubmissionMessage={submissionMessage}
       />
     </div>
   );
