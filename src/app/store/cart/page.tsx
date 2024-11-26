@@ -38,17 +38,15 @@ const Cart = () => {
     0
   );
   const handleSubmit = () => {
-    setIsModalOpen(true)
-  }
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const [submissionMessage, setSubmissionMessage] = useState("");
-  const handleModalSubmit = (emailData: string) => {
-    
-    console.log("Email Data:", emailData);
+    setIsModalOpen(true);
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [submissionMessage, setSubmissionMessage] = useState("");
+  const handleModalSubmit = (emailData: string) => {
+    console.log("Email Data:", emailData);
+  };
 
   return (
     <div className="container mx-auto  flex flex-col lg:flex-row gap-8  lg:max-h-[89vh]">
@@ -157,8 +155,9 @@ const Cart = () => {
           <span>{formatCurrency(grandTotal)}</span>
         </div>
         <button
-        onClick={handleSubmit}
-        className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+          onClick={handleSubmit}
+          className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+        >
           Checkout
         </button>
       </div>
@@ -172,8 +171,9 @@ const Cart = () => {
       />
       <ModalForm
         isOpen={isModalOpen}
-        onClose={() => {setIsModalOpen(false)
-            setSubmissionMessage("")
+        onClose={() => {
+          setIsModalOpen(false);
+          setSubmissionMessage("");
         }}
         products={cartItems}
         onSubmit={handleModalSubmit}

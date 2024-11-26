@@ -85,14 +85,14 @@ const ProductPage = ({
     }
   };
   const handleSubmit = () => {
-    setIsMdlOpen(true)
-  }
+    product.quantity = "1";
+    setIsMdlOpen(true);
+  };
 
   const [isMdlOpen, setIsMdlOpen] = useState(false);
-  
+
   const [submissionMessage, setSubmissionMessage] = useState("");
   const handleModalSubmit = (emailData: string) => {
-    
     console.log("Email Data:", emailData);
   };
   return (
@@ -201,13 +201,16 @@ const ProductPage = ({
         </div>
         <div className="flex gap-4">
           <button
-          onClick={handleSubmit}
-          className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition">
+            onClick={handleSubmit}
+            className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition"
+          >
             Buy Now
           </button>
           <button
             onClick={() => handleCartClick()}
-            className={`bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:text-custom-white transition flex items-center gap-2 group ${isCartClicked ? "hover:bg-red-500 " : "hover:bg-green-500 "}`}
+            className={`bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:text-custom-white transition flex items-center gap-2 group ${
+              isCartClicked ? "hover:bg-red-500 " : "hover:bg-green-500 "
+            }`}
           >
             {isCartClicked ? "Remove from Cart" : "Add to Cart"}
 
@@ -242,8 +245,9 @@ const ProductPage = ({
       />
       <ModalForm
         isOpen={isMdlOpen}
-        onClose={() => {setIsMdlOpen(false)
-            setSubmissionMessage("")
+        onClose={() => {
+          setIsMdlOpen(false);
+          setSubmissionMessage("");
         }}
         products={[product]}
         onSubmit={handleModalSubmit}

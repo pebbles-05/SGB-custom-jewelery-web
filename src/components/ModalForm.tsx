@@ -1,6 +1,4 @@
-
-
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 interface Product {
   name: string;
@@ -12,13 +10,24 @@ interface ModalFormProps {
   onClose: () => void;
   products: Product[];
   onSubmit: (emailData: string) => void;
-  links:"";
+  links: "";
   type: "";
   catagory: "";
   desc: "";
 }
 
-const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type="",catagory="",desc="",links="", onSubmit,setSubmissionMessage,SubmissionMessage }) => {
+const ModalForm: React.FC<ModalFormProps> = ({
+  isOpen,
+  onClose,
+  products,
+  type = "",
+  catagory = "",
+  desc = "",
+  links = "",
+  onSubmit,
+  setSubmissionMessage,
+  SubmissionMessage,
+}) => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -31,9 +40,10 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
     instagram: "",
   });
 
-
-
-  const totalPrice = products?.reduce((acc, product) => acc + product.price, 0);
+  const totalPrice = products?.reduce(
+    (acc, product) => acc + product.price * product.quantity,
+    0
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -44,18 +54,24 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
     return () => document.body.classList.remove("overflow-hidden");
   }, [isOpen]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handlePinCodeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePinCodeChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const pinCode = e.target.value;
     setFormData({ ...formData, pinCode });
 
     if (pinCode.length === 6) {
       try {
-        const response = await fetch(`https://api.postalpincode.in/pincode/${pinCode}`);
+        const response = await fetch(
+          `https://api.postalpincode.in/pincode/${pinCode}`
+        );
         const data = await response.json();
         if (data[0].Status === "Success") {
           const district = data[0].PostOffice[0].District;
@@ -71,23 +87,48 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.phone || !formData.address || !formData.pinCode || !formData.district || !formData.state) {
+    if (
+      !formData.name ||
+      !formData.phone ||
+      !formData.address ||
+      !formData.pinCode ||
+      !formData.district ||
+      !formData.state
+    ) {
       alert("Please fill all the required fields.");
       return;
     }
+    console.log(products);
 
     const emailData = `
-      ${products? `Order Details:
+      ${
+        products
+          ? `Order Details:
       Selected Products:
-      ${products.map((p) => `${p.name}: ₹${p.price}`).join("\n")}
+      ${products
+        .map(
+          (p) =>
+            `${p.name}*${p.quantity ? p.quantity : ""}: ₹${
+              p.price * p.quantity
+            }`
+        )
+        .join("\n")}
       
-      Total: ₹${totalPrice}`:`Customization Summary:
+      Total: ₹${totalPrice}`
+          : `Customization Summary:
       Type: ${type}
       Category: ${catagory}
-      ${desc&&`Description: 
-      ${desc}`}
-      ${links&&`Links: 
-      ${links}`}`}
+      ${
+        desc &&
+        `Description: 
+      ${desc}`
+      }
+      ${
+        links &&
+        `Links: 
+      ${links}`
+      }`
+      }
       
       Customer Info:
       Name: ${formData.name}
@@ -106,20 +147,22 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
     `;
 
     onSubmit(emailData);
-    setSubmissionMessage("You will be contacted shortly. Thank you and keep shopping!");
+    setSubmissionMessage(
+      "You will be contacted shortly. Thank you and keep shopping!"
+    );
   };
   const handleReset = () => {
     setFormData({
-        name: "",
-        phone: "",
-        address: "",
-        pinCode: "",
-        district: "",
-        state: "",
-        email: "",
-        facebook: "",
-        instagram: "",
-      })
+      name: "",
+      phone: "",
+      address: "",
+      pinCode: "",
+      district: "",
+      state: "",
+      email: "",
+      facebook: "",
+      instagram: "",
+    });
   };
   if (!isOpen) return null;
 
@@ -129,60 +172,89 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
       <div className="bg-custom-bg-light  rounded-xl p-6 shadow-xl backdrop-blur-lg max-w-lg w-full text-black relative min-h-36">
         <div className="mb-5">
-      <button type="button" onClick={handleReset} className="w-2/6 h-1/2 rounded-lg bg-custom-fg-light hover:bg-custom-bg-light border-2 border-custom-fg-light text-custom-white hover:text-custom-fg-light">Reset Form</button>
-        <button
-          className="absolute top-3 right-3 text-custom-bg-light text-lg font-bold bg-custom-fg-light rounded-full w-8 h-8 flex items-center justify-center"
-          onClick={onClose}
-        >
-          X
-        </button>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="w-2/6 h-1/2 rounded-lg bg-custom-fg-light hover:bg-custom-bg-light border-2 border-custom-fg-light text-custom-white hover:text-custom-fg-light"
+          >
+            Reset Form
+          </button>
+          <button
+            className="absolute top-3 right-3 text-custom-bg-light text-lg font-bold bg-custom-fg-light rounded-full w-8 h-8 flex items-center justify-center"
+            onClick={onClose}
+          >
+            X
+          </button>
         </div>
         {SubmissionMessage ? (
           <div className="text-center py-8">
-            <p className="text-xl text-custom-fg-light font-bold">{SubmissionMessage}</p>
+            <p className="text-xl text-custom-fg-light font-bold">
+              {SubmissionMessage}
+            </p>
           </div>
         ) : (
           <>
-          {products?(
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">Order Summary</h2>
-            <ul className="mb-4">
-              {products.map((product, index) => (
-                <li key={index} className="flex justify-between">
-                  <span>{product.name}</span>
-                  <span>₹{product.price}</span>
-                </li>
-              ))}
-            </ul>
-            <p className="mb-4">Total: ₹{totalPrice} + *delivery charges will be added if required and will be discussed</p>
-            </div>):
-          (<div>
-            <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">Customization Summary</h2>
-            <ul className="mb-4">
-            
-              <li className="flex justify-between">
-                <span>Catagory :</span>
-                <span>{catagory}</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Material :</span>
-                <span>{type}</span>
-              </li>
-              </ul>
-              {desc?(<div>
-                <h2 className="text-lg font-semibold mb-2 text-custom-fg-light">Description</h2>
-                <span>{desc}</span></div>):null}
-              {links?(<div>
-                <h2 className="text-lg font-semibold mb-2 text-custom-fg-light">Links</h2>
-                <span>{links}</span></div>):null}
+            {products ? (
+              <div>
+                <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">
+                  Order Summary
+                </h2>
+                <ul className="mb-4">
+                  {products.map((product, index) => (
+                    <li key={index} className="flex justify-between">
+                      <span>
+                        {product.name} x {product.quantity}
+                      </span>
+                      <span>₹{product.price * product.quantity}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mb-4">
+                  Total: ₹{totalPrice} + *delivery charges will be added if
+                  required and will be discussed
+                </p>
               </div>
+            ) : (
+              <div>
+                <h2 className="text-xl font-semibold mb-4 text-custom-fg-light">
+                  Customization Summary
+                </h2>
+                <ul className="mb-4">
+                  <li className="flex justify-between">
+                    <span>Catagory :</span>
+                    <span>{catagory}</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Material :</span>
+                    <span>{type}</span>
+                  </li>
+                </ul>
+                {desc ? (
+                  <div>
+                    <h2 className="text-lg font-semibold mb-2 text-custom-fg-light">
+                      Description
+                    </h2>
+                    <span>{desc}</span>
+                  </div>
+                ) : null}
+                {links ? (
+                  <div>
+                    <h2 className="text-lg font-semibold mb-2 text-custom-fg-light">
+                      Links
+                    </h2>
+                    <span>{links}</span>
+                  </div>
+                ) : null}
+              </div>
+            )}
 
-          )
-          
-          }
-
-            <form onSubmit={handleSubmit} className="space-y-4 max-h-96 overflow-y-auto p-10 font-sans border-2 border-gray-500">
-              <h3 className="text-lg text-custom-fg-light font-semibold">Please provide the info for further order processing:</h3>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 max-h-96 overflow-y-auto p-10 font-sans border-2 border-gray-500"
+            >
+              <h3 className="text-lg text-custom-fg-light font-semibold">
+                Please provide the info for further order processing:
+              </h3>
               <input
                 type="text"
                 name="name"
@@ -241,7 +313,9 @@ const ModalForm: React.FC<ModalFormProps> = ({ isOpen, onClose, products,type=""
                 required
               />
 
-              <h4 className="text-lg text-custom-fg-light font-semibold mt-6">Other Contact Info</h4>
+              <h4 className="text-lg text-custom-fg-light font-semibold mt-6">
+                Other Contact Info
+              </h4>
               <input
                 type="email"
                 name="email"
