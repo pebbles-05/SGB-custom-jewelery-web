@@ -18,9 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`bg-custom-bg-light ${cinzelDecorative.className} p-0 m-0 h-screen w-screen`}
+        className={`bg-custom-bg-light ${cinzelDecorative.className} p-0 m-0 w-screen`}
       >
         <Navbar />
         <div className="w-screen">{children}</div>
