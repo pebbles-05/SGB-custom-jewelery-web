@@ -129,14 +129,12 @@ const ProductPage = ({
         {/* Left Section: Image Swiper */}
         <div
           id="storeImage"
-          className="w-full md:w-3/4 h-1/2 md:h-[110vh] bg-custom-bg-light flex flex-row-reverse md:justify-normal justify-center  p-4 mt-0 md:mt-10"
+          className="w-full md:w-3/4 h-1/2 md:h-[110vh] bg-custom-bg-light flex flex-col md:justify-normal justify-center  p-4 mt-0 md:mt-10"
         >
           <Swiper
             style={{
               "--swiper-navigation-color": "#fff",
               "--swiper-pagination-color": "#fff",
-              display: "flex",
-              flexDirection: "column",
             }}
             navigation={true}
             thumbs={{ swiper: thumbsSwiper }}
@@ -182,14 +180,9 @@ const ProductPage = ({
 
           {/* Thumbnail Navigation (below the swiper) */}
           <Swiper
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
             onSwiper={setThumbsSwiper}
             zoom={true}
             loop={true}
-            height={100}
             spaceBetween={10}
             slidesPerView={4}
             freeMode={true}
@@ -207,7 +200,7 @@ const ProductPage = ({
                     height={500}
                     loading="lazy"
                     alt={`thumbnail ${index + 1}`}
-                    className="w-2 h-2 object-cover rounded-lg"
+                    className="w-20 h-20 object-cover rounded-lg"
                   />
                 </SwiperSlide>
               );
