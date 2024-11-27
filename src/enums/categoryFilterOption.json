@@ -1,0 +1,32 @@
+[
+  {
+    "id": "e3841ed6-61da-4fb6-acc2-f2c2f7814db4",
+    "name": "All",
+    "targetOrderCount": 0
+  },
+  {
+    "id": "90d5a1a3-aaab-4179-aad5-39e823ef6823",
+    "name": "Necklace",
+    "targetOrderCount": 0
+  },
+  {
+    "id": "bb7cf9f6-ba43-4057-8e33-92d45303af61",
+    "name": "Earring",
+    "targetOrderCount": 0
+  },
+  {
+    "id": "6843dbd6-cb9c-4f63-82ce-840c11fa1bff",
+    "name": "Ring",
+    "targetOrderCount": 0
+  },
+  {
+    "id": "3d46fe33-4bb5-4734-8c6c-5e1c103de7fe",
+    "name": "Anklet",
+    "targetOrderCount": 0
+  },
+  {
+    "id": "1eeccc19-6e81-4758-908b-919902e1c5c0",
+    "name": "Set",
+    "targetOrderCount": 0
+  }
+]
