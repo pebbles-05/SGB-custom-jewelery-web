@@ -57,12 +57,19 @@ const Cart = () => {
   return (
     <div className="container mx-auto  flex flex-col lg:flex-row gap-8  lg:max-h-[89vh]">
       {/* Left Section (Products List) */}
-      <div className="w-full lg:w-3/4 space-y-6 lg:overflow-y-auto lg:max-h-screen lg:scroll-m-5 lg:p-4 sm:p-12 ">
+      <div className="w-full lg:w-3/4 space-y-6 lg:overflow-y-auto lg:max-h-screen lg:scroll-m-5 lg:p-4 sm:p-12 mt-5">
         <div className="grid grid-cols-3 gap-2 items-center text-4xl font-bold text-center mb-6 text-gray-800">
           <Link href="/store" className="justify-self-start text-xl">
             ← store
           </Link>
+
           <span>Your Cart</span>
+          <Link
+            href="#Bill"
+            className="justify-self-end text-xl flex lg:hidden"
+          >
+            ↓ Bill
+          </Link>
         </div>
 
         {!isProductDataLoading && !productDataError && cartItems?.length ? (
@@ -74,6 +81,7 @@ const Cart = () => {
               {/* Product Image */}
               <Link
                 href={`/store/${item.id}`}
+                target="_blank"
                 className="w-28 h-28 flex-shrink-0"
               >
                 <Image
@@ -87,7 +95,11 @@ const Cart = () => {
               </Link>
 
               {/* Product Details */}
-              <Link href={`/store/${item.id}`} className="flex-1">
+              <Link
+                href={`/store/${item.id}`}
+                target="_blank"
+                className="flex-1"
+              >
                 <h3 className="text-xl font-semibold text-gray-800">
                   {item.name}
                 </h3>
@@ -145,7 +157,10 @@ const Cart = () => {
       </div>
 
       {/* Right Section (Sticky Bill Summary) */}
-      <div className="w-full lg:w-1/4 lg:sticky lg:top-20 bg-white shadow-xl p-6 rounded-lg">
+      <div
+        id="Bill"
+        className="w-full lg:w-1/4 lg:sticky lg:top-20 bg-white shadow-xl p-6 rounded-lg"
+      >
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Bill Summary</h2>
         <div className="space-y-4">
           {cartItems.map((item) => (
