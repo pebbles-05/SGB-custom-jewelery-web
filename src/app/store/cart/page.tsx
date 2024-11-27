@@ -69,7 +69,7 @@ const Cart = () => {
           cartItems.map((item) => (
             <div
               key={item.id}
-              className="flex items-center lg:space-x-6 md:space-x-4 bg-white shadow-xl rounded-lg p-6 hover:scale-95 transition-all duration-300 ease-in-out transform"
+              className="flex flex-col sm:flex-row gap-5 mx-10 sm:mx-0 sm:gap-0 items-center lg:space-x-6 md:space-x-4 bg-white shadow-xl rounded-lg p-6 hover:scale-95 transition-all duration-300 ease-in-out transform"
             >
               {/* Product Image */}
               <Link
@@ -91,35 +91,39 @@ const Cart = () => {
                 <h3 className="text-xl font-semibold text-gray-800">
                   {item.name}
                 </h3>
-                <p className="text-sm text-gray-500 mt-2">{item.description}</p>
+                <p className="text-sm text-gray-500 mt-2 sm:flex hidden">
+                  {item.description}
+                </p>
               </Link>
 
               {/* Product Price & Quantity */}
               <div className="flex flex-col items-end space-y-2">
-                <span className="text-lg font-semibold text-gray-900">
-                  {formatCurrency(item.price * item.quantity)}
-                </span>
-                <div className="flex items-center space-x-3">
-                  <label
-                    htmlFor={`quantity-${item.id}`}
-                    className="text-sm text-gray-700"
-                  >
-                    Qty:
-                  </label>
-                  <select
-                    id={`quantity-${item.id}`}
-                    className="w-16 h-10 text-gray-800 p-2 bg-gray-100 rounded-md shadow-sm focus:outline-none"
-                    value={item.quantity}
-                    onChange={(e) =>
-                      handleQuantityChange(item.id, e.target.value)
-                    }
-                  >
-                    {Array.from({ length: 20 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1}
-                      </option>
-                    ))}
-                  </select>
+                <div className="flex sm:flex-col flex-row items-center justify-between gap-10 sm:gap-0">
+                  <span className="text-lg font-semibold text-gray-900">
+                    {formatCurrency(item.price * item.quantity)}
+                  </span>
+                  <div className="flex items-center space-x-3">
+                    <label
+                      htmlFor={`quantity-${item.id}`}
+                      className="text-sm text-gray-700"
+                    >
+                      Qty:
+                    </label>
+                    <select
+                      id={`quantity-${item.id}`}
+                      className="w-16 h-10 text-gray-800 p-2 bg-gray-100 rounded-md shadow-sm focus:outline-none"
+                      value={item.quantity}
+                      onChange={(e) =>
+                        handleQuantityChange(item.id, e.target.value)
+                      }
+                    >
+                      {Array.from({ length: 20 }, (_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <button
                   className="mt-4 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition"
