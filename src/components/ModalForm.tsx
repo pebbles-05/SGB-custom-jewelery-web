@@ -148,24 +148,31 @@ const ModalForm: React.FC<ModalFormProps> = ({
     `;
     //here pate the mail values
 
-    // const templateParams = {
-    //   from_name: formData.name,
-    //   from_email: formData.email,
-    //   message: emailData,
-    // };
-    // emailjs.send(serviceID, templateID, templateParams, publicKey).then(
-    //   (response) => {
-    //     console.log("SUCCESS!", response.status, response.text);
-    //     onSubmit(emailData);
-    //     setSubmissionMessage(
-    //       "You will be contacted shortly. Thank you and keep shopping!"
-    //     );
-    //   },
-    //   (error) => {
-    //     console.log("FAILED...", error);
-    //     setSubmissionMessage("Failed please try again!!!");
-    //   }
-    // );
+    const serviceID = process.env.NEXT_PUBLIC_SERVICEID;
+    const templateID = process.env.NEXT_PUBLIC_TEMPLATEID;
+    const publicKey = process.env.NEXT_PUBLIC_PUBLICID;
+    console.log(serviceID);
+    console.log(templateID);
+    console.log(publicKey);
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: emailData,
+    };
+    emailjs.send(serviceID, templateID, templateParams, publicKey).then(
+      (response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        onSubmit(emailData);
+        setSubmissionMessage(
+          "You will be contacted shortly. Thank you and keep shopping!"
+        );
+      },
+      (error) => {
+        console.log("FAILED...", error);
+        setSubmissionMessage("Failed please try again!!!");
+      }
+    );
   };
   const handleReset = () => {
     setFormData({
