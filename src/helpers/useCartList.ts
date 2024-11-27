@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import Cookies from "js-cookie";
-import productData from "@/enums/productData.json";
+import type { Product } from "@/interface/interfaces";
 
 const useCartList = () => {
   // Get a cookie as an array
@@ -11,7 +11,7 @@ const useCartList = () => {
 
   // Set a cookie as an array
   const setCartListById = useCallback(
-    (id: string, quantity: number = 1) => {
+    (productData: Product[], id: string, quantity: number = 1) => {
       // Find the product by id
       const product = productData.find((item) => item.id === id);
 

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import type { Product, SelectedFilteredData } from "@/interface/interfaces";
 import StoreProductBox from "@/components/StoreProductBox";
-import { getProductList } from "@/helpers/getProductList";
-import { useRouter, useSearchParams } from "next/navigation";
+import useProductList from "@/helpers/useProductList";
+import { useSearchParams } from "next/navigation";
 import StoreStatusBar from "@/components/StoreStatusBar";
 import {
   CategoryFilterOption,
@@ -12,12 +12,18 @@ import {
   TypeFilterOption,
 } from "@/enums/enums";
 import useCartList from "@/helpers/useCartList";
+import useFilteredProductList from "@/helpers/useFilteredProductList";
 
 const Store: React.FC = () => {
   const searchParams = useSearchParams();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { getCartList, setCartListById, removeCartItemById } = useCartList();
   const [cartList, setcartList] = useState(getCartList());
+  const {
+    data: productData,
+    error: productDataError,
+    isLoading: isProductDataLoading,
+  } = useProductList();
 
   const getFilterOptionsFromURL = (): SelectedFilteredData => {
     return {
@@ -35,17 +41,13 @@ const Store: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchFilteredProducts = async () => {
-      const filterOptions = getFilterOptionsFromURL();
-      const filteredData = await getProductList(filterOptions);
-      setFilteredProducts(filteredData);
-    };
-
-    fetchFilteredProducts();
-  }, [searchParams]);
+    const filterOptions = getFilterOptionsFromURL();
+    const filteredData = useFilteredProductList(productData, filterOptions);
+    setFilteredProducts(filteredData);
+  }, [searchParams, isProductDataLoading]);
 
   const handleAddToCart = (id: string) => {
-    setCartListById(id);
+    setCartListById(productData, id);
     const currentCartList = getCartList();
     setcartList(currentCartList);
   };
@@ -60,7 +62,9 @@ const Store: React.FC = () => {
       <div className="md:ml-28">
         <StoreStatusBar />
       </div>
-      {filteredProducts?.length ? (
+      {!isProductDataLoading &&
+      !productDataError &&
+      filteredProducts?.length ? (
         <div className="grid gap-14 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:mx-28 xs:mx-5 ">
           {filteredProducts.map((product) => (
             <StoreProductBox

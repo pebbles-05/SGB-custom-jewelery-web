@@ -36,6 +36,7 @@ interface Modal {
 interface FilterOption {
   id: string;
   name: string;
+  targetOrderCount?: number;
 }
 interface FilterOptionComponent {
   typeFilterOptions?: FilterOption[];

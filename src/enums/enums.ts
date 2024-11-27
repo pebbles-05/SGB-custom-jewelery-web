@@ -45,26 +45,32 @@ const CategoryFilterOption: FilterOption[] = [
   {
     id: uuid4(),
     name: "All",
+    targetOrderCount: 0,
   },
   {
     id: uuid4(),
     name: "Necklace",
+    targetOrderCount: 0,
   },
   {
     id: uuid4(),
     name: "Earring",
+    targetOrderCount: 0,
   },
   {
     id: uuid4(),
     name: "Ring",
+    targetOrderCount: 0,
   },
   {
     id: uuid4(),
     name: "Anklet",
+    targetOrderCount: 0,
   },
   {
     id: uuid4(),
     name: "Set",
+    targetOrderCount: 0,
   },
 ];
 
@@ -103,7 +109,6 @@ export {
   NavbarOptions,
   TypeFilterOption,
   CategoryFilterOption,
-  productData,
   PriceRange,
   QueryParameter,
   SortingOptions,

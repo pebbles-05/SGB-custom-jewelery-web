@@ -6,8 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import RemoveCartItemPopup from "@/components/RemoveCartItemPopup";
 import ModalForm from "@/components/ModalForm";
+import useProductList from "@/helpers/useProductList";
 
 const Cart = () => {
+  const {
+    data: productData,
+    error: productDataError,
+    isLoading: isProductDataLoading,
+  } = useProductList();
   const { getCartList, setCartListById, removeCartItemById } = useCartList();
   const [cartItems, setCartItems] = useState(getCartList());
   const [isConfirmationModalOpen, setisConfirmationModalOpen] = useState(false);
@@ -29,7 +35,7 @@ const Cart = () => {
   };
 
   const handleQuantityChange = (id, quantity) => {
-    setCartListById(id, quantity);
+    setCartListById(productData, id, quantity);
     setCartItems(getCartList());
   };
 
@@ -59,7 +65,7 @@ const Cart = () => {
           <span>Your Cart</span>
         </div>
 
-        {cartItems?.length ? (
+        {!isProductDataLoading && !productDataError && cartItems?.length ? (
           cartItems.map((item) => (
             <div
               key={item.id}
