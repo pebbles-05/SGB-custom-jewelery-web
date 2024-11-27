@@ -22,6 +22,7 @@ import type { Product } from "@/interface/interfaces";
 import RemoveCartItemPopup from "@/components/RemoveCartItemPopup";
 import ModalForm from "@/components/ModalForm";
 import useProductList from "@/helpers/useProductList";
+import Link from "next/link";
 
 const ProductPage = ({
   params,
@@ -118,16 +119,24 @@ const ProductPage = ({
     );
   } else {
     return (
-      <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto ">
+      <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto relative ">
+        <Link
+          href="/store"
+          className="w-full h-3 absolute left-0 top-0 justify-self-start font-semibold hover:text-2xl md:mt-0 mt-5 text-xl hover:font-bold"
+        >
+          ← store
+        </Link>
         {/* Left Section: Image Swiper */}
         <div
           id="storeImage"
-          className="w-full md:w-3/4 h-1/2 md:h-[110vh] bg-custom-bg-light flex flex-col md:justify-normal justify-center  p-4 "
+          className="w-full md:w-3/4 h-1/2 md:h-[110vh] bg-custom-bg-light flex flex-row-reverse md:justify-normal justify-center  p-4 mt-0 md:mt-10"
         >
           <Swiper
             style={{
               "--swiper-navigation-color": "#fff",
               "--swiper-pagination-color": "#fff",
+              display: "flex",
+              flexDirection: "column",
             }}
             navigation={true}
             thumbs={{ swiper: thumbsSwiper }}
@@ -173,9 +182,14 @@ const ProductPage = ({
 
           {/* Thumbnail Navigation (below the swiper) */}
           <Swiper
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
             onSwiper={setThumbsSwiper}
             zoom={true}
             loop={true}
+            height={100}
             spaceBetween={10}
             slidesPerView={4}
             freeMode={true}
@@ -193,7 +207,7 @@ const ProductPage = ({
                     height={500}
                     loading="lazy"
                     alt={`thumbnail ${index + 1}`}
-                    className="w-20 h-20 object-cover rounded-lg"
+                    className="w-2 h-2 object-cover rounded-lg"
                   />
                 </SwiperSlide>
               );
@@ -202,7 +216,7 @@ const ProductPage = ({
         </div>
         {/* <div className="w-px h-full bg-gray-200 hidden md:flex "></div> */}
         {/* Right Section: Product Details */}
-        <div className="w-full md:w-1/2 space-y-6 md:sticky top-9 mt-5 md:ml-10">
+        <div className="w-full md:w-1/2 space-y-6 md:sticky top-9 md:mt-20 md:ml-10">
           <h1 className="text-4xl font-bold">{product?.name}</h1>
           <div className="text-2xl font-semibold text-gray-800">
             &#8377;{product?.price}
