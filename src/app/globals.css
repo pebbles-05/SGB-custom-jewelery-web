@@ -83,36 +83,36 @@ select {
     1px 30px 60px rgba(16, 16, 16, 0.4);
 }
 
-/* 
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  body {
-    background: #000;
-    color: #000;
-  }
-   */
 #storeImage .swiper {
   width: 100%;
-  height: 50%;
+  height: 100%;
+  z-index: 0;
+}
+
+#storeImage .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#storeImage.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* body {
+  background: #000;
+  color: #000;
+} */
+
+#storeImage .swiper {
+  width: 100%;
+  height: 58%;
   margin-left: auto;
   margin-right: auto;
 }

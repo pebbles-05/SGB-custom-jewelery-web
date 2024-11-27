@@ -146,7 +146,7 @@ const ProductPage = ({
                 slidesPerView: 1,
               },
               768: {
-                direction: "vertical", // Vertical scroll on desktop
+                direction: "horizontal", // Horizontal scroll on desktop
                 slidesPerView: 1,
               },
             }}
