@@ -25,40 +25,25 @@ select {
 @keyframes shiny-effect {
   0% {
     color: #ffffff;
-    text-shadow:
-      0 0 5px #2c2c2c,
-      0 0 10px #2c2c2c,
-      0 0 15px #2c2c2c;
+    text-shadow: 0 0 5px #2c2c2c, 0 0 10px #2c2c2c, 0 0 15px #2c2c2c;
   }
   30% {
     color: #000000;
-    text-shadow:
-      0 0 5px #ffffff,
-      0 0 10px #ffffff,
-      0 0 15px #ffffff;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
   }
 
   50% {
     color: #2c2c2c;
-    text-shadow:
-      0 0 5px #c2c2c2,
-      0 0 10px #c2c2c2,
-      0 0 15px #c2c2c2;
+    text-shadow: 0 0 5px #c2c2c2, 0 0 10px #c2c2c2, 0 0 15px #c2c2c2;
   }
 
   70% {
     color: #ffffff;
-    text-shadow:
-      0 0 5px #2c2c2c,
-      0 0 10px #2c2c2c,
-      0 0 15px #2c2c2c;
+    text-shadow: 0 0 5px #2c2c2c, 0 0 10px #2c2c2c, 0 0 15px #2c2c2c;
   }
   100% {
     color: #ffffff;
-    text-shadow:
-      0 0 5px #2c2c2c,
-      0 0 10px #2c2c2c,
-      0 0 15px #2c2c2c;
+    text-shadow: 0 0 5px #2c2c2c, 0 0 10px #2c2c2c, 0 0 15px #2c2c2c;
   }
 }
 
@@ -70,17 +55,12 @@ select {
 		-2px 2px 5px rgba(255, 255, 255, 0.3);
   } */
 .Hero-name {
-  text-shadow:
-    2px 2px 5px rgba(22, 22, 22, 0.9),
-    -2px -2px 5px rgba(22, 22, 22, 0.9),
-    2px -2px 5px rgba(22, 22, 22, 0.9),
+  text-shadow: 2px 2px 5px rgba(22, 22, 22, 0.9),
+    -2px -2px 5px rgba(22, 22, 22, 0.9), 2px -2px 5px rgba(22, 22, 22, 0.9),
     -2px 2px 5px rgba(22, 22, 22, 0.9);
 }
 .shdw {
-  text-shadow:
-    2px 2px 5px #919191,
-    2px 4px 5px #919191,
-    2px 6px 5px #919191,
+  text-shadow: 2px 2px 5px #919191, 2px 4px 5px #919191, 2px 6px 5px #919191,
     2px 8px 5px #919191;
 }
 
@@ -95,20 +75,11 @@ select {
   font-size: 4em;
   font-weight: 700;
   color: #732717;
-  text-shadow:
-    1px 1px 1px #919191,
-    1px 2px 1px #919191,
-    1px 3px 1px #919191,
-    1px 4px 1px #919191,
-    1px 5px 1px #919191,
-    1px 6px 1px #919191,
-    1px 7px 1px #919191,
-    1px 8px 1px #919191,
-    1px 9px 1px #919191,
-    1px 10px 1px #919191,
-    1px 18px 6px rgba(16, 16, 16, 0.4),
-    1px 22px 10px rgba(16, 16, 16, 0.2),
-    1px 25px 35px rgba(16, 16, 16, 0.2),
+  text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
+    1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191,
+    1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191,
+    1px 10px 1px #919191, 1px 18px 6px rgba(16, 16, 16, 0.4),
+    1px 22px 10px rgba(16, 16, 16, 0.2), 1px 25px 35px rgba(16, 16, 16, 0.2),
     1px 30px 60px rgba(16, 16, 16, 0.4);
 }
 
@@ -219,7 +190,6 @@ select {
   object-fit: cover;
 }
 
-
 #imgsld .swiper {
   width: 100%;
   padding-top: 50px;
@@ -267,7 +237,7 @@ select {
 }
 
 .h-divider .shadow:after {
-  content: '';
+  content: "";
   display: block;
   margin: -25px auto 0;
   width: 100%;
@@ -325,12 +295,12 @@ select {
   border: 1px dashed #aaa;
 }
 html {
-  --cursor-color: #948b07e3
+  --cursor-color: #948b07e3;
   /* --cursor-color: #333 */
 }
 
 html.dark-mode {
-  --cursor-color: #fff
+  --cursor-color: #fff;
 }
 
 /* Minimal and Modern Custom Scrollbar Design */
@@ -363,18 +333,12 @@ html.dark-mode {
 }
 
 body {
-  font-family: 'Helvetica Neue', sans-serif; /* Clean, modern font */
+  font-family: "Helvetica Neue", sans-serif; /* Clean, modern font */
   background-color: #f9f9f9; /* Soft, light background */
   padding: 20px;
   height: 100vh;
-  overflow-y: scroll; /* Enables scrolling */
+  /* overflow-y: scroll; */
 }
-
-
-
-
-
-
 
 .hero-svg path {
   fill: transparent;
@@ -382,11 +346,10 @@ body {
   stroke-width: 1;
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
-  animation: textAnimation 6s ease-in-out 1 forwards ;
+  animation: textAnimation 6s ease-in-out 1 forwards;
   /* animation-delay: 2s; */
   z-index: 500;
   position: absolute;
-  
 }
 @keyframes textAnimation {
   0% {
@@ -400,8 +363,6 @@ body {
     stroke-dashoffset: 0;
   }
 }
-
-
 
 @media (max-width: 640px) {
   .cover {
