@@ -1,3 +1,4 @@
+import emailjs from "@emailjs/browser";
 import React, { useEffect, useState } from "react";
 
 interface Product {
@@ -145,10 +146,27 @@ const ModalForm: React.FC<ModalFormProps> = ({
       
       Thank you for shopping with us!
     `;
+    const serviceID = "service_4ir6szx";
+    const templateID = "template_q6nz49i";
+    const publicKey = "xyI-Y18Z9ZHogQ_eE";
 
-    onSubmit(emailData);
-    setSubmissionMessage(
-      "You will be contacted shortly. Thank you and keep shopping!"
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: emailData,
+    };
+    emailjs.send(serviceID, templateID, templateParams, publicKey).then(
+      (response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        onSubmit(emailData);
+        setSubmissionMessage(
+          "You will be contacted shortly. Thank you and keep shopping!"
+        );
+      },
+      (error) => {
+        console.log("FAILED...", error);
+        setSubmissionMessage("Failed please try again!!!");
+      }
     );
   };
   const handleReset = () => {
