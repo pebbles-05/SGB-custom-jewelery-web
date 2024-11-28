@@ -151,9 +151,6 @@ const ModalForm: React.FC<ModalFormProps> = ({
     const serviceID = process.env.NEXT_PUBLIC_SERVICEID;
     const templateID = process.env.NEXT_PUBLIC_TEMPLATEID;
     const publicKey = process.env.NEXT_PUBLIC_PUBLICID;
-    console.log(serviceID);
-    console.log(templateID);
-    console.log(publicKey);
 
     const templateParams = {
       from_name: formData.name,
