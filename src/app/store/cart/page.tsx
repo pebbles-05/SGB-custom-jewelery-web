@@ -19,6 +19,8 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState(getCartList());
   const [isConfirmationModalOpen, setisConfirmationModalOpen] = useState(false);
   const [removalProductId, setremovalProductId] = useState("");
+  const [isClearAllCartButtonClicked, setIsClearAllCartButtonClicked] =
+    useState(false);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
@@ -27,8 +29,13 @@ const Cart = () => {
     }).format(amount);
   };
 
-  const handleRemove = (id) => {
-    if (id) {
+  const handleRemove = (id?: string) => {
+    if (isClearAllCartButtonClicked) {
+      removeCartList();
+      setCartItems(getCartList());
+      setIsClearAllCartButtonClicked(false);
+      setisConfirmationModalOpen(false);
+    } else if (id) {
       removeCartItemById(id);
       setCartItems(getCartList());
       setisConfirmationModalOpen(false);
@@ -79,7 +86,10 @@ const Cart = () => {
         <div className="flex justify-end">
           {cartItems?.length ? (
             <button
-              onClick={handleRemoveCartList}
+              onClick={() => {
+                setisConfirmationModalOpen();
+                setIsClearAllCartButtonClicked(true);
+              }}
               className="mt-6  w-1/5 py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
             >
               Clear cart
@@ -206,9 +216,20 @@ const Cart = () => {
       <RemoveCartItemPopup
         headerClass="text-xl"
         buttonClass="text-xs"
+        title={
+          isClearAllCartButtonClicked
+            ? "Do you want to remove All items from cart?"
+            : "Do you want to remove this item?"
+        }
         isConfirmationModalOpen={isConfirmationModalOpen}
-        onClickOutside={() => setisConfirmationModalOpen(false)}
-        onCancel={() => setisConfirmationModalOpen(false)}
+        onClickOutside={() => {
+          setisConfirmationModalOpen(false);
+          setIsClearAllCartButtonClicked(false);
+        }}
+        onCancel={() => {
+          setisConfirmationModalOpen(false);
+          setIsClearAllCartButtonClicked(false);
+        }}
         onRemove={() => handleRemove(removalProductId)}
       />
       <ModalForm
