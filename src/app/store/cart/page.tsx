@@ -14,7 +14,8 @@ const Cart = () => {
     error: productDataError,
     isLoading: isProductDataLoading,
   } = useProductList();
-  const { getCartList, setCartListById, removeCartItemById } = useCartList();
+  const { getCartList, setCartListById, removeCartList, removeCartItemById } =
+    useCartList();
   const [cartItems, setCartItems] = useState(getCartList());
   const [isConfirmationModalOpen, setisConfirmationModalOpen] = useState(false);
   const [removalProductId, setremovalProductId] = useState("");
@@ -53,6 +54,10 @@ const Cart = () => {
   const handleModalSubmit = (emailData: string) => {
     console.log("Email Data:", emailData);
   };
+  const handleRemoveCartList = () => {
+    removeCartList();
+    setCartItems(getCartList());
+  };
 
   return (
     <div className="container mx-auto  flex flex-col lg:flex-row gap-8  lg:max-h-[89vh]">
@@ -73,7 +78,10 @@ const Cart = () => {
         </div>
         <div className="flex justify-end">
           {cartItems?.length ? (
-            <button className="mt-6  w-1/5 py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+            <button
+              onClick={handleRemoveCartList}
+              className="mt-6  w-1/5 py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            >
               Clear cart
             </button>
           ) : null}

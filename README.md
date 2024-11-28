@@ -5,6 +5,7 @@ This is a custom Jewelry website for Shryashis Gaynar Baksho made using Next.js,
 # TODO:
 
 - fix error where the cart remove popup hides behid carousal.
+- navbar is not sticky.
 - make changes every where for apis.
 - [
   {

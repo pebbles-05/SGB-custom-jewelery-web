@@ -99,6 +99,8 @@
 
 "use client";
 import { NavbarOptions, QueryParameter } from "@/enums/enums";
+import { cartEventEmitter } from "@/helpers/useCartEmitter";
+import useCartList from "@/helpers/useCartList";
 import type { NavbarOption } from "@/interface/interfaces";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
@@ -113,6 +115,20 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentQueryParams = new URLSearchParams(window.location.search || "");
+  const { getCartList } = useCartList();
+  const [cartItemCount, setCartItemCount] = useState(getCartList()?.length);
+
+  useEffect(() => {
+    const updateCartList = () => {
+      const cartListLength = getCartList()?.length || 0;
+      setCartItemCount(cartListLength);
+    };
+    updateCartList();
+    cartEventEmitter.on("cartUpdated", updateCartList);
+    return () => {
+      cartEventEmitter.off("cartUpdated", updateCartList); // Clean up
+    };
+  }, []);
 
   useEffect(() => {
     setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
@@ -187,11 +203,16 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           )}
         </div>
 
-        <Link href="/store/cart/" className="ml-auto md:ml-0">
-          <Icon
-            icon="iconoir:cart"
-            className="w-8 h-8 hover:text-custom-golden"
-          />
+        <Link
+          href="/store/cart/"
+          className="ml-auto md:ml-0 text-custom-bg-light hover:text-custom-golden relative group"
+        >
+          <Icon icon="iconoir:cart" className="w-8 h-8" />
+          {cartItemCount && cartItemCount !== 0 ? (
+            <div className="absolute w-6 h-6 -top-3 -right-3 rounded-full flex items-center justify-center bg-custom-bg-light group-hover:bg-custom-golden text-custom-fg-light text-sm">
+              {cartItemCount}
+            </div>
+          ) : null}
         </Link>
       </div>
 

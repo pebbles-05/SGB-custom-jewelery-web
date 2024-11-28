@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import Cookies from "js-cookie";
 import type { Product } from "@/interface/interfaces";
+import { cartEventEmitter } from "./useCartEmitter";
 
 const useCartList = () => {
   // Get a cookie as an array
@@ -38,6 +39,7 @@ const useCartList = () => {
             path: "/",
             secure: true,
           });
+          cartEventEmitter.emit("cartUpdated");
           console.log(
             `Added product: ${product.name}, Quantity: ${newCartItem.quantity}`
           );
@@ -72,6 +74,7 @@ const useCartList = () => {
   // Remove a cookie
   const removeCartList = useCallback(() => {
     Cookies.remove("cartlist");
+    cartEventEmitter.emit("cartUpdated");
   }, []);
   const removeCartItemById = (id: string) => {
     if (id) {
@@ -82,6 +85,7 @@ const useCartList = () => {
         path: "/",
         secure: true,
       });
+      cartEventEmitter.emit("cartUpdated");
     }
   };
 

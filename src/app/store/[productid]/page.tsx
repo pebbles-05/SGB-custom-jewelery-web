@@ -46,13 +46,20 @@ const ProductPage = ({
   } = useProductList();
 
   useEffect(() => {
-    const fetechedProduct = useProduct(productData, params?.productid);
-    if (fetechedProduct) {
-      setCartClicked(
-        getCartList()?.some((item) => item.id === fetechedProduct.id)
+    const fetchProduct = async () => {
+      const unwrappedParams = await params;
+      const fetechedProduct = useProduct(
+        productData,
+        unwrappedParams?.productid
       );
-      setproduct(fetechedProduct);
-    }
+      if (fetechedProduct) {
+        setCartClicked(
+          getCartList()?.some((item) => item.id === fetechedProduct.id)
+        );
+        setproduct(fetechedProduct);
+      }
+    };
+    fetchProduct();
   }, [params, isProductDataLoading]);
 
   // Open the modal when an image is clicked
