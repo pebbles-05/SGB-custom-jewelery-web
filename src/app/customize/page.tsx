@@ -177,12 +177,14 @@ const CustomizedPage: React.FC = () => {
         </div>
 
         {/* Submit Button */}
-        <button
-          className="w-full bg-[#f8ede3] text-[#732717] text-lg font-semibold py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-[#732717] hover:text-[#f8ede3] transition-all hover:border-2 hover:border-[#f8ede3]"
-          onClick={handleSubmit}
-        >
-          Submit Customization
-        </button>
+        {category?.length && material?.length && description?.length ? (
+          <button
+            className="w-full bg-[#f8ede3] text-[#732717] text-lg font-semibold py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-[#732717] hover:text-[#f8ede3] transition-all hover:border-2 hover:border-[#f8ede3]"
+            onClick={handleSubmit}
+          >
+            Submit Customization
+          </button>
+        ) : null}
       </div>
       <ModalForm
         isOpen={isModalOpen}

@@ -168,7 +168,7 @@ const Hero = () => {
           <span className="text-3xl text-custom-bg-light/60 custom-text3">
             "create your own"
           </span>
-          <div className="flex flex-col md:flex-row  gap-14">
+          <div className="flex flex-col md:flex-row  gap-8">
             <Link
               href="/customize"
               className="text-2xl ml-3 md:ml-0 border border-custom-bg-light px-8 py-4 rounded hover:bg-custom-bg-light hover:text-custom-black custom-text2"

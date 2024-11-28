@@ -1,20 +1,18 @@
-
-
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 
 // import required modules
-import { EffectCoverflow, Pagination, Keyboard, Zoom } from 'swiper/modules';
+import { EffectCoverflow, Pagination, Keyboard, Zoom } from "swiper/modules";
 
 const ImageSlider = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -64,20 +62,23 @@ const ImageSlider = () => {
 
   // Animate images out (exit animation)
   useGSAP(() => {
-    gsap.fromTo(".hdng", {
-      opacity: 0,
-      x: 40,
-    },
-    {
-      scrollTrigger: {
-        trigger: ".hdng",
-         toggleActions: "restart reverse restart reverse",
-        start: "top 90%",
-        //  end: "bottom 50%"
+    gsap.fromTo(
+      ".hdng",
+      {
+        opacity: 0,
+        x: 40,
       },
-      opacity: 1,
-      x: 0,
-    });
+      {
+        scrollTrigger: {
+          trigger: ".hdng",
+          toggleActions: "restart reverse restart reverse",
+          start: "top 90%",
+          //  end: "bottom 50%"
+        },
+        opacity: 1,
+        x: 0,
+      }
+    );
 
     gsap.fromTo(
       imageRefs.current,
@@ -132,7 +133,10 @@ const ImageSlider = () => {
     }
   };
 
-  const images = Array.from({ length: 5 }, (_, i) => `/images/image${i + 1}.jpg`);
+  const images = Array.from(
+    { length: 5 },
+    (_, i) => `/images/image${i + 1}.jpg`
+  );
 
   const imageSliderRef = useRef(null);
   const imageRefs = useRef([]);
@@ -164,29 +168,44 @@ const ImageSlider = () => {
   // }, [isMobile]);
 
   useGSAP(() => {
-    gsap.fromTo("#hdng", { opacity:0,'webkitFilter': 'blur(15px)',y:20 }, {
-      scrollTrigger: {
-        trigger: "#hdng",
-        toggleActions: "restart reverse restart reverse",
-        start: "top 50%",
-      },
-      opacity:1,'webkitFilter': 'blur(0px)',y:0, duration: 1
-    });
+    gsap.fromTo(
+      "#hdng",
+      { opacity: 0, webkitFilter: "blur(15px)", y: 20 },
+      {
+        scrollTrigger: {
+          trigger: "#hdng",
+          toggleActions: "restart reverse restart reverse",
+          start: "top 50%",
+        },
+        opacity: 1,
+        webkitFilter: "blur(0px)",
+        y: 0,
+        duration: 1,
+      }
+    );
   });
 
   // Mobile Layout with Enhanced Effects
   const MobileLayout = () => (
-    <div id="imgsld" className="w-full h-[50vh] md:h-screen px-8 overflow-hidden  relative ">
-      <h2 id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">Work Gallery</h2>
+    <div
+      id="imgsld"
+      className="w-full h-[50vh] md:h-screen px-8 overflow-hidden  relative "
+    >
+      <h2
+        id="hdng"
+        className="text-4xl font-bold text-center mb-12 text-gray-800"
+      >
+        Work Gallery
+      </h2>
       {/* <div
         ref={imageSliderRef}
         className="flex flex-col items-center gap-4 max-h-[80%] w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hiden "
       > */}
       <Swiper
-        effect={'coverflow'}
+        effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
-        slidesPerView={'auto'}
+        slidesPerView={"auto"}
         coverflowEffect={{
           rotate: 50,
           stretch: 0,
@@ -198,13 +217,11 @@ const ImageSlider = () => {
         loop={true}
         pagination={true}
         zoom={true}
-        modules={[EffectCoverflow, Pagination,Keyboard, Zoom]}
+        modules={[EffectCoverflow, Pagination, Keyboard, Zoom]}
         className="mySwiper  "
       >
         {images.map((img, index) => (
-          <SwiperSlide
-            key={index}
-          >
+          <SwiperSlide key={index}>
             <Image
               src={img}
               alt={`Image ${index}`}
@@ -248,17 +265,25 @@ const ImageSlider = () => {
     //       </div>
     //     ))}
     //   </div>
-    <div id="imgsldb" className="w-full h-[70vh] px-8 md:px-12 md:my-16 overflow-hidden  relative ">
-      <h2 id="hdng" className="text-4xl font-bold text-center mb-12 text-gray-800">Work Gallery</h2>
+    <div
+      id="imgsldb"
+      className="w-full h-[70vh] px-8 md:px-12 md:my-16 overflow-hidden  relative "
+    >
+      <h2
+        id="hdng"
+        className="text-4xl font-bold text-center mb-12 text-gray-800"
+      >
+        Work Gallery
+      </h2>
       {/* <div
         ref={imageSliderRef}
         className="flex flex-col items-center gap-4 max-h-[80%] w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hiden "
       > */}
       <Swiper
-        effect={'coverflow'}
+        effect={"coverflow"}
         grabCursor={true}
         centeredSlides={true}
-        slidesPerView={'auto'}
+        slidesPerView={"auto"}
         coverflowEffect={{
           rotate: 50,
           stretch: 0,
@@ -270,13 +295,11 @@ const ImageSlider = () => {
         loop={true}
         pagination={true}
         zoom={true}
-        modules={[EffectCoverflow, Pagination,Keyboard, Zoom]}
+        modules={[EffectCoverflow, Pagination, Keyboard, Zoom]}
         className="mySwiper  "
       >
         {images.map((img, index) => (
-          <SwiperSlide
-            key={index}
-          >
+          <SwiperSlide key={index}>
             <Image
               src={img}
               alt={`Image ${index}`}

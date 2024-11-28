@@ -71,6 +71,13 @@ const Cart = () => {
             ↓ Bill
           </Link>
         </div>
+        <div className="flex justify-end">
+          {cartItems?.length ? (
+            <button className="mt-6  w-1/5 py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+              Clear cart
+            </button>
+          ) : null}
+        </div>
 
         {!isProductDataLoading && !productDataError && cartItems?.length ? (
           cartItems.map((item) => (
@@ -179,12 +186,14 @@ const Cart = () => {
           <span>Grand Total</span>
           <span>{formatCurrency(grandTotal)}</span>
         </div>
-        <button
-          onClick={handleSubmit}
-          className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-        >
-          Checkout
-        </button>
+        {cartItems?.length ? (
+          <button
+            onClick={handleSubmit}
+            className="mt-6 w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+          >
+            Checkout
+          </button>
+        ) : null}
       </div>
       <RemoveCartItemPopup
         headerClass="text-xl"
