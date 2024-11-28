@@ -75,21 +75,16 @@
 
 // export default CategoricalCard;
 
+import Link from "next/link";
 import React from "react";
 
 interface CardProps {
   name: string;
   bgImage: string;
-  pageLink: string;
   description: string;
 }
 
-const Card: React.FC<CardProps> = ({
-  name,
-  description,
-  bgImage,
-  pageLink,
-}) => {
+const Card: React.FC<CardProps> = ({ name, description, bgImage }) => {
   return (
     <div className="group relative flex flex-col items-center justify-between overflow-hidden bg-white text-gray-900 shadow-lg rounded-lg transition-shadow duration-300 hover:shadow-2xl cursor-default hover:scale-105 aspect-square">
       {/* Background Image */}
@@ -111,12 +106,12 @@ const Card: React.FC<CardProps> = ({
         {/* Description and Button (initially hidden and sliding up on hover) */}
         <div className="text-sm text-gray-200 opacity-100   ">
           <p className=" overflow-scroll">{description}</p>
-          <a
-            href={pageLink}
+          <Link
+            href={`/store?category=${name?.toLocaleLowerCase()}`}
             className="inline-block mt-4 px-6 py-2 text-sm font-semibold uppercase bg-transparent text-white rounded-full shadow-md hover:bg-white hover:text-black border-2 border-white focus:outline-none focus:ring focus:ring-yellow-400 cursor-pointer"
           >
             Explore
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -24,10 +24,9 @@ const useFilteredProductList = (
         item.description.toLowerCase().includes(search.toLowerCase())
       : true;
 
-    const matchesType =
-      type && type !== TypeFilterOption[0].name
-        ? item.type.toLowerCase() === type.toLowerCase()
-        : true;
+    const matchesType = type
+      ? item.type.toLowerCase() === type.toLowerCase()
+      : true;
 
     const matchesCategory =
       category && category !== CategoryFilterOption[0].name

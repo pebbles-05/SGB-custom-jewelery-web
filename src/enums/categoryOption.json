@@ -1,0 +1,37 @@
+[
+  {
+    "id": "90d5a1a3-aaab-4179-aad5-39e823ef6823",
+    "name": "Necklace",
+    "targetOrderCount": 0,
+    "description": "Discover necklaces that are as unique as you are. From earthy clay pendants to bold oxidized statements, our collection celebrates the beauty of imperfection and the art of handmade jewelry.",
+    "img": "https://picsum.photos/id/201/200/"
+  },
+  {
+    "id": "bb7cf9f6-ba43-4057-8e33-92d45303af61",
+    "name": "Earring",
+    "targetOrderCount": 0,
+    "description": "Make a statement with earrings that bring a playful yet elegant vibe to your ensemble. Crafted with care and a touch of whimsy, each pair reflects the joy of wearing something truly special and handmade.",
+    "img": "https://picsum.photos/id/202/200/"
+  },
+  {
+    "id": "6843dbd6-cb9c-4f63-82ce-840c11fa1bff",
+    "name": "Ring",
+    "targetOrderCount": 0,
+    "description": "Slip on a ring that feels personal, unique, and full of character. Whether it's a simple clay band or a vibrant, customized piece, our rings tell the story of individuality and hand-crafted artistry.",
+    "img": "https://picsum.photos/id/203/200/"
+  },
+  {
+    "id": "3d46fe33-4bb5-4734-8c6c-5e1c103de7fe",
+    "name": "Anklet",
+    "targetOrderCount": 0,
+    "description": "Celebrate the rhythm of life with our charming anklets. From delicate threads to intricate clay and beadwork, each piece is designed to add a touch of handcrafted beauty to every step you take.",
+    "img": "https://picsum.photos/id/204/200/"
+  },
+  {
+    "id": "1eeccc19-6e81-4758-908b-919902e1c5c0",
+    "name": "Set",
+    "targetOrderCount": 0,
+    "description": "Explore our curated sets that blend handmade charm with artistic flair. Designed for those who celebrate individuality, each set is a unique story of creativity and craftsmanship.",
+    "img": "https://picsum.photos/id/206/200/"
+  }
+]

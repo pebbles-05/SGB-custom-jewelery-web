@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { FilterOption } from "@/interface/interfaces";
 
-export default function useBestSellerList() {
+export default function useCategoryList() {
   const [data, setData] = useState<FilterOption[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);

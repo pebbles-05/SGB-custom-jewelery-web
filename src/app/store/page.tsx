@@ -5,12 +5,7 @@ import StoreProductBox from "@/components/StoreProductBox";
 import useProductList from "@/helpers/useProductList";
 import { useSearchParams } from "next/navigation";
 import StoreStatusBar from "@/components/StoreStatusBar";
-import {
-  CategoryFilterOption,
-  PriceRange,
-  SortingOptions,
-  TypeFilterOption,
-} from "@/enums/enums";
+import { PriceRange, SortingOptions } from "@/enums/enums";
 import useCartList from "@/helpers/useCartList";
 import useFilteredProductList from "@/helpers/useFilteredProductList";
 
@@ -27,16 +22,16 @@ const Store: React.FC = () => {
 
   const getFilterOptionsFromURL = (): SelectedFilteredData => {
     return {
-      search: searchParams.get("search") || "",
-      type: searchParams.get("type") || TypeFilterOption[0]?.name,
-      category: searchParams.get("category") || CategoryFilterOption[0]?.name,
+      search: searchParams?.get("search") || "",
+      type: searchParams?.get("type") || "",
+      category: searchParams?.get("category") || "",
       minPrice: parseFloat(searchParams.get("minPrice") || PriceRange.min[0]),
       maxPrice: parseFloat(
-        searchParams.get("maxPrice") ||
-          PriceRange.max[PriceRange.max.length - 1]
+        searchParams?.get("maxPrice") ||
+          PriceRange?.max[PriceRange?.max.length - 1]
       ),
       sortingOption:
-        searchParams.get("sorting_option") || SortingOptions[0].name,
+        searchParams?.get("sorting_option") || SortingOptions[0].name,
     };
   };
 

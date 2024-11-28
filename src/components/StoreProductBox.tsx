@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Cinzel_Decorative } from "@next/font/google";
 import { useState } from "react";
 import RemoveCartItemPopup from "./RemoveCartItemPopup";
+import bestsellerpng from "@/public/bestseller.png";
 
 const cinzelDecorative = Cinzel_Decorative({
   weight: ["400", "700"],
@@ -16,7 +17,8 @@ const StoreProductBox = ({
   name,
   price,
   img,
-  isCartClicked,
+  isCartClicked = false,
+  isBestSeller = false,
   onCartAdd,
   onCartRemove,
 }: StoreProductBox) => {
@@ -44,7 +46,7 @@ const StoreProductBox = ({
           onMouseLeave={() => setisCartIconHovered(false)}
           title={isCartClicked ? "Remove from cart" : "Add to cart"}
           aria-label={isCartClicked ? "Remove from cart" : "Add to cart"}
-          className={`absolute top-3 right-3 p-2 rounded-full ${
+          className={`absolute bottom-3 right-3 p-2 rounded-full ${
             isCartClicked
               ? "bg-green-500 text-white hover:bg-red-500"
               : "bg-custom-black/30 text-custom-white md:opacity-0 md:group-hover:opacity-100"
@@ -59,6 +61,16 @@ const StoreProductBox = ({
             className="w-6 h-6"
           />
         </button>
+        {isBestSeller && (
+          <Image
+            loading="lazy"
+            src={bestsellerpng}
+            alt="best seller"
+            width={500}
+            height={500}
+            className="absolute left-0 top-0 w-20 z-10"
+          />
+        )}
 
         {/* Product Image */}
         <Image

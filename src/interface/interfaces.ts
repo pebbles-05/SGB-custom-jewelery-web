@@ -24,6 +24,7 @@ interface StoreProductBox {
   Category?: string;
   availability?: boolean;
   isCartClicked: boolean;
+  isBestSeller: boolean;
   onCartAdd?: (id: string) => void;
   onCartRemove?: (id: string) => void;
 }
@@ -37,6 +38,8 @@ interface FilterOption {
   id: string;
   name: string;
   targetOrderCount?: number;
+  description?: string;
+  img?: string;
 }
 interface FilterOptionComponent {
   typeFilterOptions?: FilterOption[];

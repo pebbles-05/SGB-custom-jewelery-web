@@ -61,10 +61,6 @@ const Cart = () => {
   const handleModalSubmit = (emailData: string) => {
     console.log("Email Data:", emailData);
   };
-  const handleRemoveCartList = () => {
-    removeCartList();
-    setCartItems(getCartList());
-  };
 
   return (
     <div className="container mx-auto  flex flex-col lg:flex-row gap-8  lg:max-h-[89vh]">
