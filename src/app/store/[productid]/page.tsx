@@ -232,7 +232,7 @@ const ProductPage = ({
           <div className="flex gap-4">
             <button
               onClick={handleSubmit}
-              className="bg-custom-fg-light text-white py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition"
+              className="bg-custom-fg-light text-white w-1/3 text-sm py-2 px-4 rounded-lg hover:bg-transparent border-2 hover:text-custom-fg-light border-custom-fg-light transition"
             >
               Buy Now
             </button>
