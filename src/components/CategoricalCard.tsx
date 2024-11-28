@@ -99,7 +99,7 @@ const Card: React.FC<CardProps> = ({
       ></div>
 
       {/* Gradient Overlay */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-80"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black to-transparent opacity-70 group-hover:opacity-80"></div>
 
       {/* Content */}
       <div className="relative w-full h-full p-6 flex flex-col justify-end transition-all duration-300 group-hover:justify-between gap-2">
@@ -109,7 +109,7 @@ const Card: React.FC<CardProps> = ({
         </h2>
 
         {/* Description and Button (initially hidden and sliding up on hover) */}
-        <div className="text-sm text-gray-200 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 transition-all duration-500 delay-150">
+        <div className="text-sm text-gray-200 opacity-100   ">
           <p className=" overflow-scroll">{description}</p>
           <a
             href={pageLink}
