@@ -1,50 +1,36 @@
-"use client"
-import React, { useState } from "react";
-import ModalForm from "./ModalForm";
+"use client";
+import React, { useEffect } from "react";
+import { gsap } from "gsap";
 
-const TestPage: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const products = [
-    { name: "Product 1", price: 200 },
-    { name: "Product 2", price: 300 },
-  ];
-  const [submissionMessage, setSubmissionMessage] = useState("");
-  const handleModalSubmit = (emailData: string) => {
-    console.log("Email Data:", emailData);
-  };
+const TestPage = () => {
+  // useEffect(() => {
+  //   gsap.set(".ball", { xPercent: -50, yPercent: -50 });
+  //   let targets = gsap.utils.toArray(".ball");
+  //   window.addEventListener("mousemove", (e) => {
+  //     gsap.to(targets, {
+  //       duration: 0.5,
+  //       x: e.clientX,
+  //       y: e.clientY,
+  //       ease: "power1.out",
+  //       overwrite: "auto",
+  //       stagger: 0.02,
+  //     });
+  //   });
+  // }, []);
 
   return (
-    <div className="min-h-screen bg-custom-bg-light flex items-center justify-center">
-      <button
-        className="bg-custom-fg-light text-white py-2 px-4 rounded-lg"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Open Modal
-      </button>
-
-      {/* <ModalForm
-        isOpen={isModalOpen}
-        onClose={() => {setIsModalOpen(false)
-            setSubmissionMessage("")
-        }}
-        products={products}
-        onSubmit={handleModalSubmit}
-        setSubmissionMessage={setSubmissionMessage}
-        SubmissionMessage={submissionMessage}
-      /> */}
-      <ModalForm
-        isOpen={isModalOpen}
-        onClose={() => {setIsModalOpen(false)
-            setSubmissionMessage("")
-        }}
-        catagory="Necklace"
-        type="Clay"
-        desc="Beads structured necklace with a star shaped chimes between them symmetrical and heart at the middle"
-        onSubmit={handleModalSubmit}
-        setSubmissionMessage={setSubmissionMessage}
-        SubmissionMessage={submissionMessage}
-      />
-    </div>
+    <>
+      <div className="min-h-screen bg-black">
+        <div className="ball bg-yellow-500 w-4 h-4 fixed top-0 left-0 rounded-full"></div>
+        <div className="ball bg-yellow-500 w-4 h-4 fixed top-0 left-0 rounded-full"></div>
+        <div className="ball bg-yellow-500 w-4 h-4 fixed top-0 left-0 rounded-full"></div>
+        <div className="ball bg-yellow-500 w-4 h-4 fixed top-0 left-0 rounded-full"></div>
+        <div className="ball bg-yellow-500 w-4 h-4 fixed top-0 left-0 rounded-full"></div>
+        <h2 className="text-center text-4xl font-bold text-blue-900">
+          Mouse Hover Effect
+        </h2>
+      </div>
+    </>
   );
 };
 
