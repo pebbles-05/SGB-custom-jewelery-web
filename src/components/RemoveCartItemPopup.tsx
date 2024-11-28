@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "./Modal";
 
 const RemoveCartItemPopup = ({
+  title = "Do you want to remove this item?",
   headerClass,
   buttonClass,
   isConfirmationModalOpen,
@@ -9,6 +10,7 @@ const RemoveCartItemPopup = ({
   onCancel,
   onRemove,
 }: {
+  title: string;
   headerClass: string;
   buttonClass: string;
   isConfirmationModalOpen: boolean;
@@ -24,7 +26,7 @@ const RemoveCartItemPopup = ({
     >
       <div className="flex flex-col gap-4 p-4 bg-custom-bg-light rounded-lg">
         <span className={`text-custom-fg-light ${headerClass} text-3xl`}>
-          Do you want to remove this item?
+          {title}
         </span>
         <div className={`flex gap-2 ml-auto ${buttonClass} text-xl`}>
           <button
