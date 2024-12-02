@@ -35,9 +35,7 @@ const ProductPage = ({
   const [isModalOpen, setIsModalOpen] = useState(false); // Track modal state
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Track the current image index
   const [product, setproduct] = useState<Product>({});
-  const [isCartClicked, setCartClicked] = useState<boolean>(
-    getCartList()?.some((item: Product) => item.id === product.id)
-  );
+  const [isCartClicked, setIsCartClicked] = useState<boolean>(false);
   const [isConfirmationModalOpen, setisConfirmationModalOpen] = useState(false);
   const {
     data: productData,
@@ -53,14 +51,20 @@ const ProductPage = ({
         unwrappedParams?.productid
       );
       if (fetechedProduct) {
-        setCartClicked(
-          getCartList()?.some((item) => item.id === fetechedProduct.id)
-        );
         setproduct(fetechedProduct);
       }
     };
     fetchProduct();
   }, [params, isProductDataLoading]);
+
+  const fetchIsCartItem = async () => {
+    const cartList = await getCartList();
+    const isProductInCart = cartList?.some((item) => item?.id === product?.id);
+    setIsCartClicked(isProductInCart);
+  };
+  useEffect(() => {
+    fetchIsCartItem();
+  }, [getCartList, product]);
 
   // Open the modal when an image is clicked
   const openModal = (index: number) => {
@@ -92,12 +96,23 @@ const ProductPage = ({
   };
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
-  const handleCartClick = () => {
+  const handleCartClick = async () => {
     if (isCartClicked) {
       setisConfirmationModalOpen(true);
     } else {
-      setCartListById(productData, product?.id);
-      setCartClicked(getCartList()?.some((item) => item.id === product?.id));
+      await setCartListById(productData, product?.id);
+      fetchIsCartItem();
+    }
+  };
+  const handleRemoveFromCart = async (id: string) => {
+    if (product) {
+      await removeCartItemById(product.id);
+      const cartList = await getCartList();
+      const isProductInCart = cartList?.some(
+        (item) => item?.id === product?.id
+      );
+      setIsCartClicked(isProductInCart);
+      setisConfirmationModalOpen(false);
     }
   };
   const handleSubmit = () => {
@@ -266,13 +281,7 @@ const ProductPage = ({
               isConfirmationModalOpen={isConfirmationModalOpen}
               onClickOutside={() => setisConfirmationModalOpen(false)}
               onCancel={() => setisConfirmationModalOpen(false)}
-              onRemove={() => {
-                removeCartItemById(product?.id);
-                setCartClicked(
-                  getCartList()?.some((item) => item.id === product?.id)
-                );
-                setisConfirmationModalOpen(false);
-              }}
+              onRemove={handleRemoveFromCart}
             />
           </div>
         </div>

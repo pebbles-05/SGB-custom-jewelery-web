@@ -116,11 +116,12 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentQueryParams = new URLSearchParams(window.location.search || "");
   const { getCartList } = useCartList();
-  const [cartItemCount, setCartItemCount] = useState(getCartList()?.length);
+  const [cartItemCount, setCartItemCount] = useState<number>(0);
 
   useEffect(() => {
-    const updateCartList = () => {
-      const cartListLength = getCartList()?.length || 0;
+    const updateCartList = async () => {
+      const cartList = await getCartList();
+      const cartListLength = cartList?.length;
       setCartItemCount(cartListLength);
     };
     updateCartList();
@@ -128,7 +129,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
     return () => {
       cartEventEmitter.off("cartUpdated", updateCartList); // Clean up
     };
-  }, []);
+  }, [getCartList]);
 
   useEffect(() => {
     setSearchTerm(searchParams.get(QueryParameter.SEARCH) || "");
@@ -210,7 +211,7 @@ const Navbar = ({ options = NavbarOptions }: { options?: NavbarOption[] }) => {
           <Icon icon="iconoir:cart" className="w-8 h-8" />
           {cartItemCount && cartItemCount !== 0 ? (
             <div className="absolute w-6 h-6 -top-3 -right-3 rounded-full flex items-center justify-center bg-custom-bg-light group-hover:bg-custom-golden text-custom-fg-light text-sm">
-              {cartItemCount}
+              {cartItemCount > 9 ? "9+" : cartItemCount}
             </div>
           ) : null}
         </Link>

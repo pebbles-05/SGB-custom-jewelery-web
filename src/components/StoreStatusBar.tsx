@@ -109,35 +109,33 @@ const StoreStatusBar = () => {
   return (
     <div className="w-full h-max flex text-base gap-2 flex-wrap">
       {SortingOptions?.length ? (
-        <div className="relative w-max h-max after:content-['🞃'] after:absolute after:right-4 after:top-1/2 after:transform after:-translate-y-1/2">
-          <select
-            value={selectedSortingOption}
-            onChange={(e) =>
-              handleFilterChange({
-                sortingOption: e.target.value,
-                type:
-                  searchParams.get(QueryParameter.TYPE) ||
-                  TypeFilterOption[0]?.name,
-                category:
-                  searchParams.get(QueryParameter.CATEGORY) ||
-                  CategoryFilterOption[0]?.name,
-                minPrice: searchParams.get(QueryParameter.MIN_PRICE),
-                maxPrice:
-                  searchParams.get(QueryParameter.MAX_PRICE) ||
-                  PriceRange.max[PriceRange.max.length - 1],
-              })
-            }
-            className="pl-4 pr-10 py-2 rounded-lg outline outline-1 outline-custom-black "
-          >
-            {SortingOptions.map((option) => {
-              return (
-                <option key={option.id} value={option.name}>
-                  Sort by: {option.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+        <select
+          value={selectedSortingOption}
+          onChange={(e) =>
+            handleFilterChange({
+              sortingOption: e.target.value,
+              type:
+                searchParams.get(QueryParameter.TYPE) ||
+                TypeFilterOption[0]?.name,
+              category:
+                searchParams.get(QueryParameter.CATEGORY) ||
+                CategoryFilterOption[0]?.name,
+              minPrice: searchParams.get(QueryParameter.MIN_PRICE),
+              maxPrice:
+                searchParams.get(QueryParameter.MAX_PRICE) ||
+                PriceRange.max[PriceRange.max.length - 1],
+            })
+          }
+          className="cursor-pointer relative w-max h-max rounded-lg outline outline-1 outline-custom-black py-2 px-4"
+        >
+          {SortingOptions.map((option) => {
+            return (
+              <option key={option.id} value={option.name}>
+                Sort by: {option.name}
+              </option>
+            );
+          })}
+        </select>
       ) : null}
       {type ? (
         <button

@@ -8,17 +8,30 @@ import StoreStatusBar from "@/components/StoreStatusBar";
 import { PriceRange, SortingOptions } from "@/enums/enums";
 import useCartList from "@/helpers/useCartList";
 import useFilteredProductList from "@/helpers/useFilteredProductList";
+import useCategoryList from "@/helpers/useCategoryList";
+import useBestSellerList from "@/helpers/useBestSellerList";
 
 const Store: React.FC = () => {
   const searchParams = useSearchParams();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { getCartList, setCartListById, removeCartItemById } = useCartList();
-  const [cartList, setcartList] = useState(getCartList());
+  const [cartList, setcartList] = useState([]);
+  const [bestSellerList, setBestSellerList] = useState<Product[]>([]);
   const {
     data: productData,
     error: productDataError,
     isLoading: isProductDataLoading,
   } = useProductList();
+  const {
+    data: categoryList,
+    error: categoryListError,
+    isLoading: isCategoryDataLoading,
+  } = useCategoryList();
+
+  const fetchCartItems = async () => {
+    const cartList = await getCartList(); // Await the asynchronous function
+    setcartList(cartList);
+  };
 
   const getFilterOptionsFromURL = (): SelectedFilteredData => {
     return {
@@ -38,18 +51,23 @@ const Store: React.FC = () => {
   useEffect(() => {
     const filterOptions = getFilterOptionsFromURL();
     const filteredData = useFilteredProductList(productData, filterOptions);
+    const bestSellerList = useBestSellerList(filteredData, categoryList);
     setFilteredProducts(filteredData);
-  }, [searchParams, isProductDataLoading]);
+    setBestSellerList(bestSellerList);
+  }, [searchParams, isProductDataLoading, isCategoryDataLoading]);
 
-  const handleAddToCart = (id: string) => {
-    setCartListById(productData, id);
-    const currentCartList = getCartList();
-    setcartList(currentCartList);
+  useEffect(() => {
+    fetchCartItems();
+  }, [getCartList]);
+
+  const handleAddToCart = async (id: string) => {
+    await setCartListById(productData, id);
+    fetchCartItems();
   };
 
-  const handleRemoveFromCart = (id: string) => {
-    removeCartItemById(id);
-    setcartList(getCartList());
+  const handleRemoveFromCart = async (id: string) => {
+    await removeCartItemById(id);
+    fetchCartItems();
   };
 
   return (
@@ -70,7 +88,14 @@ const Store: React.FC = () => {
               price={product.price}
               onCartAdd={handleAddToCart}
               onCartRemove={handleRemoveFromCart}
-              isCartClicked={cartList?.some((item) => item.id === product.id)}
+              isCartClicked={
+                cartList?.length
+                  ? cartList?.some((item) => item.id === product.id)
+                  : false
+              }
+              isBestSeller={bestSellerList?.some(
+                (item) => item.id === product.id
+              )}
             />
           ))}
         </div>

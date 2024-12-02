@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useCartList from "@/helpers/useCartList";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const Cart = () => {
   } = useProductList();
   const { getCartList, setCartListById, removeCartList, removeCartItemById } =
     useCartList();
-  const [cartItems, setCartItems] = useState(getCartList());
+  const [cartItems, setCartItems] = useState([]);
   const [isConfirmationModalOpen, setisConfirmationModalOpen] = useState(false);
   const [removalProductId, setremovalProductId] = useState("");
   const [isClearAllCartButtonClicked, setIsClearAllCartButtonClicked] =
@@ -28,23 +28,30 @@ const Cart = () => {
       currency: "INR",
     }).format(amount);
   };
+  const fetchCartItems = async () => {
+    const cartList = await getCartList(); // Await the asynchronous function
+    setCartItems(cartList);
+  };
+  useEffect(() => {
+    fetchCartItems();
+  }, [getCartList]);
 
-  const handleRemove = (id?: string) => {
+  const handleRemove = async (id?: string) => {
     if (isClearAllCartButtonClicked) {
-      removeCartList();
-      setCartItems(getCartList());
+      await removeCartList();
+      fetchCartItems();
       setIsClearAllCartButtonClicked(false);
       setisConfirmationModalOpen(false);
     } else if (id) {
-      removeCartItemById(id);
-      setCartItems(getCartList());
+      await removeCartItemById(id);
+      fetchCartItems();
       setisConfirmationModalOpen(false);
     }
   };
 
-  const handleQuantityChange = (id, quantity) => {
-    setCartListById(productData, id, quantity);
-    setCartItems(getCartList());
+  const handleQuantityChange = async (id, quantity) => {
+    await setCartListById(productData, id, quantity);
+    fetchCartItems();
   };
 
   const grandTotal = cartItems.reduce(
