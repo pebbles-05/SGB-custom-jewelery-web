@@ -127,12 +127,14 @@ const ProductPage = ({
   } else {
     return (
       <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto relative ">
-        <Link
-          href="/store"
-          className="w-full h-3 absolute left-0 top-0 justify-self-start font-semibold hover:text-2xl md:mt-0 mt-5 text-xl hover:font-bold"
-        >
-          ← store
-        </Link>
+        <div className="h-3 w-full pl-6 pt-4 absolute left-0 top-0 justify-self-start">
+          <Link
+            href="/store"
+            className=" h-3 w-36  font-semibold hover:text-2xl md:mt-0 mt-5 text-xl hover:font-bold"
+          >
+            ← store
+          </Link>
+        </div>
         {/* Left Section: Image Swiper */}
         <div
           id="storeImage"
