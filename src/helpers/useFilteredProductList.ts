@@ -1,9 +1,5 @@
 import type { Product, SelectedFilteredData } from "@/interface/interfaces";
-import {
-  CategoryFilterOption,
-  SortingOptions,
-  TypeFilterOption,
-} from "@/enums/enums";
+import { SortingOptions } from "@/enums/enums";
 
 const useFilteredProductList = (
   productData: Product,
@@ -28,10 +24,9 @@ const useFilteredProductList = (
       ? item.type.toLowerCase() === type.toLowerCase()
       : true;
 
-    const matchesCategory =
-      category && category !== CategoryFilterOption[0].name
-        ? item.category.toLowerCase() === category.toLowerCase()
-        : true;
+    const matchesCategory = category
+      ? item.category.toLowerCase() === category.toLowerCase()
+      : true;
 
     const matchesPriceRange = item.price >= minPrice && item.price <= maxPrice;
 

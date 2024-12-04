@@ -104,6 +104,9 @@ const SortingOptions: FilterOption[] = [
     name: "Price Decending",
   },
 ];
+const DefaultParams = {
+  ALL: "All",
+};
 
 export {
   NavbarOptions,
@@ -112,4 +115,5 @@ export {
   PriceRange,
   QueryParameter,
   SortingOptions,
+  DefaultParams,
 };
