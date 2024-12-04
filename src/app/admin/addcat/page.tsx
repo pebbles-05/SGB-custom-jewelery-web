@@ -1,4 +1,5 @@
 "use client";
+import PasskeyModal from "@/components/PasskeyModal";
 import React, { useState } from "react";
 
 const AddCategory = () => {
@@ -8,7 +9,16 @@ const AddCategory = () => {
     img: "",
     targetCounter: 0,
   });
+  const [isModalOpen, setModalOpen] = useState(true);
 
+  const handlePasskeySubmit = (passkey: string) => {
+    if (passkey === "123456") {
+      alert("Welcome");
+      setModalOpen(false);
+    } else {
+      alert("wrong passkey");
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCategoryData({
@@ -96,6 +106,11 @@ const AddCategory = () => {
           Add Category
         </button>
       </form>
+      <PasskeyModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handlePasskeySubmit}
+      />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 "use client";
+import PasskeyModal from "@/components/PasskeyModal";
 import React, { useState } from "react";
 
 const Form = () => {
@@ -21,7 +22,16 @@ const Form = () => {
       availability: true,
     },
   ]);
+  const [isModalOpen, setModalOpen] = useState(true);
 
+  const handlePasskeySubmit = (passkey: string) => {
+    if (passkey === "123456") {
+      alert("Welcome");
+      setModalOpen(false);
+    } else {
+      alert("wrong passkey");
+    }
+  };
   const [formData, setFormData] = useState({
     img: "",
     relatedImages: "",
@@ -251,6 +261,11 @@ const Form = () => {
           Add Product
         </button>
       </form>
+      <PasskeyModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handlePasskeySubmit}
+      />
     </div>
   );
 };
