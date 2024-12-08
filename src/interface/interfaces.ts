@@ -41,22 +41,6 @@ interface FilterOption {
   description?: string;
   img?: string;
 }
-interface FilterOptionComponent {
-  typeFilterOptions?: FilterOption[];
-  categoryFilterOptions?: FilterOption[];
-  containerClass: string;
-  selectedType?: string;
-  selectedCategory?: string;
-  selectedMinPrice: number;
-  selectedMaxPrice: number;
-  onFilterSubmit: (selectedFilters: {
-    type: string;
-    category: string;
-    maxPrice: number;
-    minPrice: number;
-  }) => void;
-  onClear: () => void;
-}
 interface SelectedFilteredData {
   search?: string;
   type: string;
@@ -68,6 +52,24 @@ interface SelectedFilteredData {
 interface PriceRange {
   min: number[];
   max: number[];
+}
+interface FilterOptionComponent {
+  typeFilterOptions?: FilterOption[];
+  categoryFilterOptions?: FilterOption[];
+  priceRange?: PriceRange;
+  containerClass: string;
+  selectedType?: string;
+  selectedCategory?: string;
+  selectedMinPrice: number;
+  selectedMaxPrice: number;
+  onFilterSubmit: (selectedFilters: {
+    type: string;
+    category: string;
+    maxPrice: number;
+    minPrice: number;
+    sortingOption: string;
+  }) => void;
+  onClear: () => void;
 }
 interface QueryParameter {
   SEARCH: string;
