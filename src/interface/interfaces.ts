@@ -49,14 +49,9 @@ interface SelectedFilteredData {
   maxPrice: number;
   sortingOption?: string;
 }
-interface PriceRange {
-  min: number[];
-  max: number[];
-}
 interface FilterOptionComponent {
   typeFilterOptions?: FilterOption[];
   categoryFilterOptions?: FilterOption[];
-  priceRange?: PriceRange;
   containerClass: string;
   selectedType?: string;
   selectedCategory?: string;
@@ -87,6 +82,5 @@ export type {
   FilterOption,
   FilterOptionComponent,
   SelectedFilteredData,
-  PriceRange,
   QueryParameter,
 };

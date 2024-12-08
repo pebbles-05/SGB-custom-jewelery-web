@@ -11,7 +11,7 @@ const useFilteredProductList = (
     category = "",
     minPrice = 0,
     maxPrice = Infinity,
-    sortingOption = SortingOptions[0].name, // Default sort order
+    sortingOption = SortingOptions[0].name,
   } = options;
 
   const filteredData = productData?.filter((item) => {
@@ -28,7 +28,11 @@ const useFilteredProductList = (
       ? item.category.toLowerCase() === category.toLowerCase()
       : true;
 
-    const matchesPriceRange = item.price >= minPrice && item.price <= maxPrice;
+    // Apply price range filter only if minPrice or maxPrice is non-zero/defined
+    const matchesPriceRange =
+      minPrice > 0 || maxPrice < Infinity // Only check if there's an active price range
+        ? item.price >= minPrice && item.price <= maxPrice
+        : true;
 
     return matchesQuery && matchesType && matchesCategory && matchesPriceRange;
   });

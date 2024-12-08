@@ -5,7 +5,7 @@ import StoreProductBox from "@/components/StoreProductBox";
 import useProductList from "@/helpers/useProductList";
 import { useSearchParams } from "next/navigation";
 import StoreStatusBar from "@/components/StoreStatusBar";
-import { PriceRange, SortingOptions } from "@/enums/enums";
+import { SortingOptions } from "@/enums/enums";
 import useCartList from "@/helpers/useCartList";
 import useFilteredProductList from "@/helpers/useFilteredProductList";
 import useCategoryList from "@/helpers/useCategoryList";
@@ -17,16 +17,38 @@ const Store: React.FC = () => {
   const { getCartList, setCartListById, removeCartItemById } = useCartList();
   const [cartList, setcartList] = useState([]);
   const [bestSellerList, setBestSellerList] = useState<Product[]>([]);
+  const [minPriceLimit, setMinPriceLimit] = useState(0);
+  const [maxPriceLimit, setMaxPriceLimit] = useState(Infinity);
   const {
     data: productData,
     error: productDataError,
     isLoading: isProductDataLoading,
   } = useProductList();
-  const {
-    data: categoryList,
-    error: categoryListError,
-    isLoading: isCategoryDataLoading,
-  } = useCategoryList();
+  const { data: categoryList, isLoading: isCategoryDataLoading } =
+    useCategoryList();
+
+  const getMaxPrice = (productList: Product[]) => {
+    if (!Array.isArray(productList) || productList.length === 0) {
+      return null;
+    }
+    return productList.reduce((maxPrice, item) => {
+      if (item.price && !isNaN(item.price)) {
+        return item.price > maxPrice ? item.price : maxPrice;
+      }
+      return maxPrice;
+    }, -Infinity);
+  };
+  const getMinPrice = (productList: Product[]) => {
+    if (!Array.isArray(productList) || productList.length === 0) {
+      return null;
+    }
+    return productList.reduce((minPrice, item) => {
+      if (item.price && !isNaN(item.price)) {
+        return item.price < minPrice ? item.price : minPrice;
+      }
+      return minPrice;
+    }, Infinity);
+  };
 
   const fetchCartItems = async () => {
     const cartList = await getCartList(); // Await the asynchronous function
@@ -38,11 +60,8 @@ const Store: React.FC = () => {
       search: searchParams?.get("search") || "",
       type: searchParams?.get("type") || "",
       category: searchParams?.get("category") || "",
-      minPrice: parseFloat(searchParams.get("minPrice") || PriceRange.min[0]),
-      maxPrice: parseFloat(
-        searchParams?.get("maxPrice") ||
-          PriceRange?.max[PriceRange?.max.length - 1]
-      ),
+      minPrice: parseFloat(searchParams.get("minPrice")),
+      maxPrice: parseFloat(searchParams?.get("maxPrice")),
       sortingOption:
         searchParams?.get("sorting_option") || SortingOptions[0].name,
     };
@@ -54,6 +73,10 @@ const Store: React.FC = () => {
     const bestSellerList = useBestSellerList(filteredData, categoryList);
     setFilteredProducts(filteredData);
     setBestSellerList(bestSellerList);
+    const maxPriceLimitByProductlist = getMaxPrice(productData);
+    const minPriceLimitByProductlist = getMinPrice(productData);
+    setMaxPriceLimit(maxPriceLimitByProductlist);
+    setMinPriceLimit(minPriceLimitByProductlist);
   }, [searchParams, isProductDataLoading, isCategoryDataLoading]);
 
   useEffect(() => {
@@ -73,7 +96,11 @@ const Store: React.FC = () => {
   return (
     <div className="w-full flex flex-col gap-8 px-16 py-8 font-serif">
       <div className="md:ml-28">
-        <StoreStatusBar />
+        <StoreStatusBar
+          minPriceLimit={minPriceLimit}
+          maxPriceLimit={maxPriceLimit}
+          categoryList={categoryList}
+        />
       </div>
       {!isProductDataLoading &&
       !productDataError &&

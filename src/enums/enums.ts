@@ -1,7 +1,6 @@
 import type {
   FilterOption,
   NavbarOption,
-  PriceRange,
   QueryParameter,
 } from "@/interface/interfaces";
 import { v4 as uuid4 } from "uuid";
@@ -74,10 +73,6 @@ const CategoryFilterOption: FilterOption[] = [
   },
 ];
 
-const PriceRange: PriceRange = {
-  min: [60, 100, 200, 300, 400, 500],
-  max: [100, 200, 300, 400, 500, 600],
-};
 const QueryParameter: QueryParameter = {
   SEARCH: "search",
   TYPE: "type",
@@ -112,7 +107,6 @@ export {
   NavbarOptions,
   TypeFilterOption,
   CategoryFilterOption,
-  PriceRange,
   QueryParameter,
   SortingOptions,
   DefaultParams,

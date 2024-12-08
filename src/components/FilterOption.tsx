@@ -1,12 +1,5 @@
-import type { FilterOptionComponent } from "@/interface/interfaces";
 import React, { useState, useEffect } from "react";
-import {
-  DefaultParams,
-  PriceRange,
-  QueryParameter,
-  SortingOptions,
-} from "@/enums/enums";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { DefaultParams, QueryParameter, SortingOptions } from "@/enums/enums";
 import { useSearchParams } from "next/navigation";
 
 const FilterOption = ({
@@ -15,12 +8,13 @@ const FilterOption = ({
   categoryFilterOptions = [],
   typeFilterOptions = [],
   selectedType = DefaultParams.ALL,
-  priceRange = PriceRange,
+  minPrice,
+  maxPrice,
   selectedCategory = DefaultParams.ALL,
-  selectedMinPrice = PriceRange.min[0],
-  selectedMaxPrice = PriceRange.max[PriceRange.max.length - 1],
-  containerClass,
-}: FilterOptionComponent): React.JSX.Element => {
+  selectedMinPrice = minPrice,
+  selectedMaxPrice = maxPrice,
+  containerClass = "",
+}) => {
   const [selectedTypeOption, setSelectedTypeOption] = useState(selectedType);
   const [selectedCategoryOption, setSelectedCategoryOption] =
     useState(selectedCategory);
@@ -51,23 +45,17 @@ const FilterOption = ({
     onFilterSubmit(selectedFilteredData);
   };
 
-  const handleMinPriceChange = (value: number) => {
+  const handleMinPriceChange = (value) => {
     setSelectedMinPriceOption(value);
-    // Adjust max price if the selected min price is greater than max price
     if (value > selectedMaxPriceOption) {
-      setSelectedMaxPriceOption(
-        PriceRange.max.find((price) => price >= value) || value
-      );
+      setSelectedMaxPriceOption(value);
     }
   };
 
-  const handleMaxPriceChange = (value: number) => {
+  const handleMaxPriceChange = (value) => {
     setSelectedMaxPriceOption(value);
-    // Adjust min price if the selected max price is less than min price
     if (value < selectedMinPriceOption) {
-      setSelectedMinPriceOption(
-        PriceRange.min.find((price) => price <= value) || value
-      );
+      setSelectedMinPriceOption(value);
     }
   };
 
@@ -75,15 +63,20 @@ const FilterOption = ({
     <div
       className={`p-4 rounded-lg overflow-auto w-96 bg-custom-bg-light text-lg text-custom-black flex flex-col gap-4 ${containerClass}`}
     >
-      {typeFilterOptions || categoryFilterOptions || priceRange ? (
+      {typeFilterOptions || categoryFilterOptions || (minPrice && maxPrice) ? (
         <>
+          {/* Type Filter */}
           {typeFilterOptions?.length ? (
             <div className="flex flex-col gap-2">
               <span className="text-custom-fg-light font-bold">Type: </span>
               <div className="flex flex-wrap gap-2">
                 <div
-                  onClick={() => setSelectedCategoryOption(DefaultParams.ALL)}
-                  className={`flex justify-center text-sm items-center w-max flex-wrap gap-2 cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${selectedTypeOption === DefaultParams.ALL ? "bg-custom-black text-custom-bg-light" : ""}`}
+                  onClick={() => setSelectedTypeOption(DefaultParams.ALL)}
+                  className={`cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${
+                    selectedTypeOption === DefaultParams.ALL
+                      ? "bg-custom-black text-custom-bg-light"
+                      : ""
+                  }`}
                 >
                   {DefaultParams.ALL}
                 </div>
@@ -91,7 +84,11 @@ const FilterOption = ({
                   <div
                     key={option.id}
                     onClick={() => setSelectedTypeOption(option.name)}
-                    className={`flex justify-center text-sm items-center w-max flex-wrap gap-2 cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${selectedTypeOption === option.name ? "bg-custom-black text-custom-bg-light" : ""}`}
+                    className={`cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${
+                      selectedTypeOption === option.name
+                        ? "bg-custom-black text-custom-bg-light"
+                        : ""
+                    }`}
                   >
                     {option.name}
                   </div>
@@ -107,7 +104,11 @@ const FilterOption = ({
               <div className="flex flex-wrap gap-2">
                 <div
                   onClick={() => setSelectedCategoryOption(DefaultParams.ALL)}
-                  className={`flex justify-center text-sm items-center w-max flex-wrap gap-2 cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${selectedCategoryOption === DefaultParams.ALL ? "bg-custom-black text-custom-bg-light" : ""}`}
+                  className={`cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${
+                    selectedCategoryOption === DefaultParams.ALL
+                      ? "bg-custom-black text-custom-bg-light"
+                      : ""
+                  }`}
                 >
                   {DefaultParams.ALL}
                 </div>
@@ -115,7 +116,11 @@ const FilterOption = ({
                   <div
                     key={option.id}
                     onClick={() => setSelectedCategoryOption(option.name)}
-                    className={`flex justify-center text-sm items-center w-max flex-wrap gap-2 cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${selectedCategoryOption === option.name ? "bg-custom-black text-custom-bg-light" : ""}`}
+                    className={`cursor-pointer px-4 py-2 rounded-lg outline outline-1 outline-custom-black ${
+                      selectedCategoryOption === option.name
+                        ? "bg-custom-black text-custom-bg-light"
+                        : ""
+                    }`}
                   >
                     {option.name}
                   </div>
@@ -125,47 +130,55 @@ const FilterOption = ({
           ) : null}
 
           {/* Price Range Filter */}
-          <div className="flex flex-col gap-2">
-            <span className="text-custom-fg-light font-bold">
-              Price Range:{" "}
-            </span>
-            <div className="flex gap-4 w-full text-sm items-center">
-              <select
-                value={selectedMinPriceOption}
-                onChange={(e) => handleMinPriceChange(Number(e.target.value))}
-                className="cursor-pointer bg-custom-bg-light text-custom-black rounded-lg outline outline-1 outline-custom-black px-4 py-2 w-full"
-              >
-                {PriceRange.min.map((price) => (
-                  <option
-                    key={price}
-                    value={price}
-                    disabled={price >= selectedMaxPriceOption}
-                  >
-                    Min: &#8377;{price}
-                  </option>
-                ))}
-              </select>
-              <Icon
-                icon="mi:switch"
-                className="w-6 h-6 flex-shrink-0 cursor-default"
-              />
-              <select
-                value={selectedMaxPriceOption}
-                onChange={(e) => handleMaxPriceChange(Number(e.target.value))}
-                className="cursor-pointer bg-custom-bg-light text-custom-black rounded-lg outline outline-1 outline-custom-black px-4 py-2 w-full"
-              >
-                {PriceRange.max.map((price) => (
-                  <option
-                    key={price}
-                    value={price}
-                    disabled={price <= selectedMinPriceOption}
-                  >
-                    Max: &#8377;{price}
-                  </option>
-                ))}
-              </select>
+          {maxPrice && minPrice ? (
+            <div className="flex flex-col gap-2 filter-price-range">
+              <span className="text-custom-fg-light font-bold">
+                Price Range:
+              </span>
+              <div className="relative flex items-center w-full">
+                {/* Slider Track */}
+                <div className="absolute h-2 w-full bg-gray-300 rounded-full" />
+                <div
+                  className="absolute h-2 bg-black rounded-full"
+                  style={{
+                    left: `${
+                      ((selectedMinPriceOption - minPrice) /
+                        (maxPrice - minPrice)) *
+                      100
+                    }%`,
+                    right: `${
+                      100 -
+                      ((selectedMaxPriceOption - minPrice) /
+                        (maxPrice - minPrice)) *
+                        100
+                    }%`,
+                  }}
+                />
+                {/* Max Slider */}
+                <input
+                  type="range"
+                  min={minPrice}
+                  max={maxPrice}
+                  value={selectedMaxPriceOption}
+                  onChange={(e) => handleMaxPriceChange(Number(e.target.value))}
+                  className="absolute appearance-none w-full h-2 bg-transparent pointer-events-none z-20 cursor-pointer"
+                />
+                {/* Min Slider */}
+                <input
+                  type="range"
+                  min={minPrice}
+                  max={maxPrice}
+                  value={selectedMinPriceOption}
+                  onChange={(e) => handleMinPriceChange(Number(e.target.value))}
+                  className="absolute appearance-none w-full h-2 bg-transparent pointer-events-none z-10 cursor-pointer"
+                />
+              </div>
+              <div className="flex justify-between w-full text-sm mt-2">
+                <span>Min: ₹{selectedMinPriceOption}</span>
+                <span>Max: ₹{selectedMaxPriceOption}</span>
+              </div>
             </div>
-          </div>
+          ) : null}
 
           {/* Buttons */}
           <div className="flex gap-2 w-full">

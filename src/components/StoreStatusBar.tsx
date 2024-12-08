@@ -1,32 +1,34 @@
-import {
-  PriceRange,
-  QueryParameter,
-  SortingOptions,
-  DefaultParams,
-} from "@/enums/enums";
-import type { SelectedFilteredData } from "@/interface/interfaces";
+import { QueryParameter, SortingOptions, DefaultParams } from "@/enums/enums";
+import type {
+  FilterOption as categoryOption,
+  SelectedFilteredData,
+} from "@/interface/interfaces";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import FilterOption from "./FilterOption";
 import Modal from "./Modal";
-import useCategoryList from "@/helpers/useCategoryList";
 import useTypeList from "@/helpers/useTypeList";
 
-const StoreStatusBar = () => {
+const StoreStatusBar = ({
+  categoryList = [],
+  maxPriceLimit,
+  minPriceLimit,
+}: {
+  categoryList: categoryOption[];
+  maxPriceLimit: number;
+  minPriceLimit: number;
+}) => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isFilterOpen, setisFilterOpen] = useState(false);
   const [type, setType] = useState<string>(DefaultParams.ALL);
   const [category, setCategory] = useState<string>(DefaultParams.ALL);
-  const [minPrice, setMinPrice] = useState<number | string>(PriceRange.min[0]);
-  const [maxPrice, setMaxPrice] = useState<number | string>(
-    PriceRange.max[PriceRange.max.length - 1]
-  );
+  const [minPrice, setMinPrice] = useState<number | string>(minPriceLimit);
+  const [maxPrice, setMaxPrice] = useState<number | string>(maxPriceLimit);
   const [selectedSortingOption, setselectedSortingOption] = useState(
     SortingOptions[0].name
   );
-  const { data: categoryList } = useCategoryList();
   const { data: typeList } = useTypeList();
   useEffect(() => {
     if (searchParams) {
@@ -38,15 +40,10 @@ const StoreStatusBar = () => {
       setCategory(
         searchParams.get(QueryParameter.CATEGORY) || DefaultParams.ALL
       );
-      setMinPrice(
-        searchParams.get(QueryParameter.MIN_PRICE) || PriceRange.min[0]
-      );
-      setMaxPrice(
-        searchParams.get(QueryParameter.MAX_PRICE) ||
-          PriceRange.max[PriceRange.max.length - 1]
-      );
+      setMinPrice(searchParams.get(QueryParameter.MIN_PRICE) || minPriceLimit);
+      setMaxPrice(searchParams.get(QueryParameter.MAX_PRICE) || maxPriceLimit);
     }
-  }, [pathname, searchParams]);
+  }, [pathname, searchParams, minPriceLimit, maxPriceLimit]);
 
   const handleFilterChange = (
     options?: SelectedFilteredData | null | undefined
@@ -77,26 +74,18 @@ const StoreStatusBar = () => {
     } else {
       currentQueryParams.delete(QueryParameter.CATEGORY);
     }
-
-    if (options?.minPrice && options?.minPrice !== PriceRange.min[0]) {
+    if (options?.minPrice === 0 && options?.maxPrice === 0) {
+      currentQueryParams.delete(QueryParameter.MAX_PRICE);
+      currentQueryParams.delete(QueryParameter.MIN_PRICE);
+    } else if (minPriceLimit && maxPriceLimit) {
       currentQueryParams.set(
         QueryParameter.MIN_PRICE,
-        options.minPrice.toString()
+        options.minPrice.toString() || minPriceLimit
       );
-    } else {
-      currentQueryParams.delete(QueryParameter.MIN_PRICE);
-    }
-
-    if (
-      options?.maxPrice &&
-      options?.maxPrice !== PriceRange.max[PriceRange.max?.length - 1]
-    ) {
       currentQueryParams.set(
         QueryParameter.MAX_PRICE,
-        options.maxPrice.toString()
+        options.maxPrice.toString() || maxPriceLimit
       );
-    } else {
-      currentQueryParams.delete(QueryParameter.MAX_PRICE);
     }
     router.push(`/store?${currentQueryParams.toString()}`);
   };
@@ -111,10 +100,8 @@ const StoreStatusBar = () => {
               type: searchParams.get(QueryParameter.TYPE) || DefaultParams.ALL,
               category:
                 searchParams.get(QueryParameter.CATEGORY) || DefaultParams.ALL,
-              minPrice: searchParams.get(QueryParameter.MIN_PRICE),
-              maxPrice:
-                searchParams.get(QueryParameter.MAX_PRICE) ||
-                PriceRange.max[PriceRange.max.length - 1],
+              minPrice: searchParams.get(QueryParameter.MIN_PRICE) || minPrice,
+              maxPrice: searchParams.get(QueryParameter.MAX_PRICE) || maxPrice,
             })
           }
           className="cursor-pointer relative w-max h-max rounded-lg outline outline-1 outline-custom-black py-2 px-4"
@@ -170,6 +157,8 @@ const StoreStatusBar = () => {
           }}
           selectedType={type}
           selectedCategory={category}
+          maxPrice={maxPriceLimit}
+          minPrice={minPriceLimit}
           selectedMaxPrice={maxPrice}
           selectedMinPrice={minPrice}
         />
