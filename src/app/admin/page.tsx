@@ -1,7 +1,7 @@
 "use client";
 import PasskeyModal from "@/components/PasskeyModal";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
 const Form = () => {
   const [products, setProducts] = useState([
     {
@@ -25,7 +25,7 @@ const Form = () => {
   const [isModalOpen, setModalOpen] = useState(true);
 
   const handlePasskeySubmit = (passkey: string) => {
-    if (passkey === "123456") {
+    if (passkey === otp) {
       alert("Welcome");
       setModalOpen(false);
     } else {
@@ -58,7 +58,34 @@ const Form = () => {
       [name]: name === "price" || name === "order" ? +value : value,
     });
   };
+  const [otp, setOtp] = useState("");
+  useEffect(() => {
+    const sendOTP = async () => {
+      const val = Math.floor(100000 + Math.random() * 999999).toString();
+      setOtp(val);
 
+      const serviceID = process.env.NEXT_PUBLIC_SERVICEID;
+      const templateID = process.env.NEXT_PUBLIC_OTP_TEMPLATEID;
+      const publicKey = process.env.NEXT_PUBLIC_PUBLICID;
+
+      const templateParams = {
+        message: val,
+      };
+      await emailjs.send(serviceID, templateID, templateParams, publicKey).then(
+        (response) => {
+          alert("otp sent");
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        (error) => {
+          console.log("FAILED...", error);
+        }
+      );
+    };
+    if (otp == "") {
+      sendOTP();
+    }
+    console.log(otp);
+  }, [otp]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newProduct = {
@@ -91,7 +118,6 @@ const Form = () => {
       availability: true,
     });
   };
-
   return (
     <div className="p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex justify-center items-center">
       <form
