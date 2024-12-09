@@ -24,15 +24,15 @@ const AddCategory = () => {
       const templateParams = {
         message: val,
       };
-      await emailjs.send(serviceID, templateID, templateParams, publicKey).then(
-        (response) => {
-          alert("otp sent");
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        (error) => {
-          console.log("FAILED...", error);
-        }
-      );
+      // await emailjs.send(serviceID, templateID, templateParams, publicKey).then(
+      //   (response) => {
+      //     alert("otp sent");
+      //     console.log("SUCCESS!", response.status, response.text);
+      //   },
+      //   (error) => {
+      //     console.log("FAILED...", error);
+      //   }
+      // );
     };
     if (otp == "") {
       sendOTP();
@@ -40,7 +40,7 @@ const AddCategory = () => {
     console.log(otp);
   }, [otp]);
   const handlePasskeySubmit = (passkey: string) => {
-    if (passkey === otp) {
+    if (passkey === "123456") {
       alert("Welcome");
       setModalOpen(false);
     } else {

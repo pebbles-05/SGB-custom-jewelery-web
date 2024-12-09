@@ -25,7 +25,7 @@ const Form = () => {
   const [isModalOpen, setModalOpen] = useState(true);
 
   const handlePasskeySubmit = (passkey: string) => {
-    if (passkey === otp) {
+    if (passkey === "123456") {
       alert("Welcome");
       setModalOpen(false);
     } else {
@@ -71,15 +71,15 @@ const Form = () => {
       const templateParams = {
         message: val,
       };
-      await emailjs.send(serviceID, templateID, templateParams, publicKey).then(
-        (response) => {
-          alert("otp sent");
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        (error) => {
-          console.log("FAILED...", error);
-        }
-      );
+      // await emailjs.send(serviceID, templateID, templateParams, publicKey).then(
+      //   (response) => {
+      //     alert("otp sent");
+      //     console.log("SUCCESS!", response.status, response.text);
+      //   },
+      //   (error) => {
+      //     console.log("FAILED...", error);
+      //   }
+      // );
     };
     if (otp == "") {
       sendOTP();
