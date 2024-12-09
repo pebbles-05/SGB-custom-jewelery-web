@@ -22,7 +22,7 @@ const Form = () => {
       availability: true,
     },
   ]);
-  const [isModalOpen, setModalOpen] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handlePasskeySubmit = (passkey: string) => {
     if (passkey === "123456") {
@@ -287,6 +287,7 @@ const Form = () => {
           Add Product
         </button>
       </form>
+
       <PasskeyModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}

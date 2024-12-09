@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { FilterOption } from "@/interface/interfaces";
+import { databases } from "@/helpers/appwrite"; // Reuse the existing instance from appwrite.ts
 
 export default function useProductList() {
   const [data, setData] = useState<FilterOption[] | null>(null);
@@ -9,14 +10,12 @@ export default function useProductList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/sgb-jewelry-products");
-
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const result: FilterOption[] = await response.json();
-        setData(result);
+        const result = await databases.listDocuments(
+          process.env.NEXT_PUBLIC_DATABASE_ID,
+          process.env.NEXT_PUBLIC_PRODUCT_ID
+        );
+        const productList = result.documents;
+        setData(productList);
       } catch (err: any) {
         setError(err.message || "An unknown error occurred.");
       } finally {

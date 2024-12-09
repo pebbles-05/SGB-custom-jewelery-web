@@ -1,4 +1,5 @@
 interface Product {
+  $id: string;
   id: string;
   img: string;
   relatedImages: string[];
