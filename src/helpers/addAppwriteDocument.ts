@@ -11,7 +11,6 @@ export async function addAppwriteDocument(
       "unique()", // Unique ID (Appwrite generates one automatically)
       data // Data object to store in the document
     );
-    console.log("Document added:", response);
     return response;
   } catch (error) {
     console.error("Error adding document:", error);

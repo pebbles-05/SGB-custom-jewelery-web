@@ -38,19 +38,25 @@ const useFilteredProductList = (
   });
 
   const sortedData = filteredData?.sort((a, b) => {
+    const parseCustomDate = (dateStr: string): Date => {
+      const [year, day, month] = dateStr.split("/").map(Number); // Split and convert to numbers
+      return new Date(`20${year}`, month - 1, day); // Construct the date
+    };
+
     if (sortingOption === SortingOptions[0].name) {
-      const dateA = new Date(a.date.split("/").reverse().join("-"));
-      const dateB = new Date(b.date.split("/").reverse().join("-"));
-      return dateB.getTime() - dateA.getTime();
+      const dateA = parseCustomDate(a.date);
+      const dateB = parseCustomDate(b.date);
+      return dateB.getTime() - dateA.getTime(); // Sort descending
     } else if (sortingOption === SortingOptions[1].name) {
-      const dateA = new Date(a.date.split("/").reverse().join("-"));
-      const dateB = new Date(b.date.split("/").reverse().join("-"));
-      return dateA.getTime() - dateB.getTime();
+      const dateA = parseCustomDate(a.date);
+      const dateB = parseCustomDate(b.date);
+      return dateA.getTime() - dateB.getTime(); // Sort ascending
     } else if (sortingOption === SortingOptions[2].name) {
-      return a.price - b.price;
+      return a.price - b.price; // Sort by price ascending
     } else if (sortingOption === SortingOptions[3].name) {
-      return b.price - a.price;
+      return b.price - a.price; // Sort by price descending
     }
+
     return 0;
   });
 

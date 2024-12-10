@@ -127,7 +127,7 @@ const ProductPage = ({
     console.log("Email Data:", emailData);
   };
 
-  if (productDataError) {
+  if (productDataError || Object.keys(product).length === 0) {
     return (
       <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
         Error happened

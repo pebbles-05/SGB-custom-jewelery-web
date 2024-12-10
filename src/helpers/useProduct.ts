@@ -6,6 +6,8 @@ const useProduct = (
 ): Product | undefined => {
   if (Array.isArray(productData) && productData?.length) {
     return productData.find((product) => product.id === id);
+  } else {
+    return {};
   }
 };
 

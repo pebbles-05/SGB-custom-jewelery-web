@@ -5,4 +5,5 @@ This is a custom Jewelry website for Shryashis Gaynar Baksho made using Next.js,
 # TODO:
 
 - navbar is not sticky.
-- make the max and min price functional.
+- finish admin/category and admin/type same way as product.
+- date sorting might be bad in store page.

@@ -5,6 +5,7 @@ interface Product {
   relatedImages: string[];
   name: string;
   description: string;
+  date: string;
   price: number;
   type: string;
   category: string;

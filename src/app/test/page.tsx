@@ -34,17 +34,17 @@ const test = () => {
     await addAppwriteDocument(process.env.NEXT_PUBLIC_PRODUCT_ID, {
       id: uuid4(),
       img: "https://picsum.photos/id/233/200",
-      relatedImages: [
+      relatedimages: [
         "https://picsum.photos/id/233/200",
         "https://picsum.photos/id/23/200",
         "https://picsum.photos/id/24/200",
       ],
-      name: "Vintage Stud Earring",
-      description: "Elegant stud earrings with a vintage touch.",
+      name: "vintage stud earring",
+      description: "elegant stud earrings with a vintage touch.",
       date: "5/11/2024",
       price: 200,
-      type: "Cloth",
-      category: "Set",
+      type: "cloth",
+      category: "set",
       order: 97,
       availability: true,
     });
