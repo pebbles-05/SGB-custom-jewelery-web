@@ -7,98 +7,94 @@ import { v4 as uuid4 } from "uuid";
 import { deleteAppwriteDocument } from "@/helpers/deleteAppwriteDocument";
 import { updateAppwriteDocument } from "@/helpers/updateAppwriteDocument";
 import AdminListItem from "@/components/AdminListItem";
-import useCategoryList from "@/helpers/useCategoryList";
-import AdminCategoryAddForm from "@/components/AdminCategoryAddForm";
-const AdminCategory = () => {
-  const [isAdminCategoryFormOpen, setIsAdminCategoryFormOpen] = useState(false);
+import useTypeList from "@/helpers/useTypeList";
+import AdminTypeAddForm from "@/components/AdminTypeAddForm";
+
+const AdminType = () => {
+  const [isAdminTypeFormOpen, setIsAdminTypeFormOpen] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
   const [editItemId, setEditItemId] = useState<string>("");
   const [editFormData, setEditFormData] = useState<Product>({});
   const {
-    data: categoryList,
-    error: categoryListError,
-    isLoading: isCategoryListLoading,
-    refetch: categoryListRefresh,
-  } = useCategoryList();
+    data: typeList,
+    error: typeListError,
+    isLoading: isTypeListLoading,
+    refetch: typeListRefresh,
+  } = useTypeList();
 
-  const handleAddCategory = async (data: FilterOption) => {
+  const handleAddType = async (data: FilterOption) => {
     try {
-      await addAppwriteDocument(process.env.NEXT_PUBLIC_CATEGORY_ID, {
+      await addAppwriteDocument(process.env.NEXT_PUBLIC_TYPE_ID, {
         id: uuid4(),
         ...data,
       });
-      setIsAdminCategoryFormOpen(false);
-      categoryListRefresh();
+      setIsAdminTypeFormOpen(false);
+      typeListRefresh();
     } catch (error) {
       console.log(error);
-      setIsAdminCategoryFormOpen(false);
-      categoryListRefresh();
+      setIsAdminTypeFormOpen(false);
+      typeListRefresh();
     }
   };
-  const handleEditCategory = async (id: string, data: FilterOption) => {
+  const handleEditType = async (id: string, data: FilterOption) => {
     try {
-      await updateAppwriteDocument(
-        process.env.NEXT_PUBLIC_CATEGORY_ID,
-        id,
-        data
-      );
-      setIsAdminCategoryFormOpen(false);
+      await updateAppwriteDocument(process.env.NEXT_PUBLIC_TYPE_ID, id, data);
+      setIsAdminTypeFormOpen(false);
       setIsEditClicked(false);
-      categoryListRefresh();
+      typeListRefresh();
     } catch (error) {
-      setIsAdminCategoryFormOpen(false);
+      setIsAdminTypeFormOpen(false);
       setIsEditClicked(false);
-      categoryListRefresh();
+      typeListRefresh();
     }
   };
-  const handleDeleteCategory = async (id: string) => {
+  const handleDeleteType = async (id: string) => {
     try {
-      await deleteAppwriteDocument(process.env.NEXT_PUBLIC_CATEGORY_ID, id);
-      setIsAdminCategoryFormOpen(false);
-      categoryListRefresh();
+      await deleteAppwriteDocument(process.env.NEXT_PUBLIC_TYPE_ID, id);
+      setIsAdminTypeFormOpen(false);
+      typeListRefresh();
     } catch (error) {
-      setIsAdminCategoryFormOpen(false);
-      categoryListRefresh();
+      setIsAdminTypeFormOpen(false);
+      typeListRefresh();
     }
   };
 
   return (
     <div className="p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex flex-col">
       <div className="flex justify-between items-center py-4 text-2xl text-custom-bg-light">
-        <span>List of Categories</span>
+        <span>List of Types</span>
         <button
           className="rounded-lg px-4 py-2 bg-custom-bg-light text-custom-fg-light text-xl"
           onClick={() => {
             setEditFormData({});
-            setIsAdminCategoryFormOpen(true);
+            setIsAdminTypeFormOpen(true);
           }}
         >
-          Add Category
+          Add Type
         </button>
       </div>
-      {categoryListError ? (
+      {typeListError ? (
         <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
           Error happened
         </div>
-      ) : isCategoryListLoading ? (
+      ) : isTypeListLoading ? (
         <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
           Loading...
         </div>
       ) : (
         <div className="w-full flex flex-col gap-4">
-          {categoryList?.length ? (
-            categoryList.map((category: Product) => {
+          {typeList?.length ? (
+            typeList.map((type: Product) => {
               return (
                 <AdminListItem
-                  key={category.id}
-                  src={category.img}
-                  name={category.name}
-                  onDelete={() => handleDeleteCategory(category.$id)}
+                  key={type.id}
+                  name={type.name}
+                  onDelete={() => handleDeleteType(type.$id)}
                   onEdit={() => {
-                    setEditFormData(category);
-                    setEditItemId(category?.$id);
+                    setEditFormData(type);
+                    setEditItemId(type?.$id);
                     setIsEditClicked(true);
-                    setIsAdminCategoryFormOpen(true);
+                    setIsAdminTypeFormOpen(true);
                   }}
                 />
               );
@@ -111,24 +107,21 @@ const AdminCategory = () => {
         </div>
       )}
       <Modal
-        isOpen={isAdminCategoryFormOpen}
+        isOpen={isAdminTypeFormOpen}
         onClickOutside={() => {
           setIsEditClicked(false);
-          setIsAdminCategoryFormOpen(false);
+          setIsAdminTypeFormOpen(false);
         }}
       >
-        <AdminCategoryAddForm
-          img={editFormData?.img}
+        <AdminTypeAddForm
           name={editFormData?.name}
-          description={editFormData?.description}
-          targetOrderCount={editFormData?.targetOrderCount}
-          title={isEditClicked ? "Edit Category" : "Add Category"}
-          buttonTitle={isEditClicked ? "Edit Category" : "Add Category"}
+          title={isEditClicked ? "Edit Type" : "Add Type"}
+          buttonTitle={isEditClicked ? "Edit Type" : "Add Type"}
           onsubmit={(data) => {
             if (isEditClicked) {
-              handleEditCategory(editItemId, data);
+              handleEditType(editItemId, data);
             } else {
-              handleAddCategory(data);
+              handleAddType(data);
             }
           }}
         />
@@ -137,4 +130,4 @@ const AdminCategory = () => {
   );
 };
 
-export default AdminCategory;
+export default AdminType;
