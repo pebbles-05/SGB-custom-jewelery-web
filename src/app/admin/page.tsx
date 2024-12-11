@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import AdminProductAddForm from "@/components/AdminProductAddForm";
 import Modal from "@/components/Modal";
 import useProductList from "@/helpers/useProductList";
-import AdminProductItem from "@/components/AdminProductItem";
 import { addAppwriteDocument } from "@/helpers/addAppwriteDocument";
 import type { Product } from "@/interface/interfaces";
 import { v4 as uuid4 } from "uuid";
 import { deleteAppwriteDocument } from "@/helpers/deleteAppwriteDocument";
 import { updateAppwriteDocument } from "@/helpers/updateAppwriteDocument";
-const Form = () => {
-  const [isAdminProductModalOpen, setIsAdminProductModalOpen] = useState(false);
+import AdminListItem from "@/components/AdminListItem";
+
+const AdminProduct = () => {
+  const [isAdminProductFormOpen, setIsAdminProductFormOpen] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
   const [editItemId, setEditItemId] = useState<string>("");
   const [editFormData, setEditFormData] = useState<Product>({});
@@ -27,11 +28,11 @@ const Form = () => {
         id: uuid4(),
         ...data,
       });
-      setIsAdminProductModalOpen(false);
+      setIsAdminProductFormOpen(false);
       productRefetch();
     } catch (error) {
       console.log(error);
-      setIsAdminProductModalOpen(false);
+      setIsAdminProductFormOpen(false);
       productRefetch();
     }
   };
@@ -42,11 +43,11 @@ const Form = () => {
         id,
         data
       );
-      setIsAdminProductModalOpen(false);
+      setIsAdminProductFormOpen(false);
       setIsEditClicked(false);
       productRefetch();
     } catch (error) {
-      setIsAdminProductModalOpen(false);
+      setIsAdminProductFormOpen(false);
       setIsEditClicked(false);
       productRefetch();
     }
@@ -54,23 +55,23 @@ const Form = () => {
   const handleDeleteProduct = async (id: string) => {
     try {
       await deleteAppwriteDocument(process.env.NEXT_PUBLIC_PRODUCT_ID, id);
-      setIsAdminProductModalOpen(false);
+      setIsAdminProductFormOpen(false);
       productRefetch();
     } catch (error) {
-      setIsAdminProductModalOpen(false);
+      setIsAdminProductFormOpen(false);
       productRefetch();
     }
   };
 
   return (
     <div className="p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex flex-col">
-      <div className="flex justify-between items-center p-4 text-2xl text-custom-bg-light">
+      <div className="flex justify-between items-center py-4 text-2xl text-custom-bg-light">
         <span>List of Products</span>
         <button
           className="rounded-lg px-4 py-2 bg-custom-bg-light text-custom-fg-light text-xl"
           onClick={() => {
             setEditFormData({});
-            setIsAdminProductModalOpen();
+            setIsAdminProductFormOpen(true);
           }}
         >
           Add Products
@@ -86,10 +87,10 @@ const Form = () => {
         </div>
       ) : (
         <div className="w-full flex flex-col gap-4">
-          {productData?.length &&
+          {productData?.length ? (
             productData.map((product: Product) => {
               return (
-                <AdminProductItem
+                <AdminListItem
                   key={product.id}
                   src={product.img}
                   name={product.name}
@@ -98,18 +99,23 @@ const Form = () => {
                     setEditFormData(product);
                     setEditItemId(product?.$id);
                     setIsEditClicked(true);
-                    setIsAdminProductModalOpen(true);
+                    setIsAdminProductFormOpen(true);
                   }}
                 />
               );
-            })}
+            })
+          ) : (
+            <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
+              No Element Here
+            </div>
+          )}
         </div>
       )}
       <Modal
-        isOpen={isAdminProductModalOpen}
+        isOpen={isAdminProductFormOpen}
         onClickOutside={() => {
           setIsEditClicked(false);
-          setIsAdminProductModalOpen(false);
+          setIsAdminProductFormOpen(false);
         }}
       >
         <AdminProductAddForm
@@ -138,4 +144,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default AdminProduct;

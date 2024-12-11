@@ -11,7 +11,6 @@ export async function updateAppwriteDocument(
       documentId, // Document ID to update
       updatedData // Object with updated data
     );
-    console.log("Document updated:", response);
     return response;
   } catch (error) {
     console.error("Error updating document:", error);

@@ -1,146 +1,162 @@
 "use client";
-import PasskeyModal from "@/components/PasskeyModal";
-import React, { useEffect, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useState } from "react";
+import AdminProductAddForm from "@/components/AdminProductAddForm";
+import Modal from "@/components/Modal";
+import { addAppwriteDocument } from "@/helpers/addAppwriteDocument";
+import type { FilterOption } from "@/interface/interfaces";
+import { v4 as uuid4 } from "uuid";
+import { deleteAppwriteDocument } from "@/helpers/deleteAppwriteDocument";
+import { updateAppwriteDocument } from "@/helpers/updateAppwriteDocument";
+import AdminListItem from "@/components/AdminListItem";
+import useCategoryList from "@/helpers/useCategoryList";
+import AdminCategoryAddForm from "@/components/AdminCategoryAddForm";
+const AdminCategory = () => {
+  const [isAdminCategoryFormOpen, setIsAdminCategoryFormOpen] = useState(false);
+  const [isEditClicked, setIsEditClicked] = useState(false);
+  const [editItemId, setEditItemId] = useState<string>("");
+  const [editFormData, setEditFormData] = useState<Product>({});
+  const {
+    data: categoryList,
+    error: categoryListError,
+    isLoading: isCategoryListLoading,
+    refetch: categoryListRefresh,
+  } = useCategoryList();
 
-const AddCategory = () => {
-  const [categoryData, setCategoryData] = useState({
-    name: "",
-    description: "",
-    img: "",
-    targetCounter: 0,
-  });
-  const [isModalOpen, setModalOpen] = useState(true);
-  const [otp, setOtp] = useState("");
-  useEffect(() => {
-    const sendOTP = async () => {
-      const val = Math.floor(100000 + Math.random() * 999999).toString();
-      setOtp(val);
-
-      const serviceID = process.env.NEXT_PUBLIC_SERVICEID;
-      const templateID = process.env.NEXT_PUBLIC_OTP_TEMPLATEID;
-      const publicKey = process.env.NEXT_PUBLIC_PUBLICID;
-
-      const templateParams = {
-        message: val,
-      };
-      // await emailjs.send(serviceID, templateID, templateParams, publicKey).then(
-      //   (response) => {
-      //     alert("otp sent");
-      //     console.log("SUCCESS!", response.status, response.text);
-      //   },
-      //   (error) => {
-      //     console.log("FAILED...", error);
-      //   }
-      // );
-    };
-    if (otp == "") {
-      sendOTP();
-    }
-    console.log(otp);
-  }, [otp]);
-  const handlePasskeySubmit = (passkey: string) => {
-    if (passkey === "123456") {
-      alert("Welcome");
-      setModalOpen(false);
-    } else {
-      alert("wrong passkey");
+  const handleAddCategory = async (data: FilterOption) => {
+    try {
+      await addAppwriteDocument(process.env.NEXT_PUBLIC_CATEGORY_ID, {
+        id: uuid4(),
+        ...data,
+      });
+      setIsAdminCategoryFormOpen(false);
+      categoryListRefresh();
+    } catch (error) {
+      console.log(error);
+      setIsAdminCategoryFormOpen(false);
+      categoryListRefresh();
     }
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCategoryData({
-      ...categoryData,
-      [name]: name === "targetCounter" ? +value : value,
-    });
+  const handleEditCategory = async (id: string, data: FilterOption) => {
+    try {
+      await updateAppwriteDocument(
+        process.env.NEXT_PUBLIC_CATEGORY_ID,
+        id,
+        data
+      );
+      setIsAdminCategoryFormOpen(false);
+      setIsEditClicked(false);
+      categoryListRefresh();
+    } catch (error) {
+      setIsAdminCategoryFormOpen(false);
+      setIsEditClicked(false);
+      categoryListRefresh();
+    }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newCategory = {
-      ...categoryData,
-      id: crypto.randomUUID(),
-    };
-    console.log("New Category JSON:", newCategory);
-    setCategoryData({
-      name: "",
-      description: "",
-      img: "",
-      targetCounter: 0,
-    });
+  const handleDeleteProduct = async (id: string) => {
+    try {
+      await deleteAppwriteDocument(process.env.NEXT_PUBLIC_CATEGORY_ID, id);
+      setIsAdminCategoryFormOpen(false);
+      categoryListRefresh();
+    } catch (error) {
+      setIsAdminCategoryFormOpen(false);
+      categoryListRefresh();
+    }
   };
 
   return (
-    <div className="p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex flex-col justify-center items-center">
-      <form
-        className="bg-gradient-to-b from-[#f8ede3] to-[#732717] shadow-lg rounded-lg p-8 w-full max-w-2xl space-y-4"
-        onSubmit={handleSubmit}
-      >
-        <h1 className="text-xl font-bold mb-4 text-[#732717]">
-          Add New Category
-        </h1>
-        <div>
-          <label className="block font-semibold text-[#732717]">Name</label>
-          <input
-            type="text"
-            name="name"
-            value={categoryData.name}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-[#732717]"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-semibold text-[#732717]">
-            Description
-          </label>
-          <textarea
-            name="description"
-            value={categoryData.description}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-[#732717]"
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label className="block font-semibold text-custom-bg-light">
-            Image URL
-          </label>
-          <input
-            type="text"
-            name="img"
-            value={categoryData.img}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-[#732717]"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-semibold text-custom-bg-light">
-            Target Counter
-          </label>
-          <input
-            type="number"
-            name="targetCounter"
-            value={categoryData.targetCounter}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-[#732717]"
-          />
-        </div>
+    <div className="p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex flex-col">
+      <div className="flex justify-between items-center py-4 text-2xl text-custom-bg-light">
+        <span>List of Categories</span>
         <button
-          type="submit"
-          className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition"
+          className="rounded-lg px-4 py-2 bg-custom-bg-light text-custom-fg-light text-xl"
+          onClick={() => {
+            setEditFormData({});
+            setIsAdminCategoryFormOpen(true);
+          }}
         >
           Add Category
         </button>
-      </form>
-      <PasskeyModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={handlePasskeySubmit}
-      />
+      </div>
+      {categoryListError ? (
+        <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
+          Error happened
+        </div>
+      ) : isCategoryListLoading ? (
+        <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
+          Loading...
+        </div>
+      ) : (
+        <div className="w-full flex flex-col gap-4">
+          {categoryList?.length ? (
+            categoryList.map((category: Product) => {
+              return (
+                <AdminListItem
+                  key={category.id}
+                  src={category.img}
+                  name={category.name}
+                  onDelete={() => handleDeleteProduct(category.$id)}
+                  onEdit={() => {
+                    setEditFormData(category);
+                    setEditItemId(category?.$id);
+                    setIsEditClicked(true);
+                    setIsAdminCategoryFormOpen(true);
+                  }}
+                />
+              );
+            })
+          ) : (
+            <div className="w-full h-[calc(100vh-300px)] flex items-center justify-center text-2xl text-custom-black/50">
+              No Element Here
+            </div>
+          )}
+        </div>
+      )}
+      <Modal
+        isOpen={isAdminCategoryFormOpen}
+        onClickOutside={() => {
+          setIsEditClicked(false);
+          setIsAdminCategoryFormOpen(false);
+        }}
+      >
+        <AdminCategoryAddForm
+          img={editFormData?.img}
+          name={editFormData?.name}
+          description={editFormData?.description}
+          targetOrderCount={editFormData?.targetOrderCount}
+          title={isEditClicked ? "Edit Category" : "Add Category"}
+          buttonTitle={isEditClicked ? "Edit Category" : "Add Category"}
+          onsubmit={(data) => {
+            if (isEditClicked) {
+              handleEditCategory(editItemId, data);
+            } else {
+              handleAddCategory(data);
+            }
+          }}
+        />
+        {/* <AdminProductAddForm
+          img={editFormData?.img}
+          relatedImages={editFormData?.relatedImages}
+          name={editFormData?.name}
+          description={editFormData?.description}
+          date={editFormData?.date}
+          price={editFormData?.price}
+          type={editFormData?.type}
+          category={editFormData?.category}
+          order={editFormData?.order}
+          availability={editFormData?.availability}
+          title={isEditClicked ? "Edit item" : "Add Item"}
+          buttonTitle={isEditClicked ? "Edit Item" : "Add item"}
+          onsubmit={(data) => {
+            if (isEditClicked) {
+              handleEditProduct(editItemId, data);
+            } else {
+              handleAddCategory(data);
+            }
+          }}
+        /> */}
+      </Modal>
     </div>
   );
 };
 
-export default AddCategory;
+export default AdminCategory;

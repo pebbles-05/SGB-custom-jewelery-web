@@ -2,12 +2,14 @@ import Image from "next/image";
 import React, { useState } from "react";
 import RemoveCartItemPopup from "./RemoveCartItemPopup";
 
-const AdminProductItem = ({
+const AdminListItem = ({
+  title = "Do you want to delete this item",
   src,
   name,
   onEdit,
   onDelete,
 }: {
+  title: string;
   src: string;
   name: string;
   onEdit: () => void;
@@ -16,7 +18,15 @@ const AdminProductItem = ({
   const [isDeletePromptOpen, setIsDeletePromptOpen] = useState(false);
   return (
     <div className="w-full rounded-lg h-max  bg-custom-white p-4 flex gap-4">
-      {src && <img className="aspect-square h-max w-24" src={src} alt={name} />}
+      {src && (
+        <Image
+          className="aspect-square h-max w-24"
+          src={src}
+          alt={name}
+          height={500}
+          width={500}
+        />
+      )}
       {name && <span>{name}</span>}
       <button
         onClick={() => onEdit()}
@@ -32,7 +42,7 @@ const AdminProductItem = ({
       </button>
       <RemoveCartItemPopup
         isConfirmationModalOpen={isDeletePromptOpen}
-        title="Do you want to delete this item"
+        title={title}
         onCancel={() => setIsDeletePromptOpen(false)}
         onRemove={() => {
           setIsDeletePromptOpen(false);
@@ -44,4 +54,4 @@ const AdminProductItem = ({
   );
 };
 
-export default AdminProductItem;
+export default AdminListItem;

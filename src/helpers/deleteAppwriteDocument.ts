@@ -9,7 +9,6 @@ export async function deleteAppwriteDocument(
       collectionId, // Collection ID passed as an argument
       documentId // Document ID to delete
     );
-    console.log(`Document with ID ${documentId} deleted.`);
   } catch (error) {
     console.error("Error deleting document:", error);
     throw error;

@@ -1,3 +1,4 @@
+import isValidLink from "@/helpers/isValidLink";
 import useCategoryList from "@/helpers/useCategoryList";
 import useTypeList from "@/helpers/useTypeList";
 import { FilterOption } from "@/interface/interfaces";
@@ -79,14 +80,18 @@ const AdminProductAddForm = ({
       [name]: name === "price" || name === "order" ? Number(value) : value,
     });
   };
-
   const handleSubmit = () => {
     const filteredImages = formRelatedImages?.length
       ? formRelatedImages?.filter((img) => img.trim() !== "")
       : [];
     onsubmit({ ...formData, relatedImages: filteredImages });
   };
-  if (CategoryError || typeError) {
+  if (
+    CategoryError ||
+    typeError ||
+    !typeList?.length ||
+    !categoryList?.length
+  ) {
     return (
       <div className="bg-gradient-to-b from-[#f8ede3] to-[#732717] shadow-lg rounded-lg p-8 w-[60vw] h-[80vh] overflow-auto max-w-4xl text-4xl flex items-center justify-center">
         Error happened
@@ -260,7 +265,9 @@ const AdminProductAddForm = ({
             !formData?.date ||
             !formData?.name ||
             !parseInt(formData?.price) ||
-            !formData?.relatedImages?.some((img) => img !== "")
+            !formData?.relatedImages?.some(
+              (img) => img !== "" && isValidLink(img)
+            )
           }
           className={`w-full text-white py-2 rounded-md ${
             !formData?.description ||
@@ -268,7 +275,9 @@ const AdminProductAddForm = ({
             !formData?.date ||
             !formData?.name ||
             !parseInt(formData?.price) ||
-            !formData?.relatedImages?.some((img) => img !== "")
+            !formData?.relatedImages?.some(
+              (img) => img !== "" && isValidLink(img)
+            )
               ? "bg-custom-black/30"
               : "bg-green-500"
           }`}
