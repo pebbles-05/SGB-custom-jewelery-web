@@ -23,6 +23,7 @@ import RemoveCartItemPopup from "@/components/RemoveCartItemPopup";
 import ModalForm from "@/components/ModalForm";
 import useProductList from "@/helpers/useProductList";
 import Link from "next/link";
+import { ProductImageShowcase } from "@/components/ProductImageShowcase/ProductImageShowcase";
 
 const ProductPage = ({
   params,
@@ -141,11 +142,11 @@ const ProductPage = ({
     );
   } else {
     return (
-      <div className="flex xl:pr-16 px-2 flex-col md:flex-row h-screen overflow-auto relative ">
+      <div className="flex xl:pr-16 px-2 flex-col md:flex-row max-h-screen overflow-auto relative ">
         <div className="h-3 w-full pl-6 pt-4 absolute left-0 top-0 justify-self-start">
           <Link
             href="/store"
-            className=" h-3 w-36  font-semibold hover:text-2xl md:mt-0 mt-5 text-xl hover:font-bold"
+            className=" h-3 w-10  font-semibold hover:text-2xl md:mt-0 mt-5 text-xl hover:font-bold"
           >
             ← store
           </Link>
@@ -153,87 +154,13 @@ const ProductPage = ({
         {/* Left Section: Image Swiper */}
         <div
           id="storeImage"
-          className="w-full md:w-3/4 h-1/2 md:h-[110vh] bg-custom-bg-light flex flex-col md:justify-normal justify-center  p-4 mt-0 md:mt-10"
+          className="w-full md:w-3/4 h-full md:h-[110vh] bg-custom-bg-light flex flex-col md:justify-normal justify-center  p-4 mt-0 md:mt-10"
         >
-          <Swiper
-            style={{
-              "--swiper-navigation-color": "#fff",
-              "--swiper-pagination-color": "#fff",
-            }}
-            navigation={true}
-            thumbs={{ swiper: thumbsSwiper }}
-            direction="vertical"
-            loop={true} // Enable loop to make the slider infinite
-            breakpoints={{
-              0: {
-                direction: "horizontal", // Horizontal scroll on mobile
-                slidesPerView: 1,
-              },
-              768: {
-                direction: "horizontal", // Horizontal scroll on desktop
-                slidesPerView: 1,
-              },
-            }}
-            spaceBetween={10}
-            mousewheel={{
-              enabled: true,
-              thresholdDelta: 30,
-              releaseOnEdges: true,
-            }}
-            keyboard={{
-              enabled: true,
-            }}
-            modules={[Keyboard, Mousewheel, Thumbs, FreeMode, Navigation]}
-            className="w-full md:h-5/6 rounded-lg overflow-hidden myswiper2"
-            onSlideChange={onSlideChange} // Update index on slide change
-          >
-            {product?.relatedImages?.map((src, index) => (
-              <SwiperSlide key={index}>
-                <Image
-                  src={src}
-                  width={1000}
-                  height={1000}
-                  loading="lazy"
-                  alt={`Product Image ${index + 1}`}
-                  className="object-contain w-full h-full drop-shadow-xl rounded-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  onClick={() => openModal(index)}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Thumbnail Navigation (below the swiper) */}
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            zoom={true}
-            loop={true}
-            spaceBetween={10}
-            slidesPerView={4}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Navigation, Thumbs, Zoom]}
-            className="mySwiper md:h-1/6"
-          >
-            {product?.relatedImages?.map((image, index) => {
-              const loopedIndex = getLoopedIndex(index);
-              return (
-                <SwiperSlide key={index}>
-                  <Image
-                    src={image}
-                    width={500}
-                    height={500}
-                    loading="lazy"
-                    alt={`thumbnail ${index + 1}`}
-                    className="w-20 h-20 object-cover rounded-lg"
-                  />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+          <ProductImageShowcase images={product?.relatedImages} />
         </div>
         {/* <div className="w-px h-full bg-gray-200 hidden md:flex "></div> */}
         {/* Right Section: Product Details */}
-        <div className="w-full md:w-1/2 space-y-6 md:sticky top-9 md:mt-20 md:ml-10">
+        <div className="w-full md:w-1/2 space-y-6 md:sticky top-9 md:mt-20 md:ml-10 max-h-screen">
           <h1 className="text-4xl font-bold">{product?.name}</h1>
           <div className="text-2xl font-semibold text-gray-800">
             &#8377;{product?.price}

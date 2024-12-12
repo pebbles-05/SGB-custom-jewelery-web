@@ -79,7 +79,7 @@ const StoreProductBox = ({
           alt={name}
           width={500}
           height={500}
-          className="w-full h-auto transform group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-auto aspect-square transform group-hover:scale-105 transition-transform duration-300"
         />
       </div>
 
