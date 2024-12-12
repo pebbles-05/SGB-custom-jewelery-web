@@ -39,8 +39,8 @@ const useFilteredProductList = (
 
   const sortedData = filteredData?.sort((a, b) => {
     const parseCustomDate = (dateStr: string): Date => {
-      const [year, day, month] = dateStr.split("/").map(Number); // Split and convert to numbers
-      return new Date(`20${year}`, month - 1, day); // Construct the date
+      const [year, month, day] = dateStr.split("-").map(Number); // Split and convert to numbers (YY-MM-DD format)
+      return new Date(year, month - 1, day); // Construct the date
     };
 
     if (sortingOption === SortingOptions[0].name) {

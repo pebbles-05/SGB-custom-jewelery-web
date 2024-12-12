@@ -10,6 +10,7 @@ import AdminListItem from "@/components/AdminListItem";
 import useTypeList from "@/helpers/useTypeList";
 import AdminTypeAddForm from "@/components/AdminTypeAddForm";
 import WithAdminAuth from "@/components/WithAdminAuth";
+import Link from "next/link";
 
 const AdminType = () => {
   const [isAdminTypeFormOpen, setIsAdminTypeFormOpen] = useState(false);
@@ -64,9 +65,18 @@ const AdminType = () => {
   };
 
   return (
-    <div className="p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex flex-col">
-      <div className="flex justify-between items-center py-4 text-2xl text-custom-bg-light">
+    <div className="font-sans p-6 bg-gradient-to-t from-[#f8ede3] to-[#732717] min-h-screen flex flex-col">
+      <div className="flex gap-4 items-center py-4 text-2xl text-custom-bg-light">
         <span>List of Types</span>
+        <Link className="ml-auto underline" href="/admin/login">
+          login
+        </Link>
+        <Link className="underline" href="/admin">
+          Product
+        </Link>
+        <Link className="underline" href="/admin/category">
+          Category
+        </Link>
         <button
           className="rounded-lg px-4 py-2 bg-custom-bg-light text-custom-fg-light text-xl"
           onClick={() => {
