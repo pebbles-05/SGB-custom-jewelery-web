@@ -75,9 +75,19 @@ const AdminProductAddForm = ({
 
       return;
     }
+    if (name === "price" || name === "order") {
+      const regex = /^-?\d*\.?\d*$/; // Allow numbers, optional decimal, and optional negative sign
+      if (regex.test(value)) {
+        setFormData({
+          ...formData,
+          [name]: Number(value),
+        });
+      }
+      return;
+    }
     setFormData({
       ...formData,
-      [name]: name === "price" || name === "order" ? Number(value) : value,
+      [name]: value,
     });
   };
   const handleSubmit = () => {
@@ -181,7 +191,7 @@ const AdminProductAddForm = ({
         <div>
           <label className="block font-semibold text-[#f8ede3]">Price</label>
           <input
-            type="number"
+            type="text"
             name="price"
             value={formData.price}
             onChange={handleChange}
@@ -231,7 +241,7 @@ const AdminProductAddForm = ({
         <div>
           <label className="block font-semibold text-[#f8ede3]">Order</label>
           <input
-            type="number"
+            type="text"
             name="order"
             value={formData.order}
             onChange={handleChange}
