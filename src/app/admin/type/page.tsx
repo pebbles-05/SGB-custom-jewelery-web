@@ -9,6 +9,7 @@ import { updateAppwriteDocument } from "@/helpers/updateAppwriteDocument";
 import AdminListItem from "@/components/AdminListItem";
 import useTypeList from "@/helpers/useTypeList";
 import AdminTypeAddForm from "@/components/AdminTypeAddForm";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 const AdminType = () => {
   const [isAdminTypeFormOpen, setIsAdminTypeFormOpen] = useState(false);
@@ -33,6 +34,7 @@ const AdminType = () => {
     } catch (error) {
       console.log(error);
       setIsAdminTypeFormOpen(false);
+      alert("You Faced an Error");
       typeListRefresh();
     }
   };
@@ -45,6 +47,7 @@ const AdminType = () => {
     } catch (error) {
       setIsAdminTypeFormOpen(false);
       setIsEditClicked(false);
+      alert("You Faced an Error");
       typeListRefresh();
     }
   };
@@ -55,6 +58,7 @@ const AdminType = () => {
       typeListRefresh();
     } catch (error) {
       setIsAdminTypeFormOpen(false);
+      alert("You Faced an Error");
       typeListRefresh();
     }
   };
@@ -130,4 +134,4 @@ const AdminType = () => {
   );
 };
 
-export default AdminType;
+export default WithAdminAuth(AdminType);

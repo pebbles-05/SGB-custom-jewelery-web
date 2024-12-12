@@ -9,6 +9,7 @@ import { updateAppwriteDocument } from "@/helpers/updateAppwriteDocument";
 import AdminListItem from "@/components/AdminListItem";
 import useCategoryList from "@/helpers/useCategoryList";
 import AdminCategoryAddForm from "@/components/AdminCategoryAddForm";
+import WithAdminAuth from "@/components/WithAdminAuth";
 const AdminCategory = () => {
   const [isAdminCategoryFormOpen, setIsAdminCategoryFormOpen] = useState(false);
   const [isEditClicked, setIsEditClicked] = useState(false);
@@ -32,6 +33,7 @@ const AdminCategory = () => {
     } catch (error) {
       console.log(error);
       setIsAdminCategoryFormOpen(false);
+      alert("You Faced an Error");
       categoryListRefresh();
     }
   };
@@ -48,6 +50,7 @@ const AdminCategory = () => {
     } catch (error) {
       setIsAdminCategoryFormOpen(false);
       setIsEditClicked(false);
+      alert("You Faced an Error");
       categoryListRefresh();
     }
   };
@@ -58,6 +61,7 @@ const AdminCategory = () => {
       categoryListRefresh();
     } catch (error) {
       setIsAdminCategoryFormOpen(false);
+      alert("You Faced an Error");
       categoryListRefresh();
     }
   };
@@ -137,4 +141,4 @@ const AdminCategory = () => {
   );
 };
 
-export default AdminCategory;
+export default WithAdminAuth(AdminCategory);

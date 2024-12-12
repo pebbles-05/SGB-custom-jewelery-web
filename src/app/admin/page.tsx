@@ -9,6 +9,7 @@ import { v4 as uuid4 } from "uuid";
 import { deleteAppwriteDocument } from "@/helpers/deleteAppwriteDocument";
 import { updateAppwriteDocument } from "@/helpers/updateAppwriteDocument";
 import AdminListItem from "@/components/AdminListItem";
+import WithAdminAuth from "@/components/WithAdminAuth";
 
 const AdminProduct = () => {
   const [isAdminProductFormOpen, setIsAdminProductFormOpen] = useState(false);
@@ -33,6 +34,7 @@ const AdminProduct = () => {
     } catch (error) {
       console.log(error);
       setIsAdminProductFormOpen(false);
+      alert("You Faced an Error");
       productRefetch();
     }
   };
@@ -49,6 +51,7 @@ const AdminProduct = () => {
     } catch (error) {
       setIsAdminProductFormOpen(false);
       setIsEditClicked(false);
+      alert("You Faced an Error");
       productRefetch();
     }
   };
@@ -59,6 +62,7 @@ const AdminProduct = () => {
       productRefetch();
     } catch (error) {
       setIsAdminProductFormOpen(false);
+      alert("You Faced an Error");
       productRefetch();
     }
   };
@@ -70,7 +74,10 @@ const AdminProduct = () => {
         <button
           className="rounded-lg px-4 py-2 bg-custom-bg-light text-custom-fg-light text-xl"
           onClick={() => {
-            setEditFormData({});
+            const currentDate = new Date().toISOString().split("T")[0];
+            setEditFormData({
+              date: currentDate,
+            });
             setIsAdminProductFormOpen(true);
           }}
         >
@@ -144,4 +151,4 @@ const AdminProduct = () => {
   );
 };
 
-export default AdminProduct;
+export default WithAdminAuth(AdminProduct);
