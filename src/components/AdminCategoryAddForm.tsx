@@ -23,9 +23,20 @@ const AdminCategoryAddForm = ({
     >
   ) => {
     const { name, value } = e.target;
+
+    if (name === "targetOrderCount") {
+      const regex = /^-?\d*\.?\d*$/; // Allow numbers, optional decimal, and optional negative sign
+      if (regex.test(value)) {
+        setFormData({
+          ...formData,
+          [name]: Number(value),
+        });
+      }
+      return;
+    }
     setFormData({
       ...formData,
-      [name]: name === "targetOrderCount" ? Number(value) : value,
+      [name]: value,
     });
   };
   const handleSubmit = () => {
@@ -68,7 +79,7 @@ const AdminCategoryAddForm = ({
       <div>
         <label className="block font-semibold text-[#f8ede3]">Order</label>
         <input
-          type="number"
+          type="text"
           name="targetOrderCount"
           value={formData.targetOrderCount}
           onChange={handleChange}
