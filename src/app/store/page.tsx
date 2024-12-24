@@ -105,7 +105,7 @@ const Store: React.FC = () => {
       {!isProductDataLoading &&
       !productDataError &&
       filteredProducts?.length ? (
-        <div className="grid gap-14 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 md:mx-28 xs:mx-5 ">
+        <div className="grid gap-14 md:grid-cols-3 lg-grid-cols-4 grid-cols-2 md:mx-56 xs:mx-5 ">
           {filteredProducts.map((product) => (
             <StoreProductBox
               key={product.id}

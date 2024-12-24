@@ -214,12 +214,7 @@ const ProductPage = ({
         </div>
 
         {/* ImageViewerModal for displaying images */}
-        <ImageViewerModal
-          images={product?.relatedImages}
-          initialIndex={currentImageIndex}
-          isOpen={isModalOpen}
-          onClose={closeModal}
-        />
+
         <ModalForm
           isOpen={isMdlOpen}
           onClose={() => {

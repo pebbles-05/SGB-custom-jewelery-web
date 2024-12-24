@@ -50,7 +50,7 @@ const StoreProductBox = ({
             isCartClicked
               ? "bg-green-500 text-white hover:bg-red-500"
               : "bg-custom-black/30 text-custom-white md:opacity-0 md:group-hover:opacity-100"
-          } transition-all duration-300 cursor-pointer z-10 hover:scale-125`}
+          } transition-all duration-300 cursor-pointer z-10 hover:scale-125 px-50`}
         >
           <Icon
             icon={
