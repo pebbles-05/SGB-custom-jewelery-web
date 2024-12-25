@@ -20,7 +20,7 @@ const Modal = ({
       >
         <div
           onClick={(e) => e.preventDefault()}
-          className="w-max h-max"
+          className="w-1/2 h-1/2"
           ref={childrenRef}
         >
           {children}

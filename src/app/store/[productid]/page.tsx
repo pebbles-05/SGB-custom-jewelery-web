@@ -188,7 +188,7 @@ const ProductPage = ({
             </button>
             <button
               onClick={() => handleCartClick()}
-             className={`bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:text-custom-white transition flex items-center gap-2 group ${
+              className={`bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:text-custom-white transition flex items-center gap-2 group ${
                 isCartClicked ? "hover:bg-red-500 " : "hover:bg-green-500 "
               }`}
             >

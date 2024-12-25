@@ -8,7 +8,6 @@ interface ProductImageProps {
 }
 
 export function ProductImage({ src, alt, index }: ProductImageProps) {
-  const [isImagePreviewModalOpen, setIsImagePreviewModalOpen] = useState(false); // Track modal state
   //const handleClick = () => {
   //  const newWindow = window.open("", "_blank");
   //  newWindow.document.body.style.margin = "0";
@@ -29,12 +28,6 @@ export function ProductImage({ src, alt, index }: ProductImageProps) {
         loading="lazy"
         alt={`${alt} ${index + 1}`}
         className="h-full max-w-full mx-auto object-contain rounded-xl"
-        onClick={() => setIsImagePreviewModalOpen(true)}
-      />
-      <ProductImageViewInDetailModal
-        isOpen={isImagePreviewModalOpen}
-        onClickOutside={() => setIsImagePreviewModalOpen(false)}
-        imageUrl={src}
       />
     </>
   );
